@@ -4,3 +4,25 @@
 	color: antiquewhite
 }
 
+.homepagebutton{
+    max-width: 100;
+}
+
+footer{
+	position:fixed;
+	left:0px;
+	bottom:0px;	
+}
+
+img:hover{
+	transition: .25s;
+	transform: rotateY(360deg);
+}
+
+body{
+	background-color: black;
+}
+
+@media(max-width: 960px){
+	
+}
