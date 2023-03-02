@@ -1,51 +1,50 @@
 @charset "utf-8";
 
 .copyright-date {
-	color: antiquewhite
+  color: antiquewhite;
 }
 
-.homepagebutton{
-    max-width: 100;
-	width: 42px;
-	height: 42px;
+.homepagebutton {
+  max-width: 100;
+  width: 42px;
+  height: 42px;
 }
 
-.homepagebutton:hover{
-	filter:brightness(50%);
-	opacity: .9;
+.homepagebutton:hover {
+  filter: brightness(50%);
+  opacity: 0.9;
 }
 
 .oh::after {
-	content: "";
-	clear: both;
-	display: table;
+  content: "";
+  clear: both;
+  display: table;
 }
 
-.game{
-	float: left;
-	width: 33.33%;
-	padding: 5px;
+.game {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
 }
 
-footer{
-	position:fixed;
-	left:0px;
-	bottom:0px;	
+footer {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
 }
 
-img{
-	color: aliceblue;
+img {
+  color: aliceblue;
 }
 
-img:hover{
-	transition: .25s;
-	transform: rotateY(360deg);
+img:hover {
+  transition: 0.25s;
+  transform: rotateY(360deg);
 }
 
-body{
-	background-color: black;
+body {
+  background-color: black;
 }
 
-@media(max-width: 960px){
-	
+@media (max-width: 960px) {
 }
