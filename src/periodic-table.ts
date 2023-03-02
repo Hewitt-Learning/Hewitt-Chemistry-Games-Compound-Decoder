@@ -12,8 +12,9 @@ export interface PeriodicTableElement {
   classification: ElementClassification;
 }
 
-const periodicTable: (PeriodicTableElement | null)[][] = [
-  [ //row 1
+export const periodicTable: (PeriodicTableElement | null)[][] = [
+  [
+    //row 1
     {
       name: "Hydrogen",
       atomicNumber: 1,
@@ -45,7 +46,8 @@ const periodicTable: (PeriodicTableElement | null)[][] = [
       classification: ElementClassification.Nonmetal,
     },
   ], //end row 1
-  [ //row 2
+  [
+    //row 2
     {
       name: "Lithium",
       atomicNumber: 3,
@@ -95,14 +97,14 @@ const periodicTable: (PeriodicTableElement | null)[][] = [
       name: "Oxygen",
       atomicNumber: 8,
       symbol: "O",
-      atomicMass: 16.00,
+      atomicMass: 16.0,
       classification: ElementClassification.Nonmetal,
     },
     {
       name: "Flourine",
       atomicNumber: 9,
       symbol: "F",
-      atomicMass: 19.00,
+      atomicMass: 19.0,
       classification: ElementClassification.Nonmetal,
     },
     {
@@ -113,7 +115,8 @@ const periodicTable: (PeriodicTableElement | null)[][] = [
       classification: ElementClassification.Nonmetal,
     },
   ], //end row 2
-  [ //row 3
+  [
+    //row 3
     {
       name: "Sodium",
       atomicNumber: 11,
@@ -180,13 +183,14 @@ const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 39.95,
       classification: ElementClassification.Nonmetal,
     },
-  ],//end row 3
-  [ //row 4
+  ], //end row 3
+  [
+    //row 4
     {
       name: "Potassium",
       atomicNumber: 19,
       symbol: "K",
-      atomicMass: 39.10,
+      atomicMass: 39.1,
       classification: ElementClassification.Metal,
     },
     {
@@ -221,7 +225,7 @@ const periodicTable: (PeriodicTableElement | null)[][] = [
       name: "Chromium",
       atomicNumber: 24,
       symbol: "Cr",
-      atomicMass: 52.00,
+      atomicMass: 52.0,
       classification: ElementClassification.Metal,
     },
     {
@@ -298,18 +302,19 @@ const periodicTable: (PeriodicTableElement | null)[][] = [
       name: "Bromine",
       atomicNumber: 35,
       symbol: "Br",
-      atomicMass: 79.90,
+      atomicMass: 79.9,
       classification: ElementClassification.Nonmetal,
     },
     {
       name: "Krypton",
       atomicNumber: 36,
       symbol: "Kr",
-      atomicMass: 83.80,
+      atomicMass: 83.8,
       classification: ElementClassification.Nonmetal,
     },
   ], //end row 4
-  [ //row 5
+  [
+    //row 5
     {
       name: "Rubidium",
       atomicNumber: 37,
@@ -356,7 +361,7 @@ const periodicTable: (PeriodicTableElement | null)[][] = [
       name: "Technetium",
       atomicNumber: 43,
       symbol: "Tc",
-      atomicMass: 97.00,
+      atomicMass: 97.0,
       classification: ElementClassification.Metal,
     },
     {
@@ -419,14 +424,14 @@ const periodicTable: (PeriodicTableElement | null)[][] = [
       name: "Tellurium",
       atomicNumber: 52,
       symbol: "Te",
-      atomicMass: 127.60,
+      atomicMass: 127.6,
       classification: ElementClassification.Metalloid,
     },
     {
       name: "Iodine",
       atomicNumber: 53,
       symbol: "I",
-      atomicMass: 126.90,
+      atomicMass: 126.9,
       classification: ElementClassification.Nonmetal,
     },
     {
@@ -437,7 +442,8 @@ const periodicTable: (PeriodicTableElement | null)[][] = [
       classification: ElementClassification.Nonmetal,
     },
   ], //end row 5
-  [ //row 6
+  [
+    //row 6
     {
       name: "Cesium",
       atomicNumber: 55,
@@ -491,7 +497,7 @@ const periodicTable: (PeriodicTableElement | null)[][] = [
       name: "Osmium",
       atomicNumber: 76,
       symbol: "Os",
-      atomicMass: 190.20,
+      atomicMass: 190.2,
       classification: ElementClassification.Metal,
     },
     {
@@ -533,7 +539,7 @@ const periodicTable: (PeriodicTableElement | null)[][] = [
       name: "Lead",
       atomicNumber: 82,
       symbol: "Pb",
-      atomicMass: 207.00,
+      atomicMass: 207.0,
       classification: ElementClassification.Metal,
     },
     {
@@ -565,7 +571,8 @@ const periodicTable: (PeriodicTableElement | null)[][] = [
       classification: ElementClassification.Nonmetal,
     },
   ], //end row 6
-  [ //row 7
+  [
+    //row 7
     {
       name: "Francium",
       atomicNumber: 87,
@@ -668,7 +675,7 @@ const periodicTable: (PeriodicTableElement | null)[][] = [
       name: "Moscovium",
       atomicNumber: 115,
       symbol: "Mc",
-      atomicMass: 290.20,
+      atomicMass: 290.2,
       classification: ElementClassification.Metal,
     },
     {
@@ -692,5 +699,5 @@ const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 295.22,
       classification: ElementClassification.Nonmetal,
     },
-  ],//end row 7
+  ], //end row 7
 ];
