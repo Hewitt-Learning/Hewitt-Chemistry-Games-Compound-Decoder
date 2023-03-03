@@ -273,16 +273,3 @@ header {
     height: 200px;
   }
 }
-
-.sidetitle {
-  width: 70px;
-  height: 100%;
-  position: fixed;
-  top: 0px;
-  right: 0px;
-  padding-top: 40px;
-  border: darkred;
-  background-color: red;
-  writing-mode: vertical-lr;
-  font-family: nexa;
-}
