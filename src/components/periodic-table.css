@@ -1,0 +1,7 @@
+.periodic-table {
+  display: grid;
+  grid-template-columns: repeat(18, minmax(0, 1fr));
+  gap: 3px;
+  min-width: 100em;
+  overflow-x: auto;
+}

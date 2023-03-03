@@ -1,0 +1,33 @@
+.periodic-table-element {
+  background: white;
+  display: grid;
+  border: 1px solid black;
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+.periodic-table-element-symbol {
+  font-size: 2.3em;
+}
+
+.periodic-table-element-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 0.9em;
+}
+
+.periodic-table-element-atomic-number {
+  font-size: 1.2em;
+}
+
+.periodic-table-element-metal {
+  background: #9abee4;
+}
+
+.periodic-table-element-metalloid {
+  background: #fff980;
+}
+
+.periodic-table-element-nonmetal {
+  background: #87cc87;
+}
