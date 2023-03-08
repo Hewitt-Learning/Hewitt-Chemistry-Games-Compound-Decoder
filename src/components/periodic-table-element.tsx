@@ -7,8 +7,10 @@ import clsx from "clsx";
 
 interface Props {
   element: PeriodicTableElementType;
+  occupied: boolean;
 }
-export const PeriodicTableElement = ({ element }: Props) => {
+
+export const PeriodicTableElement = ({ element, occupied }: Props) => {
   return (
     <button
       class={clsx(
@@ -19,6 +21,7 @@ export const PeriodicTableElement = ({ element }: Props) => {
           "periodic-table-element-metalloid",
         element.classification === ElementClassification.Nonmetal &&
           "periodic-table-element-nonmetal",
+        occupied && "periodic-table-element-occupied",
       )}
     >
       <span class="periodic-table-element-atomic-number">
