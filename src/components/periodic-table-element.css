@@ -31,3 +31,8 @@
 .periodic-table-element-nonmetal {
   background: #87cc87;
 }
+
+.periodic-table-element-occupied {
+  background: black;
+  color: white;
+}
