@@ -1,7 +1,7 @@
 import {
   PeriodicTableElement as PeriodicTableElementType,
   ElementClassification,
-} from "../periodic-table";
+} from "../periodic-table-data";
 import "./periodic-table-element.css";
 import clsx from "clsx";
 

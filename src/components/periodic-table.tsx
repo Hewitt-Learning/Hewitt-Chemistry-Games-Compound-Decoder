@@ -1,5 +1,5 @@
 import { useMemo, useState } from "preact/hooks";
-import { periodicTable } from "../periodic-table";
+import { periodicTable } from "../periodic-table-data";
 import { PeriodicTableElement } from "./periodic-table-element";
 import { placeWord, SpaceDef } from "../word-placement";
 import "./periodic-table.css";

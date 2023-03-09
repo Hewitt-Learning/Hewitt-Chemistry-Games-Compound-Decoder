@@ -1,4 +1,4 @@
-import { periodicTable } from "../periodic-table";
+import { periodicTable } from "../periodic-table-data";
 import { letterMapNormalized } from "./letter-definitions";
 
 /** enum to make it more clear in our code what the status of the game board is */
