@@ -35,7 +35,7 @@ const displayPlacement = (placement: SpaceDef[][] | false) => {
 };
 
 //run various tests (overflow, invalid characters, standard word testing)
-test('Places word "fill" on grid', () => {
+test("Places words on grid", () => {
   expect(displayPlacement(placeWord("Fill"))).toMatchInlineSnapshot(`
       "
       □                                 □
@@ -61,16 +61,16 @@ test('Places word "fill" on grid', () => {
     `);
 
   expect(displayPlacement(placeWord("bowl"))).toMatchInlineSnapshot(`
-      "
-      □                                 □
-      □ □                     □ □ □ ■ □ □
-      ■ ■                     □ □ □ ■ □ □
-      ■ □ ■ □ □ ■ ■ □ □ ■ □ □ □ ■ □ ■ ■ ■
-      ■ ■ □ □ ■ □ □ ■ □ ■ □ ■ □ ■ □ □ □ □
-      ■ □ ■ □ ■ □ □ ■ □ ■ ■ ■ ■ ■ □ □ □ □
-      ■ ■ □ □ □ ■ ■ □ □ □ □ □ □ □ □ □ □ □
-      "
-    `);
+    "
+    □                                 □
+    □ □                     □ □ □ ■ □ □
+    ■ ■                     □ □ □ ■ □ □
+    ■ □ ■ □ □ ■ ■ □ □ ■ □ □ □ ■ □ ■ ■ ■
+    ■ ■ □ □ ■ □ □ ■ □ ■ □ ■ □ ■ □ □ □ □
+    ■ □ ■ □ ■ □ □ ■ □ □ ■ □ ■ □ □ □ □ □
+    ■ ■ □ □ □ ■ ■ □ □ □ □ □ □ □ □ □ □ □
+    "
+  `);
   expect(displayPlacement(placeWord("dog"))).toMatchInlineSnapshot(`
       "
       □                                 □
@@ -117,16 +117,16 @@ test('Places word "fill" on grid', () => {
     `);
 
   expect(displayPlacement(placeWord("home"))).toMatchInlineSnapshot(`
-      "
-      □                                 □
-      □ □                     □ □ □ ■ ■ ■
-      □ □                     □ □ □ ■ ■ □
-      ■ □ ■ □ □ ■ ■ □ □ ■ ■ ■ ■ ■ □ ■ □ □
-      ■ ■ ■ □ ■ □ □ ■ □ ■ □ ■ □ ■ □ ■ ■ ■
-      ■ □ ■ □ ■ □ □ ■ □ ■ □ □ □ ■ □ □ □ □
-      □ □ □ □ □ ■ ■ □ □ □ □ □ □ □ □ □ □ □
-      "
-    `);
+    "
+    □                                 □
+    □ □                     □ □ □ ■ ■ ■
+    □ □                     □ □ □ ■ ■ □
+    ■ □ ■ □ □ ■ ■ □ □ □ ■ □ ■ □ □ ■ □ □
+    ■ ■ ■ □ ■ □ □ ■ □ ■ □ ■ □ ■ □ ■ ■ ■
+    ■ □ ■ □ ■ □ □ ■ □ ■ □ □ □ ■ □ □ □ □
+    □ □ □ □ □ ■ ■ □ □ □ □ □ □ □ □ □ □ □
+    "
+  `);
 
   expect(displayPlacement(placeWord("pong"))).toMatchInlineSnapshot(`
       "
@@ -140,27 +140,27 @@ test('Places word "fill" on grid', () => {
       "
     `);
   expect(displayPlacement(placeWord("with"))).toMatchInlineSnapshot(`
-      "
-      □                                 □
-      □ □                     □ □ ■ □ ■ □
-      □ □                     □ □ ■ ■ ■ □
-      ■ □ □ □ ■ □ ■ ■ ■ □ ■ ■ ■ □ ■ □ ■ □
-      ■ □ ■ □ ■ □ □ ■ □ □ □ ■ □ □ □ □ □ □
-      ■ ■ ■ ■ ■ □ □ ■ □ □ □ ■ □ □ □ □ □ □
-      □ □ □ □ □ □ ■ ■ ■ □ □ □ □ □ □ □ □ □
-      "
-    `);
+    "
+    □                                 □
+    □ □                     □ □ ■ □ ■ □
+    □ □                     □ □ ■ ■ ■ □
+    ■ □ □ □ ■ □ ■ ■ ■ □ ■ ■ ■ □ ■ □ ■ □
+    ■ □ ■ □ ■ □ □ ■ □ □ □ ■ □ □ □ □ □ □
+    □ ■ □ ■ □ □ □ ■ □ □ □ ■ □ □ □ □ □ □
+    □ □ □ □ □ □ ■ ■ ■ □ □ □ □ □ □ □ □ □
+    "
+  `);
   expect(displayPlacement(placeWord("wow"))).toMatchInlineSnapshot(`
-      "
-      □                                 □
-      □ □                     □ □ □ □ □ □
-      □ □                     □ □ □ □ □ □
-      ■ □ □ □ ■ □ □ ■ ■ □ □ ■ □ □ □ ■ □ □
-      ■ □ ■ □ ■ □ ■ □ □ ■ □ ■ □ ■ □ ■ □ □
-      ■ ■ ■ ■ ■ □ ■ □ □ ■ □ ■ ■ ■ ■ ■ □ □
-      □ □ □ □ □ □ □ ■ ■ □ □ □ □ □ □ □ □ □
-      "
-    `);
+    "
+    □                                 □
+    □ □                     □ □ □ □ □ □
+    □ □                     □ □ □ □ □ □
+    ■ □ □ □ ■ □ □ ■ ■ □ □ ■ □ □ □ ■ □ □
+    ■ □ ■ □ ■ □ ■ □ □ ■ □ ■ □ ■ □ ■ □ □
+    □ ■ □ ■ □ □ ■ □ □ ■ □ □ ■ □ ■ □ □ □
+    □ □ □ □ □ □ □ ■ ■ □ □ □ □ □ □ □ □ □
+    "
+  `);
   expect(displayPlacement(placeWord("wwww"))).toMatchInlineSnapshot(
     '"Could not fit word into table"',
   );
@@ -174,7 +174,7 @@ test('Places word "fill" on grid', () => {
     □ □                     □ □ □ □ □ ■
     ■ □ □ □ ■ □ □ ■ ■ □ □ ■ □ □ □ ■ □ □
     ■ □ ■ □ ■ □ ■ □ □ ■ □ ■ □ ■ □ ■ □ ■
-    ■ ■ ■ ■ ■ □ ■ □ □ ■ □ ■ ■ ■ ■ ■ □ □
+    □ ■ □ ■ □ □ ■ □ □ ■ □ □ ■ □ ■ □ □ □
     □ □ □ □ □ □ □ ■ ■ □ □ □ □ □ □ □ □ □
     "
   `);
