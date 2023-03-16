@@ -1,6 +1,6 @@
 import { SpaceDef } from "./word-placement";
 
-interface RowCol {
+export interface RowCol {
   row: number;
   col: number;
 }
