@@ -4,6 +4,11 @@
   border: 1px solid black;
   padding: 0.5em;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.periodic-table-element:hover:not(.periodic-table-element-good-click) {
+  transform: scale(1.1);
 }
 
 .periodic-table-element-symbol {
@@ -32,7 +37,18 @@
   background: #87cc87;
 }
 
-.periodic-table-element-occupied {
+.periodic-table-element-good-click {
   background: black;
   color: white;
+  cursor: not-allowed;
 }
+
+.periodic-table-element-bad-click{
+  background-color: red;
+  /* animation-name: bad-click;
+  animation-duration: 0.75s; */
+}
+/* 
+@keyframes bad-click {
+  from {background:red};
+} */

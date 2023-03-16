@@ -1,6 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
+import { JSX } from "preact";
 import { PeriodicTable } from "./components/periodic-table";
-import React, { useSate } from "react";
 export function App() {
   const [startTime, setStartTime] = useState(0);
   const [currTime, setCurrTime] = useState(0);
@@ -11,9 +11,7 @@ export function App() {
     }, 1000);
   }, []);
 
-  const resetTime = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
+  const resetTime = (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
     const button: HTMLButtonElement = event.currentTarget;
     setStartTime(new Date().getTime());
     setCurrTime(new Date().getTime());

@@ -59,7 +59,7 @@ x
 x  
 xxx`,
   M: `
- x x
+xxxxx
 x x x
 x   x`,
   N: `
@@ -106,16 +106,16 @@ x   x
   W: `
 x   x
 x x x
- x x`,
+xxxxx`,
   X: `
 x x
  x
 x x`,
   Y: `
-x x
-x x
- x
- x`,
+x   x
+x   x
+  x
+  x`,
   Z: `
 xxxx
   x
