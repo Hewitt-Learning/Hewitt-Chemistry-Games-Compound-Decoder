@@ -538,7 +538,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
     {
       name: "Gold",
       atomicNumber: 79,
-      symbol: "Ag",
+      symbol: "Au",
       atomicMass: 196.97,
       classification: ElementClassification.Metal,
     },

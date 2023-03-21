@@ -13,10 +13,6 @@ interface Props {
    */
   element: PeriodicTableElementType;
   /**
-   * Tells us whether the element makes up a letter of the word to guess
-   */
-  occupied: boolean;
-  /**
    * Determines what to display based on occupied status:
    * Red to element:background animation is incorrect guess (element not occupied/doesn't create a letter)
    * Black background means the element does create a letter, and the guess was correct.
@@ -28,12 +24,7 @@ interface Props {
   onClick: () => void;
 }
 
-export const PeriodicTableElement = ({
-  element,
-  occupied,
-  onClick,
-  isFound,
-}: Props) => {
+export const PeriodicTableElement = ({ element, onClick, isFound }: Props) => {
   return (
     <button
       onClick={onClick}
@@ -46,9 +37,9 @@ export const PeriodicTableElement = ({
         element.classification === ElementClassification.Nonmetal &&
           "periodic-table-element-nonmetal",
         isFound === ElementState.FoundElement &&
-          "periodic-table-element-good-click", //occupied and is found, show good click
+          "periodic-table-element-good-click",
         isFound === ElementState.WrongElementClicked &&
-          "periodic-table-element-bad-click", //not occupied and not found, bad click
+          "periodic-table-element-bad-click",
       )}
     >
       <span class="periodic-table-element-atomic-number">
