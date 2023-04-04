@@ -39,6 +39,8 @@ export const PeriodicTable = () => {
           }
         </h1>
       )}
+      {/* display the current score to the screen TODO: make it look better */}
+      <h1>Score: {gameState.score}</h1>
       <div class="periodic-table">
         {periodicTable.map((row, rowIndex) => {
           // Row is array of elements or null
