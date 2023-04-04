@@ -23,13 +23,26 @@ interface GameState {
   handleIncorrectElementClick(rowIndex: number, colIndex: number): void;
 }
 
+/**
+ * This is a Preact Hook that includes all the game logic.
+ * It is pulled into the PeriodicTable component,
+ * so that all the game logic is separate from the rendering.
+ * @returns The game state object,
+ * which includes the externally-visible state values themselves,
+ * and functions to modify the state.
+ */
 export const useGameState = (): GameState => {
+  /** The word that will be formed by all the searched-for elements */
   const [word, setWord] = useState("home");
+  /** The arrangement of elements to find on the periodic table grid */
   const [placement, setPlacement] = useState<false | SpaceDef[][]>(false);
+  /** The "elements to find" in their randomly-shuffled order */
   const [elementSequence, setElementSequence] = useState<RowCol[]>([]);
   const [error, setError] = useState<undefined | string>(undefined);
   const [score, setScore] = useState(0);
+  /** The number of elements that have been correctly found in a row without mistakes */
   const [streak, setStreak] = useState(0);
+  /** The amount of time that has passed since the current element began to be looked for */
   const [startTime, setStartTime] = useState(new Date().getTime());
 
   // Stateful clickable button map, all set to not-clicked at first
@@ -96,7 +109,7 @@ export const useGameState = (): GameState => {
       ),
     );
 
-    // Advance the element sequence ("activate" the next element to find)
+    // Advance the elements-to-find sequence ("activate" the next element to find)
     setElementSequence((seq) => seq.slice(1));
   };
 
