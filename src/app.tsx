@@ -1,6 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import { JSX } from "preact";
-import { PeriodicTable } from "./components/periodic-table";
+import { Level, PeriodicTable } from "./components/periodic-table";
 export function App() {
   const [startTime, setStartTime] = useState(0);
   const [currTime, setCurrTime] = useState(0);
@@ -23,7 +23,7 @@ export function App() {
         {Math.round((currTime - startTime) / 1000)}{" "}
         <button onClick={resetTime}>Reset Clock</button>
       </h1>
-      <PeriodicTable />
+      <PeriodicTable level={Level.Beginner}/>
     </>
   );
 }

@@ -17,7 +17,7 @@ interface Props {
    * Red to element:background animation is incorrect guess (element not occupied/doesn't create a letter)
    * Black background means the element does create a letter, and the guess was correct.
    */
-  isFound: ElementState;
+  elementState: ElementState;
   /**
    * Property for checking if the element was clicked
    */
@@ -32,7 +32,7 @@ function addSpace(word: string): string {
     })
     .join("");
 }
-export const PeriodicTableElement = ({ element, onClick, isFound }: Props) => {
+export const PeriodicTableElement = ({ element, onClick, elementState }: Props) => {
   return (
     <button
       onClick={onClick}
@@ -44,9 +44,9 @@ export const PeriodicTableElement = ({ element, onClick, isFound }: Props) => {
           "periodic-table-element-metalloid",
         element.classification === ElementClassification.Nonmetal &&
           "periodic-table-element-nonmetal",
-        isFound === ElementState.FoundElement &&
+        elementState === ElementState.FoundElement &&
           "periodic-table-element-good-click",
-        isFound === ElementState.WrongElementClicked &&
+        elementState === ElementState.WrongElementClicked &&
           "periodic-table-element-bad-click",
       )}
     >

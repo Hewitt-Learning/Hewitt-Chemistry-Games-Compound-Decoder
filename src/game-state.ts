@@ -1,6 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import { periodicTable } from "./periodic-table-data";
-import { ElementState } from "./components/periodic-table";
+import { ElementState, Level } from "./components/periodic-table";
 import {
   randomElementSequenceFromPlacement,
   RowCol,
@@ -31,7 +31,7 @@ interface GameState {
  * which includes the externally-visible state values themselves,
  * and functions to modify the state.
  */
-export const useGameState = (): GameState => {
+export const useGameState = (level: Level): GameState => {
   /** The word that will be formed by all the searched-for elements */
   const [word, setWord] = useState("home");
   /** The arrangement of elements to find on the periodic table grid */

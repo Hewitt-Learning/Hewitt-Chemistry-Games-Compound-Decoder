@@ -13,8 +13,22 @@ export enum ElementState {
   WrongElementClicked,
 }
 
-export const PeriodicTable = () => {
-  const gameState = useGameState();
+export enum Level {
+  Beginner,
+  Intermediate,
+  Advanced,
+}
+
+interface Props {
+  level: Level;
+}
+
+export const PeriodicTable = ({ level }: Props) => {
+  const gameState = useGameState(level);
+
+  const activeElement =
+    gameState.activeElement &&
+    periodicTable[gameState.activeElement.row][gameState.activeElement.col];
 
   return (
     // Text box for testing purpose only: if typed words fit, places them on the periodic table
@@ -30,14 +44,12 @@ export const PeriodicTable = () => {
         ) : (
           <h1>Word does not fit</h1>
         ))}
-      {gameState.activeElement && (
-        <h1>
-          {
-            periodicTable[gameState.activeElement.row][
-              gameState.activeElement.col
-            ]?.name
-          }
-        </h1>
+      {activeElement && (
+        <PeriodicTableElement
+          elementState={ElementState.NotClicked}
+          onClick={() => {}}
+          element={activeElement}
+        />
       )}
       {/* display the current score to the screen TODO: make it look better */}
       <h1>Score: {gameState.score}</h1>
@@ -75,7 +87,7 @@ export const PeriodicTable = () => {
                       gameState.handleIncorrectElementClick(rowIndex, colIndex);
                     }
                   }}
-                  isFound={gameState.elementStates[rowIndex][colIndex]}
+                  elementState={gameState.elementStates[rowIndex][colIndex]}
                 />
               );
             } else {
