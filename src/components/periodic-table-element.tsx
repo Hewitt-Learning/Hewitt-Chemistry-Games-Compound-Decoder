@@ -23,7 +23,14 @@ interface Props {
    */
   onClick: () => void;
 }
-
+function addSpace(word: string): string {
+  return word
+    .split("")
+    .map((letter) => {
+      return letter + " ";
+    })
+    .join("");
+}
 export const PeriodicTableElement = ({ element, onClick, isFound }: Props) => {
   return (
     <button
@@ -45,8 +52,10 @@ export const PeriodicTableElement = ({ element, onClick, isFound }: Props) => {
       <span class="periodic-table-element-atomic-number">
         {element.atomicNumber}
       </span>
-      <span class="periodic-table-element-symbol">{element.symbol}</span>
-      <span class="periodic-table-element-name">{element.name}</span>
+      <span class="periodic-table-element-symbol">
+        {addSpace(element.symbol)}
+      </span>
+      <span class="periodic-table-element-name">{addSpace(element.name)}</span>
       <span class="periodic-table-element-atomic-mass">
         {element.atomicMass}
       </span>
