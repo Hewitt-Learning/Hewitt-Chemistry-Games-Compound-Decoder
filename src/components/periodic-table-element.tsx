@@ -24,10 +24,11 @@ interface Props {
   onClick: () => void;
 }
 function addSpace(word: string): string {
+  // Adds spaces to element symbols and names to avoid players from using ctrl + F on the elements.
   return word
     .split("")
     .map((letter) => {
-      return letter + " ";
+      return letter + "\u200a";
     })
     .join("");
 }
