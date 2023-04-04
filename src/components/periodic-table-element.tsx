@@ -23,7 +23,7 @@ interface Props {
    */
   onClick: () => void;
 }
-/** Adds narrow unicode spaces to element symbols and names to avoid players from using ctrl + F on the elements. */
+/** Adds narrow unicode spaces to element symbols and names to prevent players from using ctrl + F on the elements. */
 function addSpace(word: string): string {
   return word
     .split("")
