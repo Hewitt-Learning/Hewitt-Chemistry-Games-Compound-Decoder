@@ -18,13 +18,7 @@ export const PeriodicTable = () => {
   const gameState = useGameState();
 
   return (
-    // Text box for testing purpose only: if typed words fit, places them on the periodic table
     <div class="periodic-table-wrapper">
-      <input
-        type="text"
-        value={gameState.word}
-        onInput={(event) => gameState.setWord(event.currentTarget.value)}
-      />
       {!true &&
         (gameState.error ? (
           <h1>{gameState.error}</h1>

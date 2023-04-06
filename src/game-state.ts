@@ -7,6 +7,7 @@ import {
 } from "./random-element-sequence-from-placement";
 import { placeWord, SpaceDef } from "./word-placement";
 import { computeNewScore } from "./score-calc";
+import wordList from "./word-list.json";
 
 /**
  * signifies the state of the current "turn", e.g. if the active element is Neon, are we waiting on a click, has there been an incorrect click, or a correct click
@@ -24,7 +25,6 @@ const getInitialElementStates = () =>
   periodicTable.map((row) => row.map(() => ElementState.NotClicked));
 
 interface GameState {
-  setWord(word: string): void;
   word: string;
   error: string | undefined;
   score: number;
@@ -46,7 +46,12 @@ interface GameState {
  */
 export const useGameState = (): GameState => {
   /** The word that will be formed by all the searched-for elements */
-  const [word, setWord] = useState("home");
+  const [word, _setWord] = useState(
+    () =>
+      wordList[
+        Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) % wordList.length
+      ],
+  );
   /** The arrangement of elements to find on the periodic table grid */
   const [placement, setPlacement] = useState<false | SpaceDef[][]>(false);
   /** The "elements to find" in their randomly-shuffled order */
@@ -149,7 +154,6 @@ export const useGameState = (): GameState => {
 
   return {
     word,
-    setWord,
     error,
     score,
     activeElement,
