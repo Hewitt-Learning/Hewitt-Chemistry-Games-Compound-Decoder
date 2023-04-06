@@ -8,6 +8,18 @@ import {
 import { placeWord, SpaceDef } from "./word-placement";
 import { computeNewScore } from "./score-calc";
 
+/**
+ * signifies the state of the current "turn", e.g. if the active element is Neon, are we waiting on a click, has there been an incorrect click, or a correct click
+ */
+export enum MatchStatus {
+  /**The current guess state is "in progress" e.g. the player has not made an attempt to match, or is between attempts (e.g. tried and failed, fail state ended) */
+  InProgress,
+  /**The user made an incorrect match, which will prompt a "try again" message for the current element */
+  Incorrect,
+  /**The user made a correct match, which will prompt a "congrats" message and then move on to the next active element */
+  Correct,
+}
+
 const getInitialElementStates = () =>
   periodicTable.map((row) => row.map(() => ElementState.NotClicked));
 
@@ -18,6 +30,7 @@ interface GameState {
   score: number;
   /** The row and column corresponding to the element that is being looked for */
   activeElement: RowCol | undefined;
+  matchStatus: MatchStatus;
   elementStates: ElementState[][];
   handleCorrectElementClick(): void;
   handleIncorrectElementClick(rowIndex: number, colIndex: number): void;
@@ -44,6 +57,9 @@ export const useGameState = (): GameState => {
   const [streak, setStreak] = useState(0);
   /** The amount of time that has passed since the current element began to be looked for */
   const [startTime, setStartTime] = useState(new Date().getTime());
+  const [matchStatus, setMatchStatus] = useState<MatchStatus>(
+    MatchStatus.InProgress,
+  );
 
   // Stateful clickable button map, all set to not-clicked at first
   const [elementStates, setElementStates] = useState<ElementState[][]>(
@@ -61,9 +77,17 @@ export const useGameState = (): GameState => {
     }
   }, [word]);
 
+  // set match state to InProgress after .5 seconds upon change of matchStatus state
+  useEffect(() => {
+    setTimeout(() => {
+      setMatchStatus(MatchStatus.InProgress);
+    }, 750);
+  }, [matchStatus]);
+
   // Whenever the placement changes
   useEffect(() => {
     // Recompute the randomized element sequence to find
+    setScore(0);
     setElementSequence(
       placement
         ? randomElementSequenceFromPlacement(placement, Math.random)
@@ -71,12 +95,14 @@ export const useGameState = (): GameState => {
     );
     // Reset the element states (found/wrong elements)
     setElementStates(getInitialElementStates);
+    setMatchStatus(MatchStatus.InProgress);
   }, [placement]);
 
   const activeElement: RowCol | undefined = elementSequence[0];
 
   const handleCorrectElementClick = () => {
     // Update the state to mark it as found and reset wrong elements
+    setMatchStatus(MatchStatus.Correct);
     setElementStates((click) =>
       click.map((row, rowIndex) =>
         row.map((elementState, colIndex) => {
@@ -94,7 +120,6 @@ export const useGameState = (): GameState => {
             setStreak(newStreak);
 
             setStartTime(new Date().getTime()); //set new startTime for next element to match
-
             return ElementState.FoundElement; //Mark as found
           } else if (
             // Reset any wrong elements clicked -> neutral
@@ -115,6 +140,7 @@ export const useGameState = (): GameState => {
 
   const handleIncorrectElementClick = (rowIndex: number, colIndex: number) => {
     setStreak(0); //if there is an incorrect match, reset the streak but make no score penalty
+    setMatchStatus(MatchStatus.Incorrect);
     setElementStates((click) => {
       click[rowIndex][colIndex] = ElementState.WrongElementClicked;
       return [...click];
@@ -127,6 +153,7 @@ export const useGameState = (): GameState => {
     error,
     score,
     activeElement,
+    matchStatus,
     elementStates,
     handleCorrectElementClick,
     handleIncorrectElementClick,
