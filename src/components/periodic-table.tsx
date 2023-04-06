@@ -14,9 +14,8 @@ export enum ElementState {
   WrongElementClicked,
 }
 
-export const PeriodicTable = () => {
-  const gameState = useGameState();
-
+export const PeriodicTable = (props: {wordList: string[]}) => {
+  const gameState = useGameState(props.wordList);
   return (
     <div class="periodic-table-wrapper">
       {!true &&

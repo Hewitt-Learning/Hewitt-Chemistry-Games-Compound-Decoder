@@ -1,10 +1,11 @@
 import { useEffect, useState } from "preact/hooks";
 import { JSX } from "preact";
 import { PeriodicTable } from "./components/periodic-table";
+import wordListDefault from "./word-list.json"
 export function App() {
   const [startTime, setStartTime] = useState(0);
   const [currTime, setCurrTime] = useState(0);
-  const [wordList, setWordList] = useState<null | string[]>(null);
+  const [wordList, setWordList] = useState<undefined | string[]>(undefined); //possibly set default wordList here, from wordListDefault
   useEffect(() => {
     setStartTime(new Date().getTime());
     setInterval(() => {
@@ -18,7 +19,6 @@ export function App() {
     setCurrTime(new Date().getTime());
   };
 
-  // restapi stuff
   useEffect(() => {
     /**
      * fetch returns a promise (an object that is expected to exist at some point but does not necessarily
@@ -41,8 +41,9 @@ export function App() {
       })
       .then((data) => {
         setWordList(data.data.wordList.words.split("\n"));
-        //console.log(data);
-      }); //returns object that is promise
+        //TODO: error check in the promise - if the wordList from DatoCMS can't be fetched for some reason, or is empty,
+        //      set the wordList to some default wordList
+      });
   }, []);
 
   return (
@@ -53,7 +54,8 @@ export function App() {
         {Math.round((currTime - startTime) / 1000)}{" "}
         <button onClick={resetTime}>Reset Clock</button>
       </h1>
-      <PeriodicTable />
+      {wordList && <PeriodicTable wordList = {wordList}/> }
+      {}
     </>
   );
 }
