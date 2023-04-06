@@ -1,5 +1,6 @@
 import { periodicTable } from "../periodic-table-data";
 import { PeriodicTableElement } from "./periodic-table-element";
+import { MatchStatus } from "../game-state";
 import "./periodic-table.css";
 import { useGameState } from "../game-state";
 
@@ -39,7 +40,18 @@ export const PeriodicTable = () => {
           }
         </h1>
       )}
-      {/* display the current score to the screen TODO: make it look better */}
+
+      {/* display the current score & match status of active element to the screen. TODO: make it look better */}
+      {gameState.matchStatus === MatchStatus.Correct ? (
+        <h1 class="match-text-good">Nice!</h1>
+      ) : (
+        <div></div>
+      )}
+      {gameState.matchStatus === MatchStatus.Incorrect ? (
+        <h1 class="match-text-bad">Try again!</h1>
+      ) : (
+        <div></div>
+      )}
       <h1>Score: {gameState.score}</h1>
       <div class="periodic-table">
         {periodicTable.map((row, rowIndex) => {

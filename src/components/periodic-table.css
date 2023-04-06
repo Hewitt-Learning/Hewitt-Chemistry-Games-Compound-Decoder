@@ -5,3 +5,13 @@
   min-width: 100em;
   overflow-x: auto;
 }
+
+.match-text-good {
+  text-align: center;
+  color: green;
+}
+
+.match-text-bad {
+  text-align: center;
+  color: red;
+}
