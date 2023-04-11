@@ -26,7 +26,7 @@ export function App() {
           authorization: "Bearer 306d97cc36416136dec1925240ef29",
           "content-type": "application/json",
         },
-        body: '{"query":"{\\n  wordLis{\\n    words\\n  }\\n}","variables":null}',
+        body: '{"query":"{\\n  wordList{\\n    words\\n  }\\n}","variables":null}',
         method: "POST",
         mode: "cors",
         credentials: "include",
