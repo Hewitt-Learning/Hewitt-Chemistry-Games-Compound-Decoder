@@ -45,13 +45,16 @@ interface GameState {
  * and functions to modify the state.
  */
 export const useGameState = (wordList: string[]): GameState => {
+  function selectRandomWord() {
+    if (wordList.length === 1) {
+      return wordList[0];
+    }
+    return wordList[
+      Math.round(Math.random() * Number.MAX_SAFE_INTEGER) % wordList.length
+    ];
+  }
   /** The word that will be formed by all the searched-for elements */
-  const [word, _setWord] = useState(
-    () =>
-      wordList[
-        Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) % wordList.length
-      ],
-  );
+  const [word, _setWord] = useState(() => selectRandomWord());
   /** The arrangement of elements to find on the periodic table grid */
   const [placement, setPlacement] = useState<false | SpaceDef[][]>(false);
   /** The "elements to find" in their randomly-shuffled order */
@@ -75,10 +78,20 @@ export const useGameState = (wordList: string[]): GameState => {
   useEffect(() => {
     try {
       setError(undefined);
-      setPlacement(placeWord(word));
+      if (!placeWord(word)) {
+        //console.log(`${word} didn't work, trying again...`);
+        wordList = wordList.filter((e) => e !== word);
+        const newWord = selectRandomWord();
+        _setWord(newWord);
+        //console.log(`New word: ${newWord}`);
+      } else {
+        setPlacement(placeWord(word));
+      }
+      //console.log(word);
     } catch (error: any) {
       setError(String(error));
-      setPlacement(false);
+      // wordList = wordList.filter((e) => e !== word);
+      // _setWord(selectRandomWord());
     }
   }, [word]);
 

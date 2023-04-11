@@ -19,6 +19,9 @@ export function App() {
     setCurrTime(new Date().getTime());
   };
 
+  /**
+   *
+   */
   async function getWordList() {
     try {
       const response = await fetch("https://graphql.datocms.com/", {
@@ -30,12 +33,11 @@ export function App() {
         method: "POST",
         mode: "cors",
         credentials: "include",
-      }).catch((error) => error.message);
-      if (!response) {
-        console.log("test1");
-        throw new Error("Empty response.");
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(`Invalid response (${response.status}).`);
       } else {
-        const data = await response.json();
         let splitData = [];
         if (!data.data.wordList.words) {
           setWordList(wordListDefault);
@@ -46,7 +48,6 @@ export function App() {
         }
       }
     } catch (err) {
-      //console.log("uhhhh whats up");
       console.error(err);
     }
   }
