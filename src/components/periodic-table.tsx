@@ -2,7 +2,7 @@ import { periodicTable } from "../periodic-table-data";
 import { PeriodicTableElement } from "./periodic-table-element";
 import { FindElement } from "./periodic-table-problem";
 import "./periodic-table.css";
-import { useGameState } from "../game-state";
+import { useGameState, MatchStatus } from "../game-state";
 
 /** The possible states for each displayed element during the game */
 export enum ElementState {
@@ -33,13 +33,7 @@ export const PeriodicTable = ({ level }: Props) => {
     periodicTable[gameState.activeElement.row][gameState.activeElement.col];
 
   return (
-    // Text box for testing purpose only: if typed words fit, places them on the periodic table
     <div class="periodic-table-wrapper">
-      <input
-        type="text"
-        value={gameState.word}
-        onInput={(event) => gameState.setWord(event.currentTarget.value)}
-      />
       {!true &&
         (gameState.error ? (
           <h1>{gameState.error}</h1>
@@ -53,7 +47,18 @@ export const PeriodicTable = ({ level }: Props) => {
           diff={level}
         />
       )}
-      {/* display the current score to the screen TODO: make it look better */}
+
+      {/* display the current score & match status of active element to the screen. TODO: make it look better */}
+      {gameState.matchStatus === MatchStatus.Correct ? (
+        <h1 class="match-text-good">Nice!</h1>
+      ) : (
+        <div></div>
+      )}
+      {gameState.matchStatus === MatchStatus.Incorrect ? (
+        <h1 class="match-text-bad">Try again!</h1>
+      ) : (
+        <div></div>
+      )}
       <h1>Score: {gameState.score}</h1>
       <div class="periodic-table">
         {periodicTable.map((row, rowIndex) => {
