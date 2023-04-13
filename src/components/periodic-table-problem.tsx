@@ -6,6 +6,7 @@ import "./periodic-table-element.css";
 import clsx from "clsx";
 import { useState } from "preact/hooks";
 import { ElementState } from "./periodic-table";
+import { Level } from "./periodic-table";
 
 interface Props {
   /**
@@ -22,6 +23,10 @@ interface Props {
    * Property for checking if the element was clicked
    */
   onClick: () => void;
+  /**
+   * Property for the difficulty of the game
+   */
+  diff: Level;
 }
 /** Adds narrow unicode spaces to element symbols and names to prevent players from using ctrl + F on the elements. */
 function addSpace(word: string): string {
@@ -32,14 +37,14 @@ function addSpace(word: string): string {
     })
     .join("");
 }
-export const PeriodicTableElement = ({
+export const FindElement = ({
   element,
   onClick,
   elementState,
+  diff,
 }: Props) => {
-  return (
+  return diff === Level.Beginner ? (
     <button
-      onClick={onClick}
       class={clsx(
         "periodic-table-element",
         element.classification === ElementClassification.Metal &&
@@ -67,5 +72,30 @@ export const PeriodicTableElement = ({
         {element.atomicMass}
       </span>
     </button>
+  ) : diff === Level.Intermediate ? (
+    <button
+      class={clsx(
+        "periodic-table-element",
+        element.classification === ElementClassification.Metal &&
+          "periodic-table-element-metal",
+        element.classification === ElementClassification.Metalloid &&
+          "periodic-table-element-metalloid",
+        element.classification === ElementClassification.Nonmetal &&
+          "periodic-table-element-nonmetal",
+        elementState === ElementState.FoundElement &&
+          "periodic-table-element-good-click",
+        elementState === ElementState.WrongElementClicked &&
+          "periodic-table-element-bad-click",
+        elementState === ElementState.ProblemElement &&
+          "periodic-table-element-problem",
+      )}
+    >
+      <span class="periodic-table-element-symbol">
+        {addSpace(element.symbol)}
+      </span>
+      <span class="periodic-table-element-name">{addSpace(element.name)}</span>
+    </button>
+  ) : (
+    <></>
   );
 };

@@ -50,6 +50,10 @@
   /* animation-name: bad-click;
   animation-duration: 0.75s; */
 }
+
+.periodic-table-element-problem{
+  background-color: white;
+}
 /* 
 @keyframes bad-click {
   from {background:red};
