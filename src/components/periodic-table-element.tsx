@@ -6,6 +6,7 @@ import "./periodic-table-element.css";
 import clsx from "clsx";
 import { useState } from "preact/hooks";
 import { ElementState } from "./periodic-table";
+import { addSpace } from "./periodic-table-space";
 
 interface Props {
   /**
@@ -23,15 +24,7 @@ interface Props {
    */
   onClick: () => void;
 }
-/** Adds narrow unicode spaces to element symbols and names to prevent players from using ctrl + F on the elements. */
-function addSpace(word: string): string {
-  return word
-    .split("")
-    .map((letter) => {
-      return letter + "\u200a";
-    })
-    .join("");
-}
+
 export const PeriodicTableElement = ({
   element,
   onClick,

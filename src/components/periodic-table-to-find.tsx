@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { useState } from "preact/hooks";
 import { ElementState } from "./periodic-table";
 import { Level } from "./periodic-table";
+import { addSpace } from "./periodic-table-space";
 
 interface Props {
   /**
@@ -19,21 +20,18 @@ interface Props {
    */
   level: Level;
 }
-/** Adds narrow unicode spaces to element symbols and names to prevent players from using ctrl + F on the elements. */
-function addSpace(word: string): string {
-  return word
-    .split("")
-    .map((letter) => {
-      return letter + "\u200a";
-    })
-    .join("");
-}
-export const FindElement = ({ element, level }: Props) => {
+
+/**
+ * Displays element to search for based on the difficulty of the game
+ * @param element - The element that player needs to find from the periodic table
+ * @param level - The difficulty of the game, There is Beginner, Intermediate and Advanced
+ */
+export const ElementToFind = ({ element, level }: Props) => {
   return level === Level.Beginner ? (
     <button
       class={clsx(
         "periodic-table-element",
-        "periodic-table-element-problem",
+        "periodic-table-element-to-find",
         element.classification === ElementClassification.Metal &&
           "periodic-table-element-metal",
         element.classification === ElementClassification.Metalloid &&
@@ -55,7 +53,7 @@ export const FindElement = ({ element, level }: Props) => {
     </button>
   ) : level === Level.Intermediate ? (
     <button
-      class={clsx("periodic-table-element", "periodic-table-element-problem")}
+      class={clsx("periodic-table-element", "periodic-table-element-to-find")}
     >
       <span class="periodic-table-element-symbol">
         {addSpace(element.symbol)}
@@ -64,7 +62,7 @@ export const FindElement = ({ element, level }: Props) => {
     </button>
   ) : level === Level.Advanced ? (
     <button
-      class={clsx("periodic-table-element", "periodic-table-element-problem")}
+      class={clsx("periodic-table-element", "periodic-table-element-to-find")}
     >
       <span class="periodic-table-element-name">{addSpace(element.name)}</span>
     </button>

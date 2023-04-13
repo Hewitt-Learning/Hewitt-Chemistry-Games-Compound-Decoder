@@ -8,7 +8,7 @@
 }
 
 .periodic-table-element:hover:not(.periodic-table-element-good-click):not(
-    .periodic-table-element-problem
+  .periodic-table-element-to-find
   ) {
   transform: scale(1.1);
 }
@@ -28,7 +28,7 @@
 .periodic-table-element-atomic-number {
   font-size: 1.2em;
 }
-.periodic-table-element-problem {
+.periodic-table-element-to-find {
   background-color: white;
   cursor: default;
 }
@@ -56,7 +56,3 @@
   animation-duration: 0.75s; */
 }
 
-/* 
-@keyframes bad-click {
-  from {background:red};
-} */

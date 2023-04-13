@@ -1,6 +1,6 @@
 import { periodicTable } from "../periodic-table-data";
 import { PeriodicTableElement } from "./periodic-table-element";
-import { FindElement } from "./periodic-table-problem";
+import { ElementToFind } from "./periodic-table-to-find";
 import "./periodic-table.css";
 import { useGameState, MatchStatus } from "../game-state";
 
@@ -39,7 +39,7 @@ export const PeriodicTable = ({ level }: Props) => {
         ) : (
           <h1>Word does not fit</h1>
         ))}
-      {activeElement && <FindElement element={activeElement} level={level} />}
+      {activeElement && <ElementToFind element={activeElement} level={level} />}
 
       {/* display the current score & match status of active element to the screen. TODO: make it look better */}
       {gameState.matchStatus === MatchStatus.Correct ? (
