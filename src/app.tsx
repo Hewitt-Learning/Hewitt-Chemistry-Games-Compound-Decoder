@@ -20,10 +20,11 @@ export function App() {
   };
 
   /**
-   *
+   * Retrieves the wordList from DatoCMS and checks for errors in retrieval or content retrieved.
    */
   async function getWordList() {
     try {
+      //need to use await on fetch so that the try/catch doesn't run past this
       const response = await fetch("https://graphql.datocms.com/", {
         headers: {
           authorization: "Bearer 306d97cc36416136dec1925240ef29",
@@ -34,20 +35,25 @@ export function App() {
         mode: "cors",
         credentials: "include",
       });
-      const data = await response.json();
+      const data = await response.json(); //await used for same reason here - can't get json data until response arrives
       if (!response.ok) {
+        //If the fetch response is anything other than 2xx status code.
         throw new Error(`Invalid response (${response.status}).`);
       } else {
+        //if the response is 200
         let splitData = [];
         if (!data.data.wordList.words) {
-          setWordList(wordListDefault);
+          //if the words field of the data retrieved is undefined
+          setWordList(wordListDefault); //use the default wordList from ./word-list.json
           throw new Error("No data found. Using default word list instead.");
         } else {
-          splitData = data.data.wordList.words.split("\n");
-          setWordList(splitData);
+          //if we found a valid wordList from the data retrieved
+          splitData = data.data.wordList.words.split("\n"); //split the data on newline character,
+          setWordList(splitData); //set the wordList state variable
         }
       }
     } catch (err) {
+      //catch any errors that may have occurred
       console.error(err);
     }
   }

@@ -40,11 +40,14 @@ interface GameState {
  * This is a Preact Hook that includes all the game logic.
  * It is pulled into the PeriodicTable component,
  * so that all the game logic is separate from the rendering.
+ * @param wordList is a string of words we can use for the game DatoCMS, passed through
+ *    as a parameter for PeriodicTable when declaring PeriodicTable in ./app.tsx
  * @returns The game state object,
  * which includes the externally-visible state values themselves,
  * and functions to modify the state.
  */
 export const useGameState = (wordList: string[]): GameState => {
+  /** Selects a random word from the wordList retrieved from DatoCMS and passed to GameState as a property. */
   function selectRandomWord() {
     if (wordList.length === 1) {
       return wordList[0];
@@ -55,7 +58,7 @@ export const useGameState = (wordList: string[]): GameState => {
   }
   /**
    * gets the first valid (placeable) word from the list of words, or a
-   * default word if no word works
+   * default word if no word from the wordList works
    */
   function getValidWord() {
     let newWord = selectRandomWord(); //select random word from the wordList
@@ -65,16 +68,12 @@ export const useGameState = (wordList: string[]): GameState => {
       wordList = wordList.filter((e) => e !== newWord);
       newWord = selectRandomWord();
 
-      //while we can't find a newWord that fits in the periodic table &&
-      //the wordList has more than 1 element
       //loop until the newWord can be placed or wordList does not have valid word
       while (!placeWord(newWord) && wordList.length > 1) {
         wordList = wordList.filter((e) => e !== newWord); //remove bad newWord from wordList
         newWord = selectRandomWord(); //select a random newWord
-        //console.log(`newWord is ${newWord}.`);
         if (placeWord(newWord)) {
-          //if the newWord we found can be placed, return it
-          console.log(`Set word to newWord ${newWord}.`);
+          //if the newWord we found can be placed, return it to exit loop
           return newWord;
         }
       }
@@ -112,11 +111,8 @@ export const useGameState = (wordList: string[]): GameState => {
     try {
       setError(undefined);
       setPlacement(placeWord(word));
-      console.log(word);
     } catch (error: any) {
       setError(String(error));
-      // wordList = wordList.filter((e) => e !== word);
-      // _setWord(selectRandomWord());
     }
   }, [word]);
 
