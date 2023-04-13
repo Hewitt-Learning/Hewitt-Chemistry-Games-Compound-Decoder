@@ -15,13 +15,9 @@ interface Props {
   element: PeriodicTableElementType;
 
   /**
-   * Property for checking if the element was clicked
-   */
-  onClick: () => void;
-  /**
    * Property for the difficulty of the game
    */
-  diff: Level;
+  level: Level;
 }
 /** Adds narrow unicode spaces to element symbols and names to prevent players from using ctrl + F on the elements. */
 function addSpace(word: string): string {
@@ -32,8 +28,8 @@ function addSpace(word: string): string {
     })
     .join("");
 }
-export const FindElement = ({ element, onClick, diff }: Props) => {
-  return diff === Level.Beginner ? (
+export const FindElement = ({ element, level }: Props) => {
+  return level === Level.Beginner ? (
     <button
       class={clsx(
         "periodic-table-element",
@@ -57,7 +53,7 @@ export const FindElement = ({ element, onClick, diff }: Props) => {
         {element.atomicMass}
       </span>
     </button>
-  ) : diff === Level.Intermediate ? (
+  ) : level === Level.Intermediate ? (
     <button
       class={clsx("periodic-table-element", "periodic-table-element-problem")}
     >
@@ -66,7 +62,7 @@ export const FindElement = ({ element, onClick, diff }: Props) => {
       </span>
       <span class="periodic-table-element-name">{addSpace(element.name)}</span>
     </button>
-  ) : diff === Level.Advanced ? (
+  ) : level === Level.Advanced ? (
     <button
       class={clsx("periodic-table-element", "periodic-table-element-problem")}
     >
