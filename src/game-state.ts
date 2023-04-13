@@ -53,8 +53,42 @@ export const useGameState = (wordList: string[]): GameState => {
       Math.round(Math.random() * Number.MAX_SAFE_INTEGER) % wordList.length
     ];
   }
+  /**
+   * gets the first valid (placeable) word from the list of words, or a
+   * default word if no word works
+   */
+  function getValidWord() {
+    let newWord = selectRandomWord(); //select random word from the wordList
+    //if the word can't be placed
+    if (!placeWord(newWord)) {
+      //remove the word & any duplicates from the word list, select a new word
+      wordList = wordList.filter((e) => e !== newWord);
+      newWord = selectRandomWord();
+
+      //while we can't find a newWord that fits in the periodic table &&
+      //the wordList has more than 1 element
+      //loop until the newWord can be placed or wordList does not have valid word
+      while (!placeWord(newWord) && wordList.length > 1) {
+        wordList = wordList.filter((e) => e !== newWord); //remove bad newWord from wordList
+        newWord = selectRandomWord(); //select a random newWord
+        //console.log(`newWord is ${newWord}.`);
+        if (placeWord(newWord)) {
+          //if the newWord we found can be placed, return it
+          console.log(`Set word to newWord ${newWord}.`);
+          return newWord;
+        }
+      }
+      //we went through the wordList and couldn't find a word that fit, check the last element
+      if (wordList.length === 1 && placeWord(wordList[0])) {
+        newWord = wordList[0];
+      } else {
+        newWord = "fill";
+      }
+    }
+    return newWord;
+  }
   /** The word that will be formed by all the searched-for elements */
-  const [word, _setWord] = useState(() => selectRandomWord());
+  const [word, _setWord] = useState<string>(() => getValidWord());
   /** The arrangement of elements to find on the periodic table grid */
   const [placement, setPlacement] = useState<false | SpaceDef[][]>(false);
   /** The "elements to find" in their randomly-shuffled order */
@@ -73,21 +107,12 @@ export const useGameState = (wordList: string[]): GameState => {
   const [elementStates, setElementStates] = useState<ElementState[][]>(
     getInitialElementStates,
   );
-
   // Whenever word changes, recompute the placement
   useEffect(() => {
     try {
       setError(undefined);
-      if (!placeWord(word)) {
-        //console.log(`${word} didn't work, trying again...`);
-        wordList = wordList.filter((e) => e !== word);
-        const newWord = selectRandomWord();
-        _setWord(newWord);
-        //console.log(`New word: ${newWord}`);
-      } else {
-        setPlacement(placeWord(word));
-      }
-      //console.log(word);
+      setPlacement(placeWord(word));
+      console.log(word);
     } catch (error: any) {
       setError(String(error));
       // wordList = wordList.filter((e) => e !== word);
