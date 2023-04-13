@@ -12,8 +12,7 @@ export enum ElementState {
   NotClicked,
   /** Elements that were clicked incorrectly (gets reset after a the correct element is found) */
   WrongElementClicked,
-  /** Element with black and white background for the problem */
-  ProblemElement,
+  
 }
 
 export enum Level {
@@ -47,26 +46,13 @@ export const PeriodicTable = ({ level }: Props) => {
         ) : (
           <h1>Word does not fit</h1>
         ))}
-      {activeElement &&
-        (level === Level.Beginner ? (
-          <FindElement
-            elementState={ElementState.NotClicked}
-            onClick={() => {}}
-            element={activeElement}
-            diff={level}
-          />
-        ) : level === Level.Intermediate ? (
-          <FindElement
-            elementState={ElementState.ProblemElement}
-            onClick={() => {}}
-            element={activeElement}
-            diff={level}
-          />
-        ) : level === Level.Advanced ? (
-          <>{activeElement.name}</>
-        ) : (
-          <></>
-        ))}
+      {activeElement && (
+        <FindElement
+          onClick={() => {}}
+          element={activeElement}
+          diff={level}
+        />
+      )}
       {/* display the current score to the screen TODO: make it look better */}
       <h1>Score: {gameState.score}</h1>
       <div class="periodic-table">

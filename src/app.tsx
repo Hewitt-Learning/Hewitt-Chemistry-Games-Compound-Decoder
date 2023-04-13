@@ -23,7 +23,7 @@ export function App() {
         {Math.round((currTime - startTime) / 1000)}{" "}
         <button onClick={resetTime}>Reset Clock</button>
       </h1>
-      <PeriodicTable level={Level.Advanced} />
+      <PeriodicTable level={Level.Intermediate} />
     </>
   );
 }

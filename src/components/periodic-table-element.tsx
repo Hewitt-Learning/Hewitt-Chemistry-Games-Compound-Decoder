@@ -52,8 +52,6 @@ export const PeriodicTableElement = ({
           "periodic-table-element-good-click",
         elementState === ElementState.WrongElementClicked &&
           "periodic-table-element-bad-click",
-        elementState === ElementState.ProblemElement &&
-          "periodic-table-element-problem",
       )}
     >
       <span class="periodic-table-element-atomic-number">

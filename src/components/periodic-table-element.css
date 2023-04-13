@@ -7,7 +7,7 @@
   transition: transform 0.2s ease;
 }
 
-.periodic-table-element:hover:not(.periodic-table-element-good-click) {
+.periodic-table-element:hover:not(.periodic-table-element-good-click):not(.periodic-table-element-problem) {
   transform: scale(1.1);
 }
 
@@ -26,7 +26,10 @@
 .periodic-table-element-atomic-number {
   font-size: 1.2em;
 }
-
+.periodic-table-element-problem{
+  background-color: white;
+  cursor:default;
+}
 .periodic-table-element-metal {
   background: #9abee4;
 }
@@ -51,9 +54,7 @@
   animation-duration: 0.75s; */
 }
 
-.periodic-table-element-problem{
-  background-color: white;
-}
+
 /* 
 @keyframes bad-click {
   from {background:red};
