@@ -7,7 +7,9 @@
   transition: transform 0.2s ease;
 }
 
-.periodic-table-element:hover:not(.periodic-table-element-good-click) {
+.periodic-table-element:hover:not(.periodic-table-element-good-click):not(
+  .periodic-table-element-to-find
+  ) {
   transform: scale(1.1);
 }
 
@@ -26,7 +28,10 @@
 .periodic-table-element-atomic-number {
   font-size: 1.2em;
 }
-
+.periodic-table-element-to-find {
+  background-color: white;
+  cursor: default;
+}
 .periodic-table-element-metal {
   background: #9abee4;
 }
@@ -45,12 +50,9 @@
   cursor: not-allowed;
 }
 
-.periodic-table-element-bad-click{
+.periodic-table-element-bad-click {
   background-color: red;
   /* animation-name: bad-click;
   animation-duration: 0.75s; */
 }
-/* 
-@keyframes bad-click {
-  from {background:red};
-} */
+

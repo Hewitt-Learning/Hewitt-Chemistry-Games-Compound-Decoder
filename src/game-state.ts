@@ -1,6 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import { periodicTable } from "./periodic-table-data";
-import { ElementState } from "./components/periodic-table";
+import { ElementState, Level } from "./components/periodic-table";
 import {
   randomElementSequenceFromPlacement,
   RowCol,
@@ -46,7 +46,7 @@ interface GameState {
  * which includes the externally-visible state values themselves,
  * and functions to modify the state.
  */
-export const useGameState = (wordList: string[]): GameState => {
+export const useGameState = (wordList: string[], level: Level): GameState => {
   /** Selects a random word from the wordList retrieved from DatoCMS and passed to GameState as a property. */
   function selectRandomWord() {
     if (wordList.length === 1) {

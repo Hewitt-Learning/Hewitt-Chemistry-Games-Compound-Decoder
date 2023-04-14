@@ -1,8 +1,8 @@
 import { periodicTable } from "../periodic-table-data";
 import { PeriodicTableElement } from "./periodic-table-element";
-import { MatchStatus } from "../game-state";
+import { ElementToFind } from "./periodic-table-to-find";
 import "./periodic-table.css";
-import { useGameState } from "../game-state";
+import { useGameState, MatchStatus } from "../game-state";
 
 /** The possible states for each displayed element during the game */
 export enum ElementState {
@@ -14,12 +14,24 @@ export enum ElementState {
   WrongElementClicked,
 }
 
-interface Props {
-  wordList: string[];
+export enum Level {
+  Beginner,
+  Intermediate,
+  Advanced,
 }
 
-export const PeriodicTable = ({ wordList }: Props) => {
-  const gameState = useGameState(wordList);
+interface Props {
+  wordList: string[];
+  level: Level;
+}
+
+export const PeriodicTable = ({ level, wordList }: Props) => {
+  const gameState = useGameState(wordList, level);
+
+  const activeElement =
+    gameState.activeElement &&
+    periodicTable[gameState.activeElement.row][gameState.activeElement.col];
+
   return (
     <div class="periodic-table-wrapper">
       {!true &&
@@ -28,15 +40,7 @@ export const PeriodicTable = ({ wordList }: Props) => {
         ) : (
           <h1>Word does not fit</h1>
         ))}
-      {gameState.activeElement && (
-        <h1>
-          {
-            periodicTable[gameState.activeElement.row][
-              gameState.activeElement.col
-            ]?.name
-          }
-        </h1>
-      )}
+      {activeElement && <ElementToFind element={activeElement} level={level} />}
 
       {/* display the current score & match status of active element to the screen. TODO: make it look better */}
       {gameState.matchStatus === MatchStatus.Correct ? (
@@ -84,7 +88,7 @@ export const PeriodicTable = ({ wordList }: Props) => {
                       gameState.handleIncorrectElementClick(rowIndex, colIndex);
                     }
                   }}
-                  isFound={gameState.elementStates[rowIndex][colIndex]}
+                  elementState={gameState.elementStates[rowIndex][colIndex]}
                 />
               );
             } else {
