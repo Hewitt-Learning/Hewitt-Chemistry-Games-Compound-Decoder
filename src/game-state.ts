@@ -7,7 +7,6 @@ import {
 } from "./random-element-sequence-from-placement";
 import { placeWord, SpaceDef } from "./word-placement";
 import { computeNewScore } from "./score-calc";
-//import wordList from "./word-list.json";
 /**
  * signifies the state of the current "turn", e.g. if the active element is Neon, are we waiting on a click, has there been an incorrect click, or a correct click
  */
@@ -114,6 +113,7 @@ export const useGameState = (wordList: string[], level: Level): GameState => {
       setPlacement(placeWord(word));
     } catch (error: any) {
       setError(String(error));
+      setPlacement(false);
     }
   }, [word]);
 
