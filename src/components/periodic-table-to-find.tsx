@@ -6,6 +6,7 @@ import "./periodic-table-element.css";
 import clsx from "clsx";
 import { useState } from "preact/hooks";
 import { ElementState } from "./periodic-table";
+import { Level } from "./periodic-table";
 import { addSpace } from "./periodic-table-space";
 
 interface Props {
@@ -13,38 +14,30 @@ interface Props {
    * Gives information about the element, e.g. name, atomic number, symbol, atomic mass, & classification
    */
   element: PeriodicTableElementType;
+
   /**
-   * Determines what to display based on occupied status:
-   * Red to element:background animation is incorrect guess (element not occupied/doesn't create a letter)
-   * Black background means the element does create a letter, and the guess was correct.
+   * Property for the difficulty of the game
    */
-  elementState: ElementState;
-  /**
-   * Property for checking if the element was clicked
-   */
-  onClick: () => void;
+  level: Level;
 }
 
-export const PeriodicTableElement = ({
-  element,
-  onClick,
-  elementState,
-}: Props) => {
-  return (
+/**
+ * Displays element to search for based on the difficulty of the game
+ * @param element - The element that player needs to find from the periodic table
+ * @param level - The difficulty of the game, There is Beginner, Intermediate and Advanced
+ */
+export const ElementToFind = ({ element, level }: Props) => {
+  return level === Level.Beginner ? (
     <button
-      onClick={onClick}
       class={clsx(
         "periodic-table-element",
+        "periodic-table-element-to-find",
         element.classification === ElementClassification.Metal &&
           "periodic-table-element-metal",
         element.classification === ElementClassification.Metalloid &&
           "periodic-table-element-metalloid",
         element.classification === ElementClassification.Nonmetal &&
           "periodic-table-element-nonmetal",
-        elementState === ElementState.FoundElement &&
-          "periodic-table-element-good-click",
-        elementState === ElementState.WrongElementClicked &&
-          "periodic-table-element-bad-click",
       )}
     >
       <span class="periodic-table-element-atomic-number">
@@ -58,5 +51,22 @@ export const PeriodicTableElement = ({
         {element.atomicMass}
       </span>
     </button>
+  ) : level === Level.Intermediate ? (
+    <button
+      class={clsx("periodic-table-element", "periodic-table-element-to-find")}
+    >
+      <span class="periodic-table-element-symbol">
+        {addSpace(element.symbol)}
+      </span>
+      <span class="periodic-table-element-name">{addSpace(element.name)}</span>
+    </button>
+  ) : level === Level.Advanced ? (
+    <button
+      class={clsx("periodic-table-element", "periodic-table-element-to-find")}
+    >
+      <span class="periodic-table-element-name">{addSpace(element.name)}</span>
+    </button>
+  ) : (
+    <></>
   );
 };
