@@ -42,6 +42,7 @@ interface GameState {
  * so that all the game logic is separate from the rendering.
  * @param wordList is a string of words we can use for the game DatoCMS, passed through
  *    as a parameter for PeriodicTable when declaring PeriodicTable in ./app.tsx
+ * @param level describes the difficulty of the game, and how the active elements are displayed to the user
  * @returns The game state object,
  * which includes the externally-visible state values themselves,
  * and functions to modify the state.

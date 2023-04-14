@@ -21,13 +21,16 @@ export enum Level {
 }
 
 interface Props {
+  /** A property that defines the list of words that can possibly be placed in the periodic table, retrieved from DatoCMS or ./word-list.json */
   wordList: string[];
+  /** A property that describes the difficulty of the game, which determines how the "active" element is displayed to the user */
   level: Level;
 }
 
 export const PeriodicTable = ({ level, wordList }: Props) => {
   const gameState = useGameState(wordList, level);
 
+  
   const activeElement =
     gameState.activeElement &&
     periodicTable[gameState.activeElement.row][gameState.activeElement.col];

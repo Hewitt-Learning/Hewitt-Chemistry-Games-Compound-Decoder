@@ -70,7 +70,7 @@ export function App() {
 
   return (
     <>
-      {/* only show periodic table if theres a word list, pass wordList into periodic table */}
+      {/* only show periodic table if theres a word list, pass wordList & level into periodic table */}
       <h1>
         Hewitt Learning Chemistry games!{" "}
         {Math.round((currTime - startTime) / 1000)}{" "}
