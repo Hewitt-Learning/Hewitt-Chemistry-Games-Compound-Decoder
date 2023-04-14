@@ -30,7 +30,6 @@ interface Props {
 export const PeriodicTable = ({ level, wordList }: Props) => {
   const gameState = useGameState(wordList, level);
 
-  
   const activeElement =
     gameState.activeElement &&
     periodicTable[gameState.activeElement.row][gameState.activeElement.col];

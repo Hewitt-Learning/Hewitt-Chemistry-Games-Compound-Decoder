@@ -23,7 +23,6 @@ const getInitialElementStates = () =>
   periodicTable.map((row) => row.map(() => ElementState.NotClicked));
 
 interface GameState {
-  wordList: string[];
   word: string;
   error: string | undefined;
   score: number;
@@ -62,14 +61,13 @@ export const useGameState = (wordList: string[], level: Level): GameState => {
    */
   function getValidWord() {
     let newWord = selectRandomWord(); //select random word from the wordList
-    //if the word can't be placed
-    if (!placeWord(newWord)) {
-      //remove the word & any duplicates from the word list, select a new word
-      wordList = wordList.filter((e) => e !== newWord);
-      newWord = selectRandomWord();
-
+    // The random word can be placed, return that
+    if (placeWord(newWord)) {
+      return newWord;
+    } else {
       //loop until the newWord can be placed or wordList does not have valid word
       while (!placeWord(newWord) && wordList.length > 1) {
+        //remove the word & any duplicates from the word list, select a new word
         wordList = wordList.filter((e) => e !== newWord); //remove bad newWord from wordList
         newWord = selectRandomWord(); //select a random newWord
         if (placeWord(newWord)) {
@@ -87,7 +85,7 @@ export const useGameState = (wordList: string[], level: Level): GameState => {
     return newWord;
   }
   /** The word that will be formed by all the searched-for elements */
-  const [word, _setWord] = useState<string>(() => getValidWord());
+  const [word, _setWord] = useState<string>(getValidWord());
   /** The arrangement of elements to find on the periodic table grid */
   const [placement, setPlacement] = useState<false | SpaceDef[][]>(false);
   /** The "elements to find" in their randomly-shuffled order */
@@ -188,7 +186,6 @@ export const useGameState = (wordList: string[], level: Level): GameState => {
   };
 
   return {
-    wordList,
     word,
     error,
     score,

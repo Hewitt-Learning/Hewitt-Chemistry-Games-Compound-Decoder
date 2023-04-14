@@ -21,10 +21,16 @@ export function App() {
 
   /**
    * Retrieves the wordList from DatoCMS and checks for errors in retrieval or content retrieved.
+   * Pauses function while waiting for headers from fetch
    */
   async function getWordList() {
     try {
-      //need to use await on fetch so that the try/catch doesn't run past this
+      /**
+       * Fetch returns a promise (an object that is expected to exist at some point but does not necessarily
+       * exist right now), and once the promise value exists the json data (a promise) is
+       * passed to state variable as data, once the json data exists.
+       * For this use case, we neeed to use await on fetch so that the try/catch doesn't go through before an error exists
+       */
       const response = await fetch("https://graphql.datocms.com/", {
         headers: {
           authorization: "Bearer 306d97cc36416136dec1925240ef29",
@@ -37,10 +43,10 @@ export function App() {
       });
       const data = await response.json(); //await used for same reason here - can't get json data until response arrives
       if (!response.ok) {
-        //If the fetch response is anything other than 2xx status code.
+        //If the fetch response is anything other "ok" (e.g. outside of 200-299 range)
         throw new Error(`Invalid response (${response.status}).`);
       } else {
-        //if the response is 200
+        //if the response is "ok"
         let splitData = [];
         if (!data.data.wordList.words) {
           //if the words field of the data retrieved is undefined
@@ -59,24 +65,20 @@ export function App() {
   }
 
   useEffect(() => {
-    /**
-     * fetch returns a promise (an object that is expected to exist at some point but does not necessarily
-     * exist right now), and once the promise value exists, then() calls an arrow function on the response
-     * on response. once response "exists", the response is converted to json. Then, the json data (a promise) is
-     * passed to state variable as data, once the json data exists.
-     */
     getWordList();
   }, []);
 
   return (
     <>
-      {/* only show periodic table if theres a word list, pass wordList & level into periodic table */}
       <h1>
         Hewitt Learning Chemistry games!{" "}
         {Math.round((currTime - startTime) / 1000)}{" "}
         <button onClick={resetTime}>Reset Clock</button>
       </h1>
-      {wordList && <PeriodicTable wordList={wordList} level={Level.Intermediate}/>}
+      {/* only show periodic table if theres a word list, pass wordList & level into periodic table */}
+      {wordList && (
+        <PeriodicTable wordList={wordList} level={Level.Intermediate} />
+      )}
     </>
   );
 }
