@@ -1,9 +1,10 @@
 .periodic-table {
   display: grid;
   grid-template-columns: repeat(18, minmax(0, 1fr));
-  gap: 3px;
+  gap: 0.7em;
   min-width: 100em;
-  overflow-x: auto;
+  font-size: clamp(10px, calc(0.5vw + 5px), 16px);
+  padding: 2em;
 }
 
 .match-text-good {
@@ -14,4 +15,12 @@
 .match-text-bad {
   text-align: center;
   color: red;
+}
+
+.game-info {
+  background: white;
+  grid-column: 3 / span 10;
+  grid-row: 1 / span 3;
+  margin: 3em;
+  padding: 2em;
 }
