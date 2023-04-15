@@ -7,6 +7,7 @@ import {
 } from "./random-element-sequence-from-placement";
 import { placeWord, SpaceDef } from "./word-placement";
 import { computeNewScore } from "./score-calc";
+import defaultWordList from "./word-list.json";
 /**
  * signifies the state of the current "turn", e.g. if the active element is Neon, are we waiting on a click, has there been an incorrect click, or a correct click
  */
@@ -46,18 +47,21 @@ interface GameState {
  * and functions to modify the state.
  */
 export const useGameState = (wordList: string[], level: Level): GameState => {
-  /** Selects a random word from the wordList retrieved from DatoCMS and passed to GameState as a property. */
+  /** Selects a random word from the wordList retrieved from DatoCMS and passed to GameState as a property. If no valid word can be found, returns fill */
   function selectRandomWord() {
-    if (wordList.length === 1) {
-      return wordList[0];
+    const randomElement = Math.round(Math.random() * Number.MAX_SAFE_INTEGER);
+    if (!wordList.length) {
+      //if datocms wordList is empty
+      return defaultWordList[randomElement % defaultWordList.length];
+    } else if (!defaultWordList.length) {
+      //worst case - all word lists are empty
+      return "fill";
     }
-    return wordList[
-      Math.round(Math.random() * Number.MAX_SAFE_INTEGER) % wordList.length
-    ];
+    return wordList[randomElement % wordList.length];
   }
   /**
    * gets the first valid (placeable) word from the list of words, or a
-   * default word if no word from the wordList works
+   * default word from ./word-list.json if no word from the wordList works
    */
   function getValidWord() {
     let newWord = selectRandomWord(); //select random word from the wordList
@@ -66,20 +70,15 @@ export const useGameState = (wordList: string[], level: Level): GameState => {
       return newWord;
     } else {
       //loop until the newWord can be placed or wordList does not have valid word
-      while (!placeWord(newWord) && wordList.length > 1) {
-        //remove the word & any duplicates from the word list, select a new word
-        wordList = wordList.filter((e) => e !== newWord); //remove bad newWord from wordList
-        newWord = selectRandomWord(); //select a random newWord
+      while (wordList.length) {
         if (placeWord(newWord)) {
           //if the newWord we found can be placed, return it to exit loop
           return newWord;
+        } else {
+          //remove the word & any duplicates from the word list, select a new word
+          wordList = wordList.filter((e) => e !== newWord); //remove bad newWord from wordList
+          newWord = selectRandomWord(); //select a random newWord
         }
-      }
-      //we went through the wordList and couldn't find a word that fit, check the last element
-      if (wordList.length === 1 && placeWord(wordList[0])) {
-        newWord = wordList[0];
-      } else {
-        newWord = "fill";
       }
     }
     return newWord;
