@@ -36,66 +36,70 @@ export const PeriodicTable = ({ level, wordList }: Props) => {
 
   return (
     <div class="periodic-table-wrapper">
-      {!true &&
-        (gameState.error ? (
-          <h1>{gameState.error}</h1>
-        ) : (
-          <h1>Word does not fit</h1>
-        ))}
-      {activeElement && <ElementToFind element={activeElement} level={level} />}
-
-      {/* display the current score & match status of active element to the screen. TODO: make it look better */}
-      {gameState.matchStatus === MatchStatus.Correct ? (
-        <h1 class="match-text-good">Nice!</h1>
-      ) : (
-        <div></div>
-      )}
-      {gameState.matchStatus === MatchStatus.Incorrect ? (
-        <h1 class="match-text-bad">Try again!</h1>
-      ) : (
-        <div></div>
-      )}
-      <h1>Score: {gameState.score}</h1>
       <div class="periodic-table">
+        <div class="game-info">
+          {!true &&
+            (gameState.error ? (
+              <h1>{gameState.error}</h1>
+            ) : (
+              <h1>Word does not fit</h1>
+            ))}
+          {activeElement && (
+            <ElementToFind element={activeElement} level={level} />
+          )}
+
+          {/* display the current score & match status of active element to the screen. TODO: make it look better */}
+          {gameState.matchStatus === MatchStatus.Correct ? (
+            <h1 class="match-text-good">Nice!</h1>
+          ) : (
+            <div></div>
+          )}
+          {gameState.matchStatus === MatchStatus.Incorrect ? (
+            <h1 class="match-text-bad">Try again!</h1>
+          ) : (
+            <div></div>
+          )}
+          <h1>Score: {gameState.score}</h1>
+        </div>
         {periodicTable.map((row, rowIndex) => {
           // Row is array of elements or null
           return row.map((element, colIndex) => {
-            if (element) {
-              return (
-                <PeriodicTableElement
-                  element={element}
-                  onClick={() => {
-                    // If it was already found, or already clicked but was wrong, ignore the click
-                    if (
-                      gameState.elementStates[rowIndex][colIndex] ===
-                        ElementState.FoundElement ||
-                      gameState.elementStates[rowIndex][colIndex] ===
-                        ElementState.WrongElementClicked
-                    )
-                      return;
-
-                    // There is not an element being searched for, so ignore the click
-                    // This could happen if you click an element when a word that does not fit in the table is placed
-                    // Or if you have completed finding all the elements
-                    if (!gameState.activeElement) return;
-
-                    if (
-                      rowIndex === gameState.activeElement.row &&
-                      colIndex === gameState.activeElement.col
-                    ) {
-                      // The active (searched-for) element was clicked
-                      gameState.handleCorrectElementClick();
-                    } else {
-                      // Wrong element was clicked
-                      gameState.handleIncorrectElementClick(rowIndex, colIndex);
-                    }
-                  }}
-                  elementState={gameState.elementStates[rowIndex][colIndex]}
-                />
-              );
-            } else {
-              return <div />;
+            if (element === null) {
+              return null;
             }
+            return (
+              <PeriodicTableElement
+                style={{ gridColumn: `${colIndex + 1} / span 1` }}
+                element={element}
+                onClick={() => {
+                  // If it was already found, or already clicked but was wrong, ignore the click
+                  if (
+                    gameState.elementStates[rowIndex][colIndex] ===
+                      ElementState.FoundElement ||
+                    gameState.elementStates[rowIndex][colIndex] ===
+                      ElementState.WrongElementClicked
+                  )
+                    return;
+
+                  // There is not an element being searched for, so ignore the click
+                  // This could happen if you click an element when a word that does not fit in the table is placed
+                  // Or if you have completed finding all the elements
+                  if (!gameState.activeElement) return;
+
+                  if (
+                    rowIndex === gameState.activeElement.row &&
+                    colIndex === gameState.activeElement.col
+                  ) {
+                    // The active (searched-for) element was clicked
+                    gameState.handleCorrectElementClick();
+                  } else {
+                    // Wrong element was clicked
+                    gameState.handleIncorrectElementClick(rowIndex, colIndex);
+                  }
+                }}
+                elementState={gameState.elementStates[rowIndex][colIndex]}
+              />
+            );
           });
         })}
       </div>

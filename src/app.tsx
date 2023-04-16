@@ -1,23 +1,8 @@
 import { useEffect, useState } from "preact/hooks";
-import { JSX } from "preact";
 import { Level, PeriodicTable } from "./components/periodic-table";
 import wordListDefault from "./word-list.json";
 export function App() {
-  const [startTime, setStartTime] = useState(0);
-  const [currTime, setCurrTime] = useState(0);
   const [wordList, setWordList] = useState<undefined | string[]>(undefined); //possibly set default wordList here, from wordListDefault
-  useEffect(() => {
-    setStartTime(new Date().getTime());
-    setInterval(() => {
-      setCurrTime(new Date().getTime());
-    }, 1000);
-  }, []);
-
-  const resetTime = (event: JSX.TargetedMouseEvent<HTMLButtonElement>) => {
-    const button: HTMLButtonElement = event.currentTarget;
-    setStartTime(new Date().getTime());
-    setCurrTime(new Date().getTime());
-  };
 
   /**
    * Retrieves the wordList from DatoCMS and checks for errors in retrieval or content retrieved.
@@ -70,11 +55,6 @@ export function App() {
 
   return (
     <>
-      <h1>
-        Hewitt Learning Chemistry games!{" "}
-        {Math.round((currTime - startTime) / 1000)}{" "}
-        <button onClick={resetTime}>Reset Clock</button>
-      </h1>
       {/* only show periodic table if theres a word list, pass wordList & level into periodic table */}
       {wordList && (
         <PeriodicTable wordList={wordList} level={Level.Intermediate} />

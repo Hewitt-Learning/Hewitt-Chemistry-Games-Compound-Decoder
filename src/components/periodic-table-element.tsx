@@ -4,9 +4,9 @@ import {
 } from "../periodic-table-data";
 import "./periodic-table-element.css";
 import clsx from "clsx";
-import { useState } from "preact/hooks";
 import { ElementState } from "./periodic-table";
 import { addSpace } from "./periodic-table-space";
+import { JSXInternal } from "preact/src/jsx";
 
 interface Props {
   /**
@@ -23,15 +23,18 @@ interface Props {
    * Property for checking if the element was clicked
    */
   onClick: () => void;
+  style: JSXInternal.CSSProperties;
 }
 
 export const PeriodicTableElement = ({
   element,
   onClick,
   elementState,
+  style,
 }: Props) => {
   return (
     <button
+      style={style}
       onClick={onClick}
       class={clsx(
         "periodic-table-element",
