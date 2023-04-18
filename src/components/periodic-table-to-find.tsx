@@ -62,7 +62,11 @@ export const ElementToFind = ({ element, level }: Props) => {
     </button>
   ) : level === Level.Advanced ? (
     <button
-      class={clsx("periodic-table-element", "periodic-table-element-to-find")}
+      class={clsx(
+        "periodic-table-element",
+        "periodic-table-element-to-find",
+        "periodic-table-element-advanced",
+      )}
     >
       <span class="periodic-table-element-name">{addSpace(element.name)}</span>
     </button>

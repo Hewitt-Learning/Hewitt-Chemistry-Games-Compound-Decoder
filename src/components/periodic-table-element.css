@@ -38,9 +38,13 @@
   margin: -0.7px 0;
 }
 .periodic-table-element-to-find {
-  font-family: Soliloquous, sans-serif;
   background-color: white;
   cursor: default;
+}
+
+.periodic-table-element-advanced{ /* Text for active element in advanced difficulty */
+  font-family: Soliloquous, sans-serif;
+  font-size: 2.1em;
 }
 .periodic-table-element-metal {
   background: #9abee4;
