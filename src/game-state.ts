@@ -7,7 +7,10 @@ import {
 } from "./random-element-sequence-from-placement";
 import { placeWord, SpaceDef } from "./word-placement";
 import { computeNewScore } from "./score-calc";
-import defaultWordList from "./word-list.json";
+// The 'word-list' is a "magic" import that will pull in the word list from the CMS.
+// This happens through a custom vite plugin defined in vite.config.js
+import wordList from "word-list";
+
 /**
  * signifies the state of the current "turn", e.g. if the active element is Neon, are we waiting on a click, has there been an incorrect click, or a correct click
  */
@@ -39,52 +42,20 @@ interface GameState {
  * This is a Preact Hook that includes all the game logic.
  * It is pulled into the PeriodicTable component,
  * so that all the game logic is separate from the rendering.
- * @param wordList is a string of words we can use for the game DatoCMS, passed through
- *    as a parameter for PeriodicTable when declaring PeriodicTable in ./app.tsx
  * @param level describes the difficulty of the game, and how the active elements are displayed to the user
  * @returns The game state object,
  * which includes the externally-visible state values themselves,
  * and functions to modify the state.
  */
-export const useGameState = (wordList: string[], level: Level): GameState => {
+export const useGameState = (level: Level): GameState => {
   /** Selects a random word from the wordList retrieved from DatoCMS and passed to GameState as a property. If no valid word can be found, returns fill */
   function selectRandomWord() {
     const randomElement = Math.round(Math.random() * Number.MAX_SAFE_INTEGER);
-    if (!wordList.length) {
-      //if datocms wordList is empty
-      return defaultWordList[randomElement % defaultWordList.length];
-    } else if (!defaultWordList.length) {
-      //worst case - all word lists are empty
-      return "fill";
-    }
     return wordList[randomElement % wordList.length];
   }
-  /**
-   * gets the first valid (placeable) word from the list of words, or a
-   * default word from ./word-list.json if no word from the wordList works
-   */
-  function getValidWord() {
-    let newWord = selectRandomWord(); //select random word from the wordList
-    // The random word can be placed, return that
-    if (placeWord(newWord)) {
-      return newWord;
-    } else {
-      //loop until the newWord can be placed or wordList does not have valid word
-      while (wordList.length) {
-        if (placeWord(newWord)) {
-          //if the newWord we found can be placed, return it to exit loop
-          return newWord;
-        } else {
-          //remove the word & any duplicates from the word list, select a new word
-          wordList = wordList.filter((e) => e !== newWord); //remove bad newWord from wordList
-          newWord = selectRandomWord(); //select a random newWord
-        }
-      }
-    }
-    return newWord;
-  }
+
   /** The word that will be formed by all the searched-for elements */
-  const [word, _setWord] = useState<string>(getValidWord());
+  const [word, _setWord] = useState<string>(selectRandomWord());
   /** The arrangement of elements to find on the periodic table grid */
   const [placement, setPlacement] = useState<false | SpaceDef[][]>(false);
   /** The "elements to find" in their randomly-shuffled order */
