@@ -38,6 +38,7 @@
   margin: -0.7px 0;
 }
 .periodic-table-element-to-find {
+  font-family: Soliloquous, sans-serif;
   background-color: white;
   cursor: default;
 }
