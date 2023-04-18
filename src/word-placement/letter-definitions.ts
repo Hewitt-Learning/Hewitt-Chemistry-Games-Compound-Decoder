@@ -112,10 +112,10 @@ x x
  x
 x x`,
   Y: `
-x   x
-x   x
-  x
-  x`,
+x x
+x x
+ x
+ x`,
   Z: `
 xxxx
   x

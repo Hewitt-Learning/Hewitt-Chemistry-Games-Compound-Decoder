@@ -5,4 +5,40 @@
 
 body {
   margin: 0;
+  background: #eee;
+}
+
+@font-face {
+  font-family: Soliloquous;
+  src: url("/fonts/ccsoliloquous-regular.woff2") format("woff2"),
+    url("/fonts/ccsoliloquous-regular.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: Soliloquous;
+  src: url("/fonts/ccsoliloquous-bold.woff2") format("woff2"),
+    url("/fonts/ccsoliloquous-bold.woff") format("woff");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Soliloquous;
+  src: url("/fonts/ccsoliloquous-italic.woff2") format("woff2"),
+    url("/fonts/ccsoliloquous-italic.woff") format("woff");
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Soliloquous;
+  src: url("/fonts/ccsoliloquous-bolditalic.woff2") format("woff2"),
+    url("/fonts/ccsoliloquous-bolditalic.woff") format("woff");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+body {
+  font-family: sans-serif;
 }

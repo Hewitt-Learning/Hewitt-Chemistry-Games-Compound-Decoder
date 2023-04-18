@@ -39,8 +39,9 @@ const streakBonusCalc = (streak: number) => {
 };
 
 /**
- * Calculates bonus according to amount of time it takes to match the element. Higher bonus
- * is given for quicker match, lower bonus given for slower match. uses exponential decay.
+ * Calculates bonus according to amount of time it takes to match the element.
+ * Higher bonus is given for finding the elements correctly more quickly,
+ * lower bonus given for slower match. Uses exponential decay for the bonus amount based on the time.
  * @param time - time that the user has taken to correctly match in seconds
  */
 const timeBonus = (time: number) => {
