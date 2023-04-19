@@ -24,6 +24,10 @@
   letter-spacing: -0.05em; /* Narrowing the letter space created in order to avoid being searched on page */
 }
 
+.periodic-table-element-score{
+  font-family: Soliloquous, sans-serif;
+}
+
 .periodic-table-element-name {
   white-space: nowrap;
   text-overflow: ellipsis;
