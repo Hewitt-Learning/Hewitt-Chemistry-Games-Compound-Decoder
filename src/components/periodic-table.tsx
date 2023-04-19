@@ -57,7 +57,7 @@ export const PeriodicTable = ({ level }: Props) => {
           ) : (
             <div></div>
           )}
-          <h1>Score: {gameState.score}</h1>
+          <h1 class="periodic-table-element-score">Score: {gameState.score}</h1>
         </div>
         {periodicTable.map((row, rowIndex) => {
           // Row is array of elements or null

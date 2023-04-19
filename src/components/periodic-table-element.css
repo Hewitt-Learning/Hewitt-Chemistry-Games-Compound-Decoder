@@ -24,6 +24,10 @@
   letter-spacing: -0.05em; /* Narrowing the letter space created in order to avoid being searched on page */
 }
 
+.periodic-table-element-score{
+  font-family: Soliloquous, sans-serif;
+}
+
 .periodic-table-element-name {
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -40,6 +44,11 @@
 .periodic-table-element-to-find {
   background-color: white;
   cursor: default;
+}
+
+.periodic-table-element-advanced{ /* Text for active element in advanced difficulty */
+  font-family: Soliloquous, sans-serif;
+  font-size: 2.1em;
 }
 .periodic-table-element-metal {
   background: #9abee4;
