@@ -26,7 +26,7 @@ export enum MatchStatus {
 const getInitialElementStates = () =>
   periodicTable.map((row) => row.map(() => ElementState.NotClicked));
 
-interface GameState {
+export interface GameState {
   word: string;
   error: string | undefined;
   score: number;
