@@ -32,6 +32,8 @@ export const ElementToFind = ({ element, level }: Props) => {
       class={clsx(
         "periodic-table-element",
         "periodic-table-element-to-find",
+        "box-text",
+        "box-element",
         element.classification === ElementClassification.Metal &&
           "periodic-table-element-metal",
         element.classification === ElementClassification.Metalloid &&
@@ -53,7 +55,12 @@ export const ElementToFind = ({ element, level }: Props) => {
     </button>
   ) : level === Level.Intermediate ? (
     <button
-      class={clsx("periodic-table-element", "periodic-table-element-to-find")}
+      class={clsx(
+        "box-element",
+        "periodic-table-element",
+        "periodic-table-element-to-find",
+        "box-text",
+      )}
     >
       <span class="periodic-table-element-symbol">
         {addSpace(element.symbol)}
@@ -62,7 +69,11 @@ export const ElementToFind = ({ element, level }: Props) => {
     </button>
   ) : level === Level.Advanced ? (
     <button
-      class={clsx("periodic-table-element", "periodic-table-element-to-find")}
+      class={clsx(
+        "box-text",
+        "periodic-table-element",
+        "periodic-table-element-to-find",
+      )}
     >
       <span class="periodic-table-element-name">{addSpace(element.name)}</span>
     </button>
