@@ -123,7 +123,7 @@ export const useGameState = (level: Level): GameState => {
             const currTime = new Date().getTime(); //ms since enoch
             const elapsedTime = (currTime - startTime) / 1000; //get the time elapsed since last correct match in seconds
             //set temp vars to the values calculated from scoring function
-            [newScore, newStreak] = computeNewScore(elapsedTime, score, streak);
+            [newScore, newStreak] = computeNewScore(elapsedTime, score, streak, level);
             setScore(newScore);
             setStreak(newStreak);
 
