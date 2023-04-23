@@ -1,5 +1,5 @@
 /**
- * Calculate the score based on current state of game (curr score, time to match curr element, and current streak number)
+ * Calculate components of the score based on current state of game (curr score, time to match curr element, and current streak number)
  * @param time - the time it has taken to match the current element (gamestate variable)
  * @param score - the current score of the game at the time of calling this function (game-state variable)
  * @param streak - the number of correct matches in a row, part of the game-state
@@ -10,9 +10,9 @@ export const computeNewScore = (
   streak: number,
 ) => {
   const baseCorrectPoints = 1000;
-  //add to overall game score a base number of points, streakBonus, and timeBonus per correct match.
-  score += baseCorrectPoints + streakBonusCalc(streak) + timeBonus(time);
-  return [score, streak];
+  // return invidiual elements of new score calculation:
+  // a base number of points, streakBonus, and timeBonus per correct match.
+  return [baseCorrectPoints, streakBonusCalc(streak), timeBonus(time)];
 };
 
 /**

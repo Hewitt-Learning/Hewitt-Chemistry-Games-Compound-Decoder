@@ -41,8 +41,14 @@ export const TheBox = ({ gameState, element, level }: Props) => {
         <ElementToFind element={element} level={level} />
       )}
       <h1 class="box-text">Score: {gameState.score}</h1>
+      {gameState.matchStatus === MatchStatus.Correct && (
+        <h1 class={clsx("match-text-score-description", "match-text-good")}>
+          Base - {gameState.scoreCompBase} Streak - {gameState.scoreCompStreak}{" "}
+          Time - {gameState.scoreCompTime}
+        </h1>
+      )}
 
-      <div class="match-text">
+      <div>
         {/* display the current score & match status of active element to the screen. TODO: make it look better */}
         {(gameState.matchStatus === MatchStatus.Correct && (
           <h1 class={clsx("match-text-good", "match-text")}>

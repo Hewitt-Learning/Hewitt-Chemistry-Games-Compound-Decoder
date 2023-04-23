@@ -12,6 +12,7 @@
   text-align: center;
   font-size: 1.5em;
 }
+
 .box-element {
   margin: 0 auto;
 }
@@ -20,8 +21,15 @@
   color: green;
 }
 
+.match-text-score-description {
+  font-family: Soliloquous, sans-serif;
+  text-align: center;
+  font-size: 1em;
+}
+
 .match-text-bad {
   color: red;
+  font-size: 5em;
 }
 
 .match-text {
@@ -32,11 +40,10 @@
 }
 
 .game-info {
-  
   background: white;
-  grid-column: 3 / span 6;
+  grid-column: 4 / span 8;
   grid-row: 1 / span 3;
-  margin: 2em;
+  margin: 1em;
   padding: 2em;
   font-size: clamp(10px, calc(0.5vw + 5px), 16px);
   min-width: 9em;
