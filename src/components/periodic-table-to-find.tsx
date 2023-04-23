@@ -32,7 +32,6 @@ export const ElementToFind = ({ element, level }: Props) => {
       class={clsx(
         "periodic-table-element",
         "periodic-table-element-to-find",
-        "box-text",
         "box-element",
         element.classification === ElementClassification.Metal &&
           "periodic-table-element-metal",
@@ -71,6 +70,7 @@ export const ElementToFind = ({ element, level }: Props) => {
     <button
       class={clsx(
         "box-text",
+        "box-element",
         "periodic-table-element",
         "periodic-table-element-to-find",
       )}
