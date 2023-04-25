@@ -37,15 +37,9 @@ export const PeriodicTable = ({ level }: Props) => {
     <div class="periodic-table-wrapper">
       <div class="periodic-table">
         {/* THE BOX */}
-        <div class="game-info">
-          {activeElement && (
-            <TheBox
-              gameState={gameState}
-              element={activeElement}
-              level={level}
-            />
-          )}
-        </div>
+        {activeElement && (
+          <TheBox gameState={gameState} element={activeElement} level={level} />
+        )}
         {/* end of THE BOX */}
 
         {periodicTable.map((row, rowIndex) => {

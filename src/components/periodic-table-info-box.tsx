@@ -30,33 +30,37 @@ interface Props {
 
 export const TheBox = ({ gameState, element, level }: Props) => {
   return (
-    <div>
+    <div class="game-info">
       {!true &&
         (gameState.error ? (
           <h1 class="box-text">{gameState.error}</h1>
         ) : (
           <h1 class="box-text">Word does not fit</h1>
         ))}
+      {/* column 1 */}
       {gameState.activeElement && (
         <ElementToFind element={element} level={level} />
       )}
-      <h1 class="box-text">Score: {gameState.score}</h1>
+
+      <div class="box-text">Score: {gameState.score}</div>
+
       {gameState.matchStatus === MatchStatus.Correct && (
         <h1 class={clsx("match-text-score-description", "match-text-good")}>
-          Base - {gameState.scoreCompBase} Streak - {gameState.scoreCompStreak}{" "}
-          Time - {gameState.scoreCompTime}
+          <div>+ {gameState.scoreCompBase}</div>
+          <div>+ {gameState.scoreCompStreak}</div>
+          <div>+ {gameState.scoreCompTime}</div>
         </h1>
       )}
 
       <div>
         {/* display the current score & match status of active element to the screen. TODO: make it look better */}
         {(gameState.matchStatus === MatchStatus.Correct && (
-          <h1 class={clsx("match-text-good", "match-text")}>
+          <h1 class={clsx("match-text", "match-text-good")}>
             {goodWords[Math.round(Math.random() * goodWords.length)]}
           </h1>
         )) ||
           (gameState.matchStatus === MatchStatus.Incorrect && (
-            <h1 class={clsx("match-text-bad", "match-text")}>
+            <h1 class={clsx("match-text", "match-text-bad")}>
               {badWords[Math.round(Math.random() * badWords.length)]}
             </h1>
           ))}
