@@ -29,26 +29,25 @@ interface Props {
   level: Level;
 }
 
-export const TheBox = ({ gameState, element, level }: Props) => {
-  /** Keeps track of whether the clock is to be displayed or not */
-  const [clock, setClock] = useState<boolean>(false);
+export const InfoBox = ({ gameState, element, level }: Props) => {
+  /** Keeps track of whether the showClock is to be displayed or not */
+  const [showClock, setShowClock] = useState<boolean>(false);
   /**  Keeps track of the current time (in milliseconds since enoch), used to figure out time spent matching the current element*/
   const [currTime, setCurrTime] = useState(new Date().getTime());
 
   /** currWord is used to keep track of the current matchStatus display word so that it doesn't change when matchStatus changes */
-  const [currWord, setCurrWord] = useState<string>(); 
+  const [currWord, setCurrWord] = useState<string>();
 
   /** Initial defn of elapsed time, which is the amount of time elapsed since the start of this element's matching phase in seconds*/
-  let elapsedTime = (currTime - gameState.startTime) / 1000; 
+  const elapsedTime = (currTime - gameState.startTime) / 1000;
 
-  /** 
+  /**
    * This useEffect function updates the current time every second (since updating currTime as fast as possible
    * would re-render everything every time currTime updates)
    */
   useEffect(() => {
     setInterval(() => {
       setCurrTime(new Date().getTime());
-      elapsedTime = (currTime - gameState.startTime) / 1000;
     }, 1000);
   }, []);
 
@@ -57,43 +56,46 @@ export const TheBox = ({ gameState, element, level }: Props) => {
    */
   useEffect(() => {
     // if the match attempt was good
-    if(gameState.matchStatus === MatchStatus.Correct) {
+    if (gameState.matchStatus === MatchStatus.Correct) {
       setCurrWord(goodWords[Math.round(Math.random() * goodWords.length)]);
     }
     // if the match attempt was bad
-    else if(gameState.matchStatus === MatchStatus.Incorrect) {
+    else if (gameState.matchStatus === MatchStatus.Incorrect) {
       setCurrWord(badWords[Math.round(Math.random() * badWords.length)]);
     }
     // if the match has not happened yet, the word does not exist
     else {
       setCurrWord("");
     }
-  }, [gameState.matchStatus])
+  }, [gameState.matchStatus]);
 
   return (
     <div class="game-info">
       {/* row 1 column 1 */}
       {/* If the game has an error display the error, otherwise show the active element */}
-      {!true &&
+      {(false &&
         (gameState.error ? (
           <h1 class="box-text">{gameState.error}</h1>
         ) : (
           <h1 class="box-text">Word does not fit</h1>
-        ))
-        || true && gameState.activeElement && (
+        ))) ||
+        (gameState.activeElement && (
           <ElementToFind element={element} level={level} />
-      )}
+        ))}
 
       {/* first row, second column */}
-      <div class="box-text">Score <div></div>{gameState.score}</div>
+      <div class="box-text">
+        Score <div></div>
+        {gameState.score}
+      </div>
 
       {/* display score breakdown if there is a correct match or stay empty if incorrect match*/}
       {(gameState.matchStatus === MatchStatus.Correct && (
-        <h1 class={clsx("match-text-score-description", "match-text-good")}>
-          <div>+ {gameState.scoreCompBase}</div>
-          <div>+ {gameState.scoreCompStreak}</div>
-          <div>+ {gameState.scoreCompTime}</div>
-        </h1>
+        <h2 class={clsx("match-text-score-description", "match-text-good")}>
+          <div>+ {gameState.scoreCompBase} (base)</div>
+          <div>+ {gameState.scoreCompStreak} (streak bonus)</div>
+          <div>+ {gameState.scoreCompTime} (time bonus)</div>
+        </h2>
       )) ||
         (gameState.matchStatus === MatchStatus.Incorrect && (
           <div class="box-text"></div>
@@ -119,11 +121,7 @@ export const TheBox = ({ gameState, element, level }: Props) => {
         <button
           class="clock-toggle"
           onClick={() => {
-            if (!clock) {
-              setClock(true);
-            } else {
-              setClock(false);
-            }
+            setShowClock(!showClock);
           }}
         >
           {/* use the icon from w3.org  */}
@@ -141,7 +139,9 @@ export const TheBox = ({ gameState, element, level }: Props) => {
       {/* second row, final column should be a toggle-able clock that increments every second if enabled */}
       {}
       <div class={clsx("clock-element", "box-text")}>
-        <div>{clock && (Math.round(elapsedTime * 100) / 100).toFixed(0)}</div>
+        <div>
+          {showClock && (Math.round(elapsedTime * 100) / 100).toFixed(0)}
+        </div>
       </div>
     </div>
   );

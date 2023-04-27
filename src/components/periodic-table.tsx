@@ -3,7 +3,7 @@ import { PeriodicTableElement } from "./periodic-table-element";
 import { ElementToFind } from "./periodic-table-to-find";
 import "./periodic-table.css";
 import { useGameState, MatchStatus } from "../game-state";
-import { TheBox } from "./periodic-table-info-box";
+import { InfoBox } from "./periodic-table-info-box";
 
 /** The possible states for each displayed element during the game */
 export enum ElementState {
@@ -38,7 +38,11 @@ export const PeriodicTable = ({ level }: Props) => {
       <div class="periodic-table">
         {/* THE BOX */}
         {activeElement && (
-          <TheBox gameState={gameState} element={activeElement} level={level} />
+          <InfoBox
+            gameState={gameState}
+            element={activeElement}
+            level={level}
+          />
         )}
         {/* end of THE BOX */}
 

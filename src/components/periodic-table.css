@@ -7,7 +7,6 @@
   padding: 2em;
 }
 
-
 .match-text-bad {
   color: red;
   font-size: 5em;
@@ -15,7 +14,6 @@
 .match-text-good {
   color: green;
 }
-
 
 .box-text {
   grid-area: "box-text";
@@ -32,8 +30,8 @@
 .match-text-score-description {
   grid-area: "score-desc";
   font-family: Soliloquous, sans-serif;
-  text-align: center;
-  font-size: 1.5em;
+  text-align: left;
+  font-size: 1.25em;
 }
 
 .match-text {
@@ -70,7 +68,7 @@
   grid-template-rows: repeat(2, minmax(0, 1fr));
   grid-template-areas:
     "element box-text score-desc"
-    "match-text clock-toggle box-text"; 
+    "match-text clock-toggle box-text";
   grid-column: 4 / span 8;
   grid-row: 1 / span 3;
   gap: 0.5em;
@@ -80,5 +78,3 @@
   max-height: 14em;
   align-items: center;
 }
-
-
