@@ -46,7 +46,7 @@
 .clock-toggle {
   font-size: inherit;
   font-family: inherit;
-  display: grid;
+  background-color: inherit;
   margin: auto 0em;
   border: none;
   cursor: pointer;
@@ -58,6 +58,9 @@
 .clock-icon {
   width: 3em;
   height: 3em;
+  transition-property: transform, box-shadow, background-color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 }
 
 .game-info {
@@ -67,14 +70,12 @@
   grid-template-rows: repeat(2, minmax(0, 1fr));
   grid-template-areas:
     "element box-text score-desc"
-    "match-text clock-toggle box-text";
-
+    "match-text clock-toggle box-text"; 
   grid-column: 4 / span 8;
   grid-row: 1 / span 3;
   gap: 0.5em;
   margin: 1em;
   padding: 2em;
-  /* font-size: clamp(10px, calc(0.5vw + 5px), 16px); */
   min-width: 9em;
   max-height: 14em;
   align-items: center;

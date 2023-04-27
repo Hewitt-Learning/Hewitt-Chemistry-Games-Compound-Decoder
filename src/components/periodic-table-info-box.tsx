@@ -30,10 +30,21 @@ interface Props {
 }
 
 export const TheBox = ({ gameState, element, level }: Props) => {
+  /** Keeps track of whether the clock is to be displayed or not */
   const [clock, setClock] = useState<boolean>(false);
-  const [currTime, setCurrTime] = useState(new Date().getTime()); //ms since enoch
-  let elapsedTime = (currTime - gameState.startTime) / 1000; //time elapsed since the start of this element's matching phase in seconds
+  /**  Keeps track of the current time (in milliseconds since enoch), used to figure out time spent matching the current element*/
+  const [currTime, setCurrTime] = useState(new Date().getTime());
 
+  /** currWord is used to keep track of the current matchStatus display word so that it doesn't change when matchStatus changes */
+  const [currWord, setCurrWord] = useState<string>(); 
+
+  /** Initial defn of elapsed time, which is the amount of time elapsed since the start of this element's matching phase in seconds*/
+  let elapsedTime = (currTime - gameState.startTime) / 1000; 
+
+  /** 
+   * This useEffect function updates the current time every second (since updating currTime as fast as possible
+   * would re-render everything every time currTime updates)
+   */
   useEffect(() => {
     setInterval(() => {
       setCurrTime(new Date().getTime());
@@ -41,24 +52,42 @@ export const TheBox = ({ gameState, element, level }: Props) => {
     }, 1000);
   }, []);
 
-  //console.log(elapsedTime);
+  /**
+   * This useEffect handles what match status word the user sees when the user makes a match attempt.
+   */
+  useEffect(() => {
+    // if the match attempt was good
+    if(gameState.matchStatus === MatchStatus.Correct) {
+      setCurrWord(goodWords[Math.round(Math.random() * goodWords.length)]);
+    }
+    // if the match attempt was bad
+    else if(gameState.matchStatus === MatchStatus.Incorrect) {
+      setCurrWord(badWords[Math.round(Math.random() * badWords.length)]);
+    }
+    // if the match has not happened yet, the word does not exist
+    else {
+      setCurrWord("");
+    }
+  }, [gameState.matchStatus])
+
   return (
     <div class="game-info">
+      {/* row 1 column 1 */}
+      {/* If the game has an error display the error, otherwise show the active element */}
       {!true &&
         (gameState.error ? (
           <h1 class="box-text">{gameState.error}</h1>
         ) : (
           <h1 class="box-text">Word does not fit</h1>
-        ))}
-      {/* column 1 */}
-      {gameState.activeElement && (
-        <ElementToFind element={element} level={level} />
+        ))
+        || true && gameState.activeElement && (
+          <ElementToFind element={element} level={level} />
       )}
 
-      <div class="box-text">Score: {gameState.score}</div>
+      {/* first row, second column */}
+      <div class="box-text">Score <div></div>{gameState.score}</div>
 
-      {/* configure the top right element of the grid to display score breakdown if
-      there is a correct match or stay empty if incorrect match*/}
+      {/* display score breakdown if there is a correct match or stay empty if incorrect match*/}
       {(gameState.matchStatus === MatchStatus.Correct && (
         <h1 class={clsx("match-text-score-description", "match-text-good")}>
           <div>+ {gameState.scoreCompBase}</div>
@@ -72,21 +101,20 @@ export const TheBox = ({ gameState, element, level }: Props) => {
         (gameState.matchStatus === MatchStatus.InProgress && <div></div>)}
 
       <div>
-        {/* display the current score & match status of active element to the screen. TODO: make it look better */}
+        {/* display the current score & match status of active element to the screen. */}
         {(gameState.matchStatus === MatchStatus.Correct && (
           <h1 class={clsx("box-text", "match-text", "match-text-good")}>
-            {goodWords[Math.round(Math.random() * goodWords.length)]}
+            {currWord}
           </h1>
         )) ||
           (gameState.matchStatus === MatchStatus.Incorrect && (
             <h1 class={clsx("box-text", "match-text", "match-text-bad")}>
-              {badWords[Math.round(Math.random() * badWords.length)]}
+              {currWord}
             </h1>
           )) || <div class="match-text"></div>}
       </div>
 
-      {/* second row, second column is empty */}
-
+      {/* second row, second column has the button to toggle the timer for the current element */}
       <div class="box-text">
         <button
           class="clock-toggle"
@@ -98,6 +126,7 @@ export const TheBox = ({ gameState, element, level }: Props) => {
             }
           }}
         >
+          {/* use the icon from w3.org  */}
           <svg
             class="clock-icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +138,7 @@ export const TheBox = ({ gameState, element, level }: Props) => {
         </button>
       </div>
 
-      {/* second row, final column should be a toggle-able clock */}
+      {/* second row, final column should be a toggle-able clock that increments every second if enabled */}
       {}
       <div class={clsx("clock-element", "box-text")}>
         <div>{clock && (Math.round(elapsedTime * 100) / 100).toFixed(0)}</div>
