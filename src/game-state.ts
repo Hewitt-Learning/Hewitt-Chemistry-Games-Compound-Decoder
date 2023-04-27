@@ -136,6 +136,7 @@ export const useGameState = (level: Level): GameState => {
               elapsedTime,
               score,
               streak,
+              level,
             );
             newScore = score + basePoints + streakBonus + timeBonus;
             setScore(newScore);

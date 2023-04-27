@@ -73,6 +73,7 @@ export const ElementToFind = ({ element, level }: Props) => {
         "box-element",
         "periodic-table-element",
         "periodic-table-element-to-find",
+        "periodic-table-element-advanced",
       )}
     >
       <span class="periodic-table-element-name">{addSpace(element.name)}</span>
