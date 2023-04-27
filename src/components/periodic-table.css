@@ -43,6 +43,23 @@
   text-align: center;
 }
 
+.clock-toggle {
+  font-size: inherit;
+  font-family: inherit;
+  display: grid;
+  margin: auto 0em;
+  border: none;
+  cursor: pointer;
+  transition-property: transform, box-shadow, background-color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+.clock-icon {
+  width: 3em;
+  height: 3em;
+}
+
 .game-info {
   background: white;
   display: grid;
@@ -50,7 +67,7 @@
   grid-template-rows: repeat(2, minmax(0, 1fr));
   grid-template-areas:
     "element box-text score-desc"
-    ". . match-text";
+    "match-text clock-toggle box-text";
 
   grid-column: 4 / span 8;
   grid-row: 1 / span 3;

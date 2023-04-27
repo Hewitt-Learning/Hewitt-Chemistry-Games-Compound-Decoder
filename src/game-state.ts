@@ -30,6 +30,7 @@ export interface GameState {
   word: string;
   error: string | undefined;
   score: number;
+  startTime: number; //keeps track of the start time for the current element
   scoreCompBase: number; //the default bonus for each correct match
   scoreCompStreak: number; //the streak bonus component of score
   scoreCompTime: number; //the time bonus component of score
@@ -92,11 +93,11 @@ export const useGameState = (level: Level): GameState => {
     }
   }, [word]);
 
-  // set match state to InProgress after .5 seconds upon change of matchStatus state
+  // set match state to InProgress after 2 seconds upon change of matchStatus state
   useEffect(() => {
     setTimeout(() => {
       setMatchStatus(MatchStatus.InProgress);
-    }, 1500);
+    }, 2000);
   }, [matchStatus]);
 
   // Whenever the placement changes
@@ -175,6 +176,7 @@ export const useGameState = (level: Level): GameState => {
     word,
     error,
     score,
+    startTime,
     scoreCompBase,
     scoreCompStreak,
     scoreCompTime,
