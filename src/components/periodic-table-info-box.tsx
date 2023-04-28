@@ -1,10 +1,9 @@
 import { GameState, MatchStatus } from "../game-state";
 import { useEffect, useState } from "preact/hooks";
 import { ElementToFind } from "./periodic-table-to-find";
-import { PeriodicTable, ElementState, Level } from "./periodic-table";
+import { Level } from "./periodic-table";
 import { PeriodicTableElement as PeriodicTableElementType } from "../periodic-table-data";
 import clsx from "clsx";
-import { addSpace } from "./periodic-table-space";
 
 const goodWords: string[] = [
   "Nice!",
@@ -73,47 +72,49 @@ export const InfoBox = ({ gameState, element, level }: Props) => {
     <div class="game-info">
       {/* row 1 column 1 */}
       {/* If the game has an error display the error, otherwise show the active element */}
-      {(false &&
-        (gameState.error ? (
+
+      {!gameState.activeElement ? (
+        gameState.error ? (
           <h1 class="box-text">{gameState.error}</h1>
         ) : (
           <h1 class="box-text">Word does not fit</h1>
-        ))) ||
-        (gameState.activeElement && (
-          <ElementToFind element={element} level={level} />
-        ))}
+        )
+      ) : (
+        <ElementToFind element={element} level={level} />
+      )}
 
       {/* first row, second column */}
       <div class="box-text">
-        Score <div></div>
-        {gameState.score}
+        Score
+        <div>{gameState.score}</div>
       </div>
 
       {/* display score breakdown if there is a correct match or stay empty if incorrect match*/}
-      {(gameState.matchStatus === MatchStatus.Correct && (
+      {gameState.matchStatus === MatchStatus.Correct ? (
         <h2 class={clsx("match-text-score-description", "match-text-good")}>
           <div>+ {gameState.scoreCompBase} (base)</div>
           <div>+ {gameState.scoreCompStreak} (streak bonus)</div>
           <div>+ {gameState.scoreCompTime} (time bonus)</div>
         </h2>
-      )) ||
-        (gameState.matchStatus === MatchStatus.Incorrect && (
-          <div class="box-text"></div>
-        )) ||
-        (gameState.matchStatus === MatchStatus.InProgress && <div></div>)}
+      ) : (
+        <div class="box-text"></div>
+      )}
 
       <div>
         {/* display the current score & match status of active element to the screen. */}
-        {(gameState.matchStatus === MatchStatus.Correct && (
-          <h1 class={clsx("box-text", "match-text", "match-text-good")}>
-            {currWord}
-          </h1>
-        )) ||
-          (gameState.matchStatus === MatchStatus.Incorrect && (
+        {gameState.matchStatus !== MatchStatus.InProgress ? (
+          gameState.matchStatus === MatchStatus.Correct ? (
+            <h1 class={clsx("box-text", "match-text", "match-text-good")}>
+              {currWord}
+            </h1>
+          ) : (
             <h1 class={clsx("box-text", "match-text", "match-text-bad")}>
               {currWord}
             </h1>
-          )) || <div class="match-text"></div>}
+          )
+        ) : (
+          <div class="match-text"></div>
+        )}
       </div>
 
       {/* second row, second column has the button to toggle the timer for the current element */}
@@ -137,7 +138,6 @@ export const InfoBox = ({ gameState, element, level }: Props) => {
       </div>
 
       {/* second row, final column should be a toggle-able clock that increments every second if enabled */}
-      {}
       <div class={clsx("clock-element", "box-text")}>
         <div>
           {showClock && (Math.round(elapsedTime * 100) / 100).toFixed(0)}

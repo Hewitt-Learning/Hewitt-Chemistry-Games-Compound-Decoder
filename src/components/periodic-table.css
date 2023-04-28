@@ -69,12 +69,12 @@
   grid-template-areas:
     "element box-text score-desc"
     "match-text clock-toggle box-text";
-  grid-column: 4 / span 8;
+  grid-column: 3 / span 10;
   grid-row: 1 / span 3;
   gap: 0.5em;
   margin: 1em;
-  padding: 2em;
-  min-width: 9em;
+  padding: 3em;
+  min-width: 4em;
   max-height: 14em;
   align-items: center;
 }
