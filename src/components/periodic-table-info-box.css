@@ -1,0 +1,74 @@
+/* @import "periodic-table.css"; */
+
+.match-text-bad {
+  color: red;
+  font-size: 5em;
+}
+.match-text-good {
+  color: green;
+}
+
+.box-text {
+  font-family: Soliloquous, sans-serif;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.box-element {
+  grid-area: "element";
+  margin: 0 auto;
+}
+
+.match-text-score-description {
+  grid-area: "score-desc";
+  font-family: Soliloquous, sans-serif;
+  text-align: left;
+  font-size: 1.25em;
+}
+
+.match-text {
+  font-family: Soliloquous, sans-serif;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.clock-toggle {
+  font-size: inherit;
+  font-family: inherit;
+  background-color: inherit;
+  margin: auto 0em;
+  border: none;
+  cursor: pointer;
+  align-self: auto;
+  transition-property: transform, box-shadow, background-color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+.clock-icon {
+  width: 1.5em;
+  height: 1.5em;
+  align-self: auto;
+  justify-content: left;
+  transition-property: transform, box-shadow, background-color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+.game-info {
+  background: white;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  grid-template-areas:
+    "element box-text score-desc"
+    "match-text clock-toggle box-text";
+  grid-column: 3 / span 10;
+  grid-row: 1 / span 3;
+  gap: 0.5em;
+  margin: 1em;
+  padding: 3em;
+  min-width: 4em;
+  max-height: 14em;
+  align-items: center;
+}

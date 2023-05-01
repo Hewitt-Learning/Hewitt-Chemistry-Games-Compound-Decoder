@@ -92,9 +92,21 @@ export const InfoBox = ({ gameState, element, level }: Props) => {
       {/* display score breakdown if there is a correct match or stay empty if incorrect match*/}
       {gameState.matchStatus === MatchStatus.Correct ? (
         <h2 class={clsx("match-text-score-description", "match-text-good")}>
-          <div>+ {gameState.scoreCompBase} (base)</div>
-          <div>+ {gameState.scoreCompStreak} (streak bonus)</div>
-          <div>+ {gameState.scoreCompTime} (time bonus)</div>
+          {gameState.scoreCompBase !== 0 ? (
+            <div>+ {gameState.scoreCompBase} (base)</div>
+          ) : (
+            <div></div>
+          )}
+          {gameState.scoreCompStreak !== 0 ? (
+            <div>+ {gameState.scoreCompStreak} (streak bonus)</div>
+          ) : (
+            <div></div>
+          )}
+          {gameState.scoreCompTime !== 0 ? (
+            <div>+ {gameState.scoreCompTime} (time bonus)</div>
+          ) : (
+            <div></div>
+          )}
         </h2>
       ) : (
         <div class="box-text"></div>
@@ -117,30 +129,30 @@ export const InfoBox = ({ gameState, element, level }: Props) => {
         )}
       </div>
 
+      <div></div>
       {/* second row, second column has the button to toggle the timer for the current element */}
-      <div class="box-text">
-        <button
-          class="clock-toggle"
-          onClick={() => {
-            setShowClock(!showClock);
-          }}
-        >
-          {/* use the icon from w3.org  */}
-          <svg
-            class="clock-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <title>Toggle Clock</title>
-            <path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" />
-          </svg>
-        </button>
-      </div>
 
       {/* second row, final column should be a toggle-able clock that increments every second if enabled */}
       <div class={clsx("clock-element", "box-text")}>
-        <div>
-          {showClock && (Math.round(elapsedTime * 100) / 100).toFixed(0)}
+        <div class="box-text">
+          <button
+            class="clock-toggle"
+            onClick={() => {
+              setShowClock(!showClock);
+            }}
+          >
+            <svg
+              class="clock-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <title>Toggle Clock</title>
+              <path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" />
+            </svg>
+          </button>{" "}
+          <span style="justify-content: end">
+            {showClock && (Math.round(elapsedTime * 100) / 100).toFixed(0)}
+          </span>
         </div>
       </div>
     </div>
