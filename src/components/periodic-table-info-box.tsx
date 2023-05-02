@@ -134,7 +134,7 @@ export const InfoBox = ({ gameState, element, level }: Props) => {
 
       {/* second row, final column should be a toggle-able clock that increments every second if enabled */}
       <div class={clsx("clock-element", "box-text")}>
-        <div class="box-text">
+        <div class={clsx("box-text", "clock-elements")}>
           <button
             class="clock-toggle"
             onClick={() => {
