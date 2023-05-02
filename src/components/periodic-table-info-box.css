@@ -2,43 +2,46 @@
 
 .match-text-bad {
   color: red;
-  font-size: 5em;
 }
 .match-text-good {
   color: green;
 }
 
-.box-text {
-  font-family: Soliloquous, sans-serif;
-  text-align: center;
-  font-size: 1.5em;
+.feedback {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  font-size: 0.6em;
 }
 
-.box-element {
-  grid-area: "element";
-  margin: 0 auto;
+.element-and-feedback {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  grid-area: element;
 }
 
 .match-text-score-description {
-  grid-area: "score-desc";
+  grid-area: score-desc;
   font-family: Soliloquous, sans-serif;
-  text-align: left;
-  font-size: 1.25em;
-}
-
-.match-text {
-  font-family: Soliloquous, sans-serif;
-  font-size: 1.5em;
   text-align: center;
+  font-size: 0.7em;
 }
 
 .clock-elements {
-  right: 1em;
-  bottom: 1em;
+  right: 0em;
+  bottom: 0em;
+  height: 3em;
+  display: flex;
+  align-items: center;
   position: absolute;
 }
 
 .clock-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: inherit;
   font-family: inherit;
   background-color: inherit;
@@ -52,8 +55,8 @@
 }
 
 .clock-icon {
-  width: 1.5em;
-  height: 1.5em;
+  width: 1.2em;
+  height: 1.2em;
   align-self: auto;
   justify-content: left;
   transition-property: transform, box-shadow, background-color;
@@ -61,22 +64,25 @@
   transition-timing-function: ease;
 }
 
+.clock-text {
+  font-size: 0.75em;
+}
+
 .game-info {
+  font-family: Soliloquous, sans-serif;
+  text-align: center;
+  font-size: 1.5em;
   position: relative;
   background: white;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-areas:
-    "element box-text score-desc"
-    "match-text clock-toggle box-text";
+    "element ."
+    "element score-desc";
   grid-column: 3 / span 10;
   grid-row: 1 / span 3;
   gap: 0.5em;
   margin: 1em;
   padding: 3em;
-  min-width: 4em;
-  height: 16em; 
-  max-height: 16em;
   align-items: center;
 }

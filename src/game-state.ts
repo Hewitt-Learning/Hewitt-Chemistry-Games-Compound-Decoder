@@ -97,7 +97,7 @@ export const useGameState = (level: Level): GameState => {
   useEffect(() => {
     setTimeout(() => {
       setMatchStatus(MatchStatus.InProgress);
-    }, 2000);
+    }, 5000);
   }, [matchStatus]);
 
   // Whenever the placement changes
