@@ -1,7 +1,7 @@
 import { Level } from "./components/periodic-table";
 
 /**
- * Calculate the score based on current state of game (curr score, time to match curr element, and current streak number)
+ * Calculate components of the score based on current state of game (curr score, time to match curr element, and current streak number)
  * @param time - the time it has taken to match the current element (gamestate variable)
  * @param score - the current score of the game at the time of calling this function (game-state variable)
  * @param streak - the number of correct matches in a row, part of the game-state
@@ -13,9 +13,9 @@ export const computeNewScore = (
   level: Level,
 ) => {
   const baseCorrectPoints = 1000;
-  //add to overall game score a base number of points, streakBonus, and timeBonus per correct match.
-  score += baseCorrectPoints + streakBonusCalc(streak) + timeBonus(time, level);
-  return [score, streak];
+  // return invidiual elements of new score calculation:
+  // a base number of points, streakBonus, and timeBonus per correct match.
+  return [baseCorrectPoints, streakBonusCalc(streak), timeBonus(time, level)];
 };
 
 /**
@@ -50,11 +50,11 @@ const streakBonusCalc = (streak: number) => {
 const timeBonus = (time: number, level: Level) => {
   const timeBonusMax = 1000; //the maximum number of points that can be added (e.g. quickest match = 0 seconds)
   let decayRate = 1.0;
-  if (level == Level.Beginner){
+  if (level == Level.Beginner) {
     decayRate = 0.1;
-  } else if (level == Level.Intermediate){
+  } else if (level == Level.Intermediate) {
     decayRate = 0.5;
-  } else if (level == Level.Advanced){
+  } else if (level == Level.Advanced) {
     decayRate = 0.8;
   }
 

@@ -26,10 +26,14 @@ export enum MatchStatus {
 const getInitialElementStates = () =>
   periodicTable.map((row) => row.map(() => ElementState.NotClicked));
 
-interface GameState {
+export interface GameState {
   word: string;
   error: string | undefined;
   score: number;
+  startTime: number; //keeps track of the start time for the current element
+  scoreCompBase: number; //the default bonus for each correct match
+  scoreCompStreak: number; //the streak bonus component of score
+  scoreCompTime: number; //the time bonus component of score
   /** The row and column corresponding to the element that is being looked for */
   activeElement: RowCol | undefined;
   matchStatus: MatchStatus;
@@ -62,6 +66,10 @@ export const useGameState = (level: Level): GameState => {
   const [elementSequence, setElementSequence] = useState<RowCol[]>([]);
   const [error, setError] = useState<undefined | string>(undefined);
   const [score, setScore] = useState(0);
+  const [scoreCompBase, setScoreCompBase] = useState<number>(0);
+  const [scoreCompStreak, setScoreCompStreak] = useState<number>(0);
+  const [scoreCompTime, setScoreCompTime] = useState<number>(0);
+
   /** The number of elements that have been correctly found in a row without mistakes */
   const [streak, setStreak] = useState(0);
   /** The amount of time that has passed since the current element began to be looked for */
@@ -85,11 +93,11 @@ export const useGameState = (level: Level): GameState => {
     }
   }, [word]);
 
-  // set match state to InProgress after .5 seconds upon change of matchStatus state
+  // set match state to InProgress after 2 seconds upon change of matchStatus state
   useEffect(() => {
     setTimeout(() => {
       setMatchStatus(MatchStatus.InProgress);
-    }, 750);
+    }, 5000);
   }, [matchStatus]);
 
   // Whenever the placement changes
@@ -119,13 +127,23 @@ export const useGameState = (level: Level): GameState => {
             colIndex === activeElement.col
           ) {
             //logic for updating score/streak
-            let newScore, newStreak; //temps to hold output of score calculation
+            let newScore, basePoints, streakBonus, timeBonus; //temps to hold output of score calculation
             const currTime = new Date().getTime(); //ms since enoch
             const elapsedTime = (currTime - startTime) / 1000; //get the time elapsed since last correct match in seconds
             //set temp vars to the values calculated from scoring function
-            [newScore, newStreak] = computeNewScore(elapsedTime, score, streak, level);
+            //[newScore, newStreak] = computeNewScore(elapsedTime, score, streak);
+            [basePoints, streakBonus, timeBonus] = computeNewScore(
+              elapsedTime,
+              score,
+              streak,
+              level,
+            );
+            newScore = score + basePoints + streakBonus + timeBonus;
             setScore(newScore);
-            setStreak(newStreak);
+            setStreak(streak + 1);
+            setScoreCompBase(basePoints);
+            setScoreCompStreak(streakBonus);
+            setScoreCompTime(timeBonus);
 
             setStartTime(new Date().getTime()); //set new startTime for next element to match
             return ElementState.FoundElement; //Mark as found
@@ -159,6 +177,10 @@ export const useGameState = (level: Level): GameState => {
     word,
     error,
     score,
+    startTime,
+    scoreCompBase,
+    scoreCompStreak,
+    scoreCompTime,
     activeElement,
     matchStatus,
     elementStates,
