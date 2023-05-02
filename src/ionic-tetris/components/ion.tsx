@@ -25,7 +25,7 @@ export const Ion = ({ ion }: Props) => {
       )}
     >
       <div class="ion-inner">
-        {ion.name}
+        {ion.symbol}
         <span class="ion-charge">{chargeToString(ion.charge)}</span>
       </div>
     </div>
