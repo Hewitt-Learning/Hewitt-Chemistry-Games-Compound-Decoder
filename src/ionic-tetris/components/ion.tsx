@@ -7,11 +7,7 @@ interface Props {
 }
 
 const chargeToString = (charge: number) => {
-  if (charge === 1) {
-    return "+";
-  } else if (charge === -1) {
-    return "-";
-  } else if (charge === 0) {
+  if (charge === 0) {
     return "";
   } else if (charge > 0) {
     return `+${charge}`;
