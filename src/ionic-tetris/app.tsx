@@ -3,8 +3,9 @@ import "./app.css";
 import { useState } from "preact/hooks";
 
 export interface Ion {
-  name: string;
+  symbol: string;
   charge: number;
+
 }
 
 export interface RowState {
@@ -34,24 +35,14 @@ export function App() {
         rows: [
           {
             columns: [
-              { name: "Al", charge: 3 },
-              { name: "P", charge: -3 },
+              { symbol: "Al", charge: 3 },
+              { symbol: "P", charge: -3 },
             ],
           },
           {
             columns: [
-              { name: "Al", charge: 3 },
-              { name: "N", charge: -3 },
-            ],
-          },
-        ],
-      },
-      {
-        rows: [
-          {
-            columns: [
-              { name: "Al", charge: 3 },
-              { name: "P", charge: -3 },
+              { symbol: "Al", charge: 3 },
+              { symbol: "N", charge: -3 },
             ],
           },
         ],
@@ -60,9 +51,8 @@ export function App() {
         rows: [
           {
             columns: [
-              { name: "Li", charge: 1 },
-              { name: "Li", charge: 1 },
-              { name: "O", charge: -2 },
+              { symbol: "Al", charge: 3 },
+              { symbol: "P", charge: -3 },
             ],
           },
         ],
@@ -71,9 +61,20 @@ export function App() {
         rows: [
           {
             columns: [
-              { name: "Li", charge: 1 },
-              { name: "Li", charge: 1 },
-              { name: "O", charge: -2 },
+              { symbol: "Li", charge: 1 },
+              { symbol: "Li", charge: 1 },
+              { symbol: "O", charge: -2 },
+            ],
+          },
+        ],
+      },
+      {
+        rows: [
+          {
+            columns: [
+              { symbol: "Li", charge: 1 },
+              { symbol: "Li", charge: 1 },
+              { symbol: "O", charge: -2 },
             ],
           },
         ],
@@ -103,7 +104,7 @@ export function App() {
           setState((state) => {
             const newState = structuredClone(state);
             newState.buckets[0].rows[0].columns[0] = {
-              name: "K",
+              symbol: "K",
               charge: 1,
             };
             return newState;
