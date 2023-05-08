@@ -51,3 +51,37 @@ All the source code lives in the `src` folder. Its folder structure is:
 - `score-calc.ts`: Given the current score and streak, and the amount of time it took to find the element, returns the new score and streak. The score is calculated as the sum of three parts: The base score for correctly finding an element, an increasing "streak bonus" for getting multiple elements in a row correctly without mistakes, and a "time bonus" for answering correctly quickly. The comments in that file more specifically describe the calculations for each of those bonuses.
 - `index.css`: Contains global CSS styles, it is imported by the `main.tsx` component.
 - `vite-env.d.ts`: Sets up globals for TypeScript.
+
+
+Below is a graph of the high-level architecture of this project. We used rounded boxes with links to subgraphs to represent the different folders inside of `src`, unrounded boxes for specific files or components, and arrow cardinality to represent interaction between files and components (e.g. one-way arrows mean that the source of the arrow is not affected by the destination). Certain file names have been condensed for brevity, specifically within the `/src/components/` subfolder. This graph was made with the [Mermaid](https://mermaid.js.org/) diagramming and charting tool for GitHub/GitLab, and tested on Mermaid's [live testing website](https://mermaid.live/).
+
+```mermaid
+graph TD
+    SubGraph1 <---> components
+    Node3 <---> components
+    subgraph "component-items"
+    components(periodic-table)
+    components <--> CompNode2[periodic-table-element]
+    components <--> CompNode3[info-box]
+    components <--> CompNode4[element-to-find]
+    end
+
+    SubGraph2 ---> word-placement
+    subgraph "word-placement-items"
+    word-placement(word-placement/)
+    word-placement --> |Testing| WordNode1[index.test.ts]
+    word-placement --> |Manually defined letters| WordNode2[letter-definitions]
+    word-placement --> |Placement logic| WordNode3[index.ts]
+    end
+
+    subgraph "Main Graph"
+    Node1[main.tsx] --> Node2[app.tsx]
+    Node2 <--> SubGraph1(components/)
+    Node6[periodic-table-data] --> |data used as base for game| SubGraph1 
+    
+    Node3[game-state.tsx]
+    Node3 <--> Node4[score-calc.tsx]
+    Node5[random-element-sequence] -->|once per word change| Node3
+    SubGraph2(vite.config.ts) --> |word placement data| Node3
+    end
+```
