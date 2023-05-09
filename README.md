@@ -41,8 +41,8 @@ This project is a static site, where all of the interactive behavior is implemen
 
 All the source code lives in the `src` folder. Its folder structure is:
 
-- `components`: Holds Preact components for the UI.
-- `word-placement`: Holds logic related to the placement/fitting of words onto the periodic table grid. Also currently contains the list of valid words.
+- `components`: Holds Preact components for the UI, including current game board, info box, and the individual element info from the periodic table.
+- `word-placement`: Holds logic related to the placement/fitting of words onto the periodic table grid. Used primarily with `vite.config.ts` to filter the wordList and `game-state.ts` to place the current word on the periodic table.
 - `app.tsx`: The top-level rendered component.
 - `game-state.ts`: Keeps track of all of the game state. Most of the game logic is in here. This file exports a `useGameState` [hook](https://preactjs.com/guide/v10/hooks) that allow it to be pulled into components (in our case, specifically the `PeriodicTable` component). The `useGameState` hook returns properties for all the externally-visible state values, as well as functions to modify the state.
 - `main.tsx`: The entrypoint file, it renders the top-level component into the page.
@@ -51,6 +51,7 @@ All the source code lives in the `src` folder. Its folder structure is:
 - `score-calc.ts`: Given the current score and streak, and the amount of time it took to find the element, returns the new score and streak. The score is calculated as the sum of three parts: The base score for correctly finding an element, an increasing "streak bonus" for getting multiple elements in a row correctly without mistakes, and a "time bonus" for answering correctly quickly. The comments in that file more specifically describe the calculations for each of those bonuses.
 - `index.css`: Contains global CSS styles, it is imported by the `main.tsx` component.
 - `vite-env.d.ts`: Sets up globals for TypeScript.
+- `vite.config.ts` retrieves the wordList for Element Decoder from DatoCMS, if the wordList on DatoCMS has been rebuilt from that website. This file also checks for errors in the wordList retrieved from DatoCMS and updates the wordList to remove words from the list if they do not fit in the periodic table, based on our letter definitions.
 
 
 Below is a graph of the high-level architecture of this project. We used rounded boxes with links to subgraphs to represent the different folders inside of `src`, unrounded boxes for specific files or components, and arrow cardinality to represent interaction between files and components (e.g. one-way arrows mean that the source of the arrow is not affected by the destination). Certain file names have been condensed for brevity, specifically within the `/src/components/` subfolder. This graph was made with the [Mermaid](https://mermaid.js.org/) diagramming and charting tool for GitHub/GitLab, and tested on Mermaid's [live testing website](https://mermaid.live/).
@@ -112,7 +113,7 @@ graph TD
     State5 --> State6
     Click2 --> State3
     Click2 --> time-bonus
-    State3 -- display status to user --> State7(match-status)
+    State3 -- display status to user --> State7(game-phase)
 
     %% Determine scoring
     %% Score is added to if match attempt is good, and is broken into
