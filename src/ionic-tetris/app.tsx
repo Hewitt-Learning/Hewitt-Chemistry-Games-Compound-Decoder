@@ -1,11 +1,11 @@
 import { Bucket } from "./components/bucket";
 import "./app.css";
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
+import { cation } from "./ion-list";
 
 export interface Ion {
   symbol: string;
   charge: number;
-
 }
 
 export interface RowState {
@@ -20,16 +20,18 @@ export interface GridState {
   buckets: BucketGridState[];
 }
 
+export interface FlyingIon {
+  ion: Ion;
+  bucketColumnIndex: number;
+  bucketIndex: number;
+  /** How far down the screen it has fallen, from 0 (top) to 1 (bottom) */
+  flyingProgress: number;
+}
+
 export function App() {
   const bucketColumns = [2, 2, 3, 3];
-  // const [state, setState] = useState<GridState>({
-  //   buckets: bucketColumns.map((numCols): BucketGridState => {
-  //     return {
-  //       rows: [{ columns: new Array<Element | null>(numCols).fill(null) }],
-  //     };
-  //   }),
-  // });
-  const [state, setState] = useState<GridState>({
+  const [flyingIon, setFlyingIon] = useState<FlyingIon | null>(null);
+  const [grid, setGrid] = useState<GridState>({
     buckets: [
       {
         rows: [
@@ -82,6 +84,68 @@ export function App() {
     ],
   });
 
+  useEffect(() => {
+    // Attach keydown listener (fires when key is first pressed down)
+    // for right and left keys, to move the flying ion
+    const keydownListener = (event: KeyboardEvent) => {
+      if (event.key === "ArrowRight") {
+        setFlyingIon((flyingIon) => {
+          if (!flyingIon) return null;
+          // Copy the flying ion to a new object, increasing the column
+          const newFlyingIon = {
+            ...flyingIon,
+            bucketColumnIndex: flyingIon.bucketColumnIndex + 1,
+          };
+          // Prevent overflowing the current bucket columns (flow into the next bucket)
+          if (
+            newFlyingIon.bucketColumnIndex >
+            bucketColumns[newFlyingIon.bucketIndex] - 1
+          ) {
+            newFlyingIon.bucketIndex++;
+            newFlyingIon.bucketColumnIndex = 0;
+          }
+          // Prevent overflowing the whole game screen
+          // (if it is past the last column, put it in the last column)
+          if (newFlyingIon.bucketIndex > bucketColumns.length - 1) {
+            newFlyingIon.bucketIndex = bucketColumns.length - 1;
+            newFlyingIon.bucketColumnIndex =
+              bucketColumns[newFlyingIon.bucketIndex] - 1;
+          }
+          return newFlyingIon;
+        });
+      } else if (event.key === "ArrowLeft") {
+        setFlyingIon((flyingIon) => {
+          if (!flyingIon) return null;
+          // Copy the flying ion to a new object, decrasing the column
+          const newFlyingIon = {
+            ...flyingIon,
+            bucketColumnIndex: flyingIon.bucketColumnIndex - 1,
+          };
+          // Prevent underflowing the current bucket columns (flow into the previous bucket)
+          if (newFlyingIon.bucketColumnIndex < 0) {
+            newFlyingIon.bucketIndex--;
+            newFlyingIon.bucketColumnIndex =
+              bucketColumns[newFlyingIon.bucketIndex] - 1;
+          }
+          // Prevent underflowing the whole game screen
+          // (if it is past the first column, put it in the first column)
+          if (newFlyingIon.bucketIndex < 0) {
+            newFlyingIon.bucketIndex = 0;
+            newFlyingIon.bucketColumnIndex = 0;
+          }
+
+          return newFlyingIon;
+        });
+      }
+    };
+
+    window.addEventListener("keydown", keydownListener);
+
+    return () => {
+      window.removeEventListener("keydown", keydownListener);
+    };
+  });
+
   return (
     <>
       <div
@@ -94,25 +158,31 @@ export function App() {
       >
         {bucketColumns.map((numCols, i) => {
           return (
-            <Bucket numCols={numCols} bucketGridState={state.buckets[i]} />
+            <Bucket
+              key={i}
+              flyingIon={
+                flyingIon && flyingIon.bucketIndex === i ? flyingIon : null
+              }
+              numCols={numCols}
+              bucketGridState={grid.buckets[i]}
+            />
           );
         })}
       </div>
-      <pre>{JSON.stringify(state, null, 2)}</pre>
       <button
-        onClick={() => {
-          setState((state) => {
-            const newState = structuredClone(state);
-            newState.buckets[0].rows[0].columns[0] = {
-              symbol: "K",
-              charge: 1,
-            };
-            return newState;
-          });
-        }}
+        onClick={() =>
+          setFlyingIon({
+            ion: cation[0],
+            bucketIndex: 0,
+            bucketColumnIndex: 0,
+            flyingProgress: 0,
+          })
+        }
       >
         Click me
       </button>
+      <pre>{JSON.stringify(flyingIon, null, 2)}</pre>
+      <pre>{JSON.stringify(grid, null, 2)}</pre>
     </>
   );
 }

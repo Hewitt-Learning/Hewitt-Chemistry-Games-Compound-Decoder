@@ -38,3 +38,10 @@
 .ionic-tetris .column:last-child::after {
   border-right: none;
 }
+
+.ionic-tetris .flying-ion {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
