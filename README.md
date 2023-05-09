@@ -85,3 +85,44 @@ graph TD
     SubGraph2(vite.config.ts) --> |word placement data| Node3
     end
 ```
+
+The following graph shows how each of the different states in our game-state logic file interact with each other. The graph begins at the `start` box, and runs until `element-sequence` is empty.
+
+```mermaid
+graph TD
+    %% define word & place on periodic table
+    State0(Error)
+    Start --> WordList
+    WordList -- Choose random word --> State1(word) 
+    State1 --> State2(placement) --> State3(element-states)
+    State2 -- Could not place word --> State0
+    State0 --> WordList
+
+    %% word has been placed on table, begin game setup
+    State2 --> State4(element-sequence)
+    State4 --> State5(active-element)
+    State5  ---> State10(start-time)
+    State10  --> time-bonus
+
+    %% Game has been setup, handle if a click is good or bad
+    State4 --> State6(click)
+    State6 -- incorrect match --> State6
+    State6 -- bad match, reset streak --> State9
+    State6 --> Click2(good-click)
+    State5 --> State6
+    Click2 --> State3
+    Click2 --> time-bonus
+    State3 -- display status to user --> State7(match-status)
+
+    %% Determine scoring
+    %% Score is added to if match attempt is good, and is broken into
+    %% Base points per correct match, streak bonus, and time bonus
+    State3 --> State8(score)
+    Click2 --> State9(streak) 
+    State9 --> State8 
+    time-bonus --> State8
+
+    Click2 -- Start next turn --> State4
+
+
+```
