@@ -33,10 +33,10 @@ const randIon = () => {
   var ion;
   var index;
   if (posNeg == 0) {
-    index = Math.floor(Math.random() * 11);
+    index = Math.floor(Math.random() * cation.length);
     ion = cation[index];
   } else {
-    index = Math.floor(Math.random() * 8);
+    index = Math.floor(Math.random() * anion.length);
     ion = anion[index];
   }
   return ion;
