@@ -1,5 +1,4 @@
-import { Ion } from "../app";
-
+import { Ion } from "./app";
 export const cation: Ion[] = [
   {
     symbol: "Li",
