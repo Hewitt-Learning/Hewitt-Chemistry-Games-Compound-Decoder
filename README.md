@@ -51,7 +51,7 @@ All the source code lives in the `src` folder. Its folder structure is:
 - `score-calc.ts`: Given the current score and streak, and the amount of time it took to find the element, returns the new score and streak. The score is calculated as the sum of three parts: The base score for correctly finding an element, an increasing "streak bonus" for getting multiple elements in a row correctly without mistakes, and a "time bonus" for answering correctly quickly. The comments in that file more specifically describe the calculations for each of those bonuses.
 - `index.css`: Contains global CSS styles, it is imported by the `main.tsx` component.
 - `vite-env.d.ts`: Sets up globals for TypeScript.
-- `vite.config.ts` retrieves the wordList for Element Decoder from DatoCMS, if the wordList on DatoCMS has been rebuilt from that website. This file also checks for errors in the wordList retrieved from DatoCMS and updates the wordList to remove words from the list if they do not fit in the periodic table, based on our letter definitions.
+- `vite.config.ts` retrieves the wordList for Element Decoder from DatoCMS, if the wordList on DatoCMS has been rebuilt. This file also checks for errors in the wordList retrieved from DatoCMS and updates the wordList to remove words from the list if they do not fit in the periodic table, based on our letter definitions. It is important to note that any word filtering done here does _not_ filter out inappropriate words. That responsibility lies on those who manage the DatoCMS wordList to not enter in inappropriate words.
 
 
 Below is a graph of the high-level architecture of this project. We used rounded boxes with links to subgraphs to represent the different folders inside of `src`, unrounded boxes for specific files or components, and arrow cardinality to represent interaction between files and components (e.g. one-way arrows mean that the source of the arrow is not affected by the destination). Certain file names have been condensed for brevity, specifically within the `/src/components/` subfolder. This graph was made with the [Mermaid](https://mermaid.js.org/) diagramming and charting tool for GitHub/GitLab, and tested on Mermaid's [live testing website](https://mermaid.live/).
@@ -122,6 +122,7 @@ graph TD
     Click2 --> State9(streak) 
     State9 --> State8 
     time-bonus --> State8
+    default-bonus --> State8
 
     Click2 -- Start next turn --> State4
 
