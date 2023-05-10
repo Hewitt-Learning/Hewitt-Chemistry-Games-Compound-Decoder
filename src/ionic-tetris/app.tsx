@@ -1,7 +1,7 @@
 import { Bucket } from "./components/bucket";
 import "./app.css";
 import { useEffect, useState } from "preact/hooks";
-import { cation } from "./ion-list";
+import { cation, anion } from "./ion-list";
 
 export interface Ion {
   symbol: string;
@@ -27,7 +27,19 @@ export interface FlyingIon {
   /** How far down the screen it has fallen, from 0 (top) to 1 (bottom) */
   flyingProgress: number;
 }
-
+const randIon = () => {
+  var posNeg = Math.floor(Math.random() * 2);
+  var ion;
+  var index;
+  if (posNeg == 0) {
+    index = Math.floor(Math.random() * cation.length);
+    ion = cation[index];
+  } else {
+    index = Math.floor(Math.random() * anion.length);
+    ion = anion[index];
+  }
+  return ion;
+};
 export function App() {
   const bucketColumns = [2, 2, 3, 3];
   const [flyingIon, setFlyingIon] = useState<FlyingIon | null>(null);
@@ -172,7 +184,7 @@ export function App() {
       <button
         onClick={() =>
           setFlyingIon({
-            ion: cation[0],
+            ion: randIon(),
             bucketIndex: 0,
             bucketColumnIndex: 0,
             flyingProgress: 0,
