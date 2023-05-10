@@ -1,8 +1,7 @@
 import { Bucket } from "./components/bucket";
 import "./app.css";
 import { useEffect, useState } from "preact/hooks";
-import { cation } from "./ion-list";
-import { anion } from "./ion-list";
+import { cation, anion } from "./ion-list";
 
 export interface Ion {
   symbol: string;
