@@ -110,7 +110,7 @@ graph TD
     active-element --> Click
     Click2 -- "Reset board; Set correct match" --> element-states
     Click2 --> time-bonus("Time bonus")
-    element-states -- display status to user --> game-phase("game phase")
+    element-states -- Change game phase --> game-phase("Display game feedback")
 
     %% Determine scoring
     %% Score is added to if match attempt is good, and is broken into
