@@ -94,37 +94,33 @@ graph TD
     %% define word & place on periodic table
     State0(Error)
     Start --> WordList
-    WordList -- Choose random word --> State1(word) 
-    State1 --> State2(placement) --> State3(element-states)
-    State2 -- Could not place word --> State0
-    State0 --> WordList
+    WordList -- Choose random word --> Word
+    Word --> Placement
+    Placement -- Could not place word --> State0
 
     %% word has been placed on table, begin game setup
-    State2 --> State4(element-sequence)
-    State4 --> State5(active-element)
-    State5  ---> State10(start-time)
-    State10  --> time-bonus
+    Placement --> element-sequence("Element sequence")
+    element-sequence --> active-element("Active element")
+    Click2  ---> reset("Reset start time")
 
     %% Game has been setup, handle if a click is good or bad
-    State4 --> State6(click)
-    State6 -- incorrect match --> State6
-    State6 -- bad match, reset streak --> State9
-    State6 --> Click2(good-click)
-    State5 --> State6
-    Click2 --> State3
-    Click2 --> time-bonus
-    State3 -- display status to user --> State7(game-phase)
+    Click --> BadClick("Incorrect click") -- "Mark element as incorrect" --> element-states("Element states")
+    BadClick --"Reset streak" --> Streak
+    Click --> Click2("Correct click")
+    active-element --> Click
+    Click2 -- "Reset board; Set correct match" --> element-states
+    Click2 --> time-bonus("Time bonus")
+    element-states -- display status to user --> game-phase("game phase")
 
     %% Determine scoring
     %% Score is added to if match attempt is good, and is broken into
     %% Base points per correct match, streak bonus, and time bonus
-    State3 --> State8(score)
-    Click2 --> State9(streak) 
-    State9 --> State8 
-    time-bonus --> State8
-    default-bonus --> State8
+    Click2 -- "Increment streak" --> Streak
+    Streak --> Score
+    time-bonus --> Score
+    default-bonus("Default bonus") --> Score
 
-    Click2 -- Start next turn --> State4
+    Click2 -- "Start next turn; Advance element sequence" --> element-sequence
 
 
 ```
