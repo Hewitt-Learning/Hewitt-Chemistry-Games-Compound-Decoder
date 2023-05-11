@@ -160,6 +160,18 @@ export function App() {
 
   return (
     <>
+      <button
+        onClick={() =>
+          setFlyingIon({
+            ion: randIon(),
+            bucketIndex: 0,
+            bucketColumnIndex: 0,
+            flyingProgress: 0,
+          })
+        }
+      >
+        Click me
+      </button>
       <div
         class="ionic-tetris"
         style={{
@@ -181,20 +193,6 @@ export function App() {
           );
         })}
       </div>
-      <button
-        onClick={() =>
-          setFlyingIon({
-            ion: randIon(),
-            bucketIndex: 0,
-            bucketColumnIndex: 0,
-            flyingProgress: 0,
-          })
-        }
-      >
-        Click me
-      </button>
-      <pre>{JSON.stringify(flyingIon, null, 2)}</pre>
-      <pre>{JSON.stringify(grid, null, 2)}</pre>
     </>
   );
 }

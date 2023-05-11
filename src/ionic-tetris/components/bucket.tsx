@@ -15,11 +15,11 @@ export const Bucket = ({ numCols, bucketGridState, flyingIon }: Props) => {
   useEffect(() => {
     const updateFlyingElement = () => {
       const flyingIonElement = flyingIonRef.current;
-      if (flyingIon && flyingIonElement) {
+      if (flyingIon && flyingIonElement && flyingIon.flyingProgress < 1) {
         flyingIon.flyingProgress += 0.005;
-        flyingIonElement.style.transform = `translateY(${
+        flyingIonElement.style.transform = `translateY(calc(${
           flyingIon.flyingProgress * 100
-        }%)`;
+        }vh - 100%))`;
         frameRequest = requestAnimationFrame(updateFlyingElement);
       }
     };
