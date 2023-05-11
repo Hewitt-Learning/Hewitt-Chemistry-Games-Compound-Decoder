@@ -31,6 +31,7 @@ const getInitialElementStates = () =>
 
 export interface GameState {
   word: string;
+  placement: false | SpaceDef[][];
   error: string | undefined;
   score: number;
   startTime: number; //keeps track of the start time for the current element
@@ -108,7 +109,7 @@ export const useGameState = (level: Level): GameState => {
     );
     // Reset the element states (found/wrong elements)
     setElementStates(getInitialElementStates);
-    setGamePhase(GamePhase.SearchingForElement); //CHANGE BACK TO GamePhase.SearchingForElement when done testing
+    setGamePhase(GamePhase.CompletedWord); //CHANGE BACK TO GamePhase.SearchingForElement when done testing
   }, [placement]);
 
   const activeElement: RowCol | undefined = elementSequence[0];
@@ -190,6 +191,7 @@ export const useGameState = (level: Level): GameState => {
 
   return {
     word,
+    placement,
     error,
     score,
     startTime,

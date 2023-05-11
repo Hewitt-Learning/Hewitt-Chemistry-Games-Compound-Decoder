@@ -49,14 +49,6 @@ export const InfoBox = ({
   const elapsedTime = (currTime - gameState.startTime) / 1000;
   const [wordGuess, setWordGuess] = useState<string>();
 
-  // const handleEnterClick = (value: string) => {
-  //   const keydownListener = (event: KeyboardEvent) => {
-  //     if (event.key === "Enter") {
-  //       setWordGuess(value);
-  //     }
-  //   };
-  // };
-
   /**
    * This useEffect function updates the current time every second (since updating currTime as fast as possible
    * would re-render everything every time currTime updates)
@@ -90,15 +82,39 @@ export const InfoBox = ({
   }, [gameState.gamePhase]);
 
   if (gameState.gamePhase === GamePhase.CompletedWord) {
+    
+    
     //console.log(gameState.gamePhase);
     return wordGuess === gameState.word ? (
       <div class="game-info">
         <EndScreen setSelectedLevel={setSelectedLevel} />
       </div>
     ) : (
-      <GuessScreen setWordGuess={setWordGuess} />
+      <div class="game-info">
+        <label for="end-game-text-box">
+          You've filled in the word! Type it out in the text box below.
+        </label>
+        <input
+          type="text"
+          id="end-game-text-box"
+          name="text-box-end"
+          value="Enter here"
+          onInput={(event) => {
+            const guess = event.currentTarget.value;
+            const keydownListener = (e: KeyboardEvent) => {
+              if (e.key === "Enter") {
+                setWordGuess(guess);
+                console.log(wordGuess);
+              }
+            };
+          }}
+          required
+          size={10}
+        />
+      </div>
     );
   }
+  console.log(wordGuess);
 
   return (
     <div class="game-info">
@@ -175,35 +191,6 @@ const EndScreen = ({ setSelectedLevel }: EndScreenProps) => {
     <div class="end-screen">
       <h1>Congrats!</h1>
       <Button onClick={() => setSelectedLevel(null)}>Play again</Button>
-    </div>
-  );
-};
-
-interface GuessScreenProps {
-  setWordGuess: (guess: string) => void;
-}
-const GuessScreen = ({ setWordGuess }: GuessScreenProps) => {
-  return (
-    <div class="game-info">
-      <label for="end-game-text-box">
-        You've filled in the word! Type it out in the text box below.
-      </label>
-      <input
-        type="text"
-        id="end-game-text-box"
-        name="text-box-end"
-        value="Enter here"
-        onInput={(event) => {
-          let guess = event.currentTarget.value;
-          const keydownListener = (e: KeyboardEvent) => {
-            if (e.key === "Enter") {
-              setWordGuess(guess);
-            }
-          };
-        }}
-        required
-        size={10}
-      />
     </div>
   );
 };

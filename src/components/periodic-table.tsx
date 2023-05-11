@@ -1,8 +1,9 @@
 import { periodicTable } from "../periodic-table-data";
 import { PeriodicTableElement } from "./periodic-table-element";
 import "./periodic-table.css";
-import { useGameState } from "../game-state";
+import { useGameState, GamePhase } from "../game-state";
 import { InfoBox } from "./periodic-table-info-box";
+import { SpaceDef } from "../word-placement";
 
 const playIncorrectSound = () => {
   const audio = new Audio("./audio/boowomp.mp3");
@@ -63,7 +64,16 @@ export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
             if (element === null) {
               return null;
             }
-            return (
+            // There are two options for how the periodic table is displayed:
+            // 1. The player has not yet completed filling out the word
+            // 2. The player has completed filling in the word
+            // In the first case, we want to render the periodic table so that all of the elements and their details are displayed
+            // In the second case, we only want to show the outlines of the elements, and in particular highlight the elements that
+            //  were part of the word, so the user can distinguish the word more clearly.
+            // The following return does this.
+
+            return gameState.gamePhase !== GamePhase.CompletedWord ? (
+              // Start with the case 1: The user has not completed the word
               <PeriodicTableElement
                 style={{ gridColumn: `${colIndex + 1} / span 1` }}
                 element={element}
@@ -95,6 +105,34 @@ export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
                     gameState.handleIncorrectElementClick(rowIndex, colIndex);
                   }
                 }}
+                elementState={gameState.elementStates[rowIndex][colIndex]}
+              />
+            ) : // user has completed the word, now we need to highlight the elements that were placed.
+            // assume that the game has placed a word on the table, and check which elements make up the word or not
+            gameState.placement &&
+              gameState.placement[rowIndex][colIndex] === SpaceDef.Occupied ? (
+              //these elements do make up the word. Make the background and font color match so there is less confusion
+              <PeriodicTableElement
+                style={{
+                  gridColumn: `${colIndex + 1} / span 1`,
+                  color: `black`,
+                  background: `black`,
+                }}
+                element={element}
+                onClick={() => null}
+                elementState={gameState.elementStates[rowIndex][colIndex]}
+              />
+            ) : (
+              // these elements do not make up the word. Make them contrast with the elements that do make up the word,
+              // and hide the text similar to what was done above.
+              <PeriodicTableElement
+                style={{
+                  gridColumn: `${colIndex + 1} / span 1`,
+                  color: `white`,
+                  background: `white`,
+                }}
+                element={element}
+                onClick={() => null}
                 elementState={gameState.elementStates[rowIndex][colIndex]}
               />
             );
