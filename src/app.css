@@ -1,0 +1,26 @@
+.game-intro {
+  display: grid;
+  height: 100vh;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  gap: 1em;
+}
+
+.game-intro > * {
+  margin: 0;
+}
+
+.game-intro p {
+  max-width: 25em;
+}
+
+.difficulty-chooser {
+  display: grid;
+  height: 100vh;
+  grid-auto-flow: column;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  gap: 1em;
+}

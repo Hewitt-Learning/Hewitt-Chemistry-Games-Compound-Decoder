@@ -1,4 +1,3 @@
-@import "periodic-table-info-box.css";
 .periodic-table {
   display: grid;
   grid-template-columns: repeat(18, minmax(0, 1fr));

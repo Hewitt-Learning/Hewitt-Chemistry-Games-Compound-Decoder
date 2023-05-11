@@ -1,11 +1,13 @@
-import { GameState, MatchStatus } from "../game-state";
+import { GameState, GamePhase } from "../game-state";
 import { useEffect, useState } from "preact/hooks";
 import { ElementToFind } from "./periodic-table-to-find";
 import { Level } from "./periodic-table";
 import { PeriodicTableElement as PeriodicTableElementType } from "../periodic-table-data";
 import clsx from "clsx";
+import "./periodic-table-info-box.css";
+import Button from "./button";
 
-const goodWords: string[] = [
+const correctFeedback: string[] = [
   "Nice!",
   "Great!",
   "Good Job!",
@@ -13,7 +15,7 @@ const goodWords: string[] = [
   "Excellent!",
   "Well Done!",
 ];
-const badWords: string[] = [
+const incorrectFeedback: string[] = [
   "Try again!",
   "Whoops!",
   "Almost!",
@@ -24,18 +26,24 @@ const badWords: string[] = [
 
 interface Props {
   gameState: GameState;
-  element: PeriodicTableElementType;
+  activeElement?: PeriodicTableElementType | undefined | null;
   level: Level;
+  setSelectedLevel: (level: Level | null) => void;
 }
 
-export const InfoBox = ({ gameState, element, level }: Props) => {
+export const InfoBox = ({
+  gameState,
+  activeElement,
+  level,
+  setSelectedLevel,
+}: Props) => {
   /** Keeps track of whether the showClock is to be displayed or not */
   const [showClock, setShowClock] = useState<boolean>(false);
   /**  Keeps track of the current time (in milliseconds since enoch), used to figure out time spent matching the current element*/
   const [currTime, setCurrTime] = useState(new Date().getTime());
 
-  /** currWord is used to keep track of the current matchStatus display word so that it doesn't change when matchStatus changes */
-  const [currWord, setCurrWord] = useState<string>();
+  /** Keeps track of the current word(s) displayed as feedback to the user, e.g. "great job!" or "try again!" */
+  const [feedback, setFeedback] = useState<string>();
 
   /** Initial defn of elapsed time, which is the amount of time elapsed since the start of this element's matching phase in seconds*/
   const elapsedTime = (currTime - gameState.startTime) / 1000;
@@ -55,42 +63,47 @@ export const InfoBox = ({ gameState, element, level }: Props) => {
    */
   useEffect(() => {
     // if the match attempt was good
-    if (gameState.matchStatus === MatchStatus.Correct) {
-      setCurrWord(goodWords[Math.round(Math.random() * goodWords.length)]);
+    if (gameState.gamePhase === GamePhase.ShowingCorrect) {
+      setFeedback(
+        correctFeedback[Math.round(Math.random() * correctFeedback.length)],
+      );
     }
     // if the match attempt was bad
-    else if (gameState.matchStatus === MatchStatus.Incorrect) {
-      setCurrWord(badWords[Math.round(Math.random() * badWords.length)]);
+    else if (gameState.gamePhase === GamePhase.ShowingIncorrect) {
+      setFeedback(
+        incorrectFeedback[Math.round(Math.random() * incorrectFeedback.length)],
+      );
     }
     // if the match has not happened yet, the word does not exist
     else {
-      setCurrWord("");
+      setFeedback("");
     }
-  }, [gameState.matchStatus]);
+  }, [gameState.gamePhase]);
+
+  if (gameState.gamePhase === GamePhase.CompletedWord) {
+    return (
+      <div class="game-info">
+        <EndScreen setSelectedLevel={setSelectedLevel} />
+      </div>
+    );
+  }
 
   return (
     <div class="game-info">
       {/* row 1 column 1 */}
       {/* If the game has an error display the error, otherwise show the active element */}
 
-      {!gameState.activeElement ? (
-        gameState.error ? (
-          <h1>{gameState.error}</h1>
-        ) : (
-          <h1>Word does not fit</h1>
-        )
-      ) : (
+      {gameState.error && <h1>{gameState.error}</h1>}
+      {activeElement && (
         <div class="element-and-feedback">
-          <ElementToFind element={element} level={level} />
+          <ElementToFind activeElement={activeElement} level={level} />
           <div class="feedback">
-            {/* display the current score & match status of active element to the screen. */}
-            {gameState.matchStatus !== MatchStatus.InProgress ? (
-              gameState.matchStatus === MatchStatus.Correct ? (
-                <h1 class="match-text-good">{currWord}</h1>
-              ) : (
-                <h1 class="match-text-bad">{currWord}</h1>
-              )
-            ) : null}
+            {gameState.gamePhase === GamePhase.ShowingCorrect && (
+              <h1 class="match-text-good">{feedback}</h1>
+            )}
+            {gameState.gamePhase === GamePhase.ShowingIncorrect && (
+              <h1 class="match-text-bad">{feedback}</h1>
+            )}
           </div>
         </div>
       )}
@@ -99,7 +112,7 @@ export const InfoBox = ({ gameState, element, level }: Props) => {
       <div>Score: {gameState.score}</div>
 
       {/* display score breakdown if there is a correct match or stay empty if incorrect match*/}
-      {gameState.matchStatus === MatchStatus.Correct ? (
+      {gameState.gamePhase === GamePhase.ShowingCorrect ? (
         <h2 class={clsx("match-text-score-description", "match-text-good")}>
           {gameState.scoreCompBase !== 0 ? (
             <div>+ {gameState.scoreCompBase} (base)</div>
@@ -138,6 +151,18 @@ export const InfoBox = ({ gameState, element, level }: Props) => {
           </svg>
         </button>
       </div>
+    </div>
+  );
+};
+
+interface EndScreenProps {
+  setSelectedLevel: (level: Level | null) => void;
+}
+const EndScreen = ({ setSelectedLevel }: EndScreenProps) => {
+  return (
+    <div class="end-screen">
+      <h1>Congrats!</h1>
+      <Button onClick={() => setSelectedLevel(null)}>Play again</Button>
     </div>
   );
 };

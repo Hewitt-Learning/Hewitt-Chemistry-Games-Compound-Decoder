@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { periodicTable } from "./periodic-table-data";
 import { ElementState, Level } from "./components/periodic-table";
 import {
@@ -7,6 +7,7 @@ import {
 } from "./random-element-sequence-from-placement";
 import { placeWord, SpaceDef } from "./word-placement";
 import { computeNewScore } from "./score-calc";
+
 // The 'word-list' is a "magic" import that will pull in the word list from the CMS.
 // This happens through a custom vite plugin defined in vite.config.js
 import wordList from "word-list";
@@ -14,13 +15,15 @@ import wordList from "word-list";
 /**
  * signifies the state of the current "turn", e.g. if the active element is Neon, are we waiting on a click, has there been an incorrect click, or a correct click
  */
-export enum MatchStatus {
-  /**The current guess state is "in progress" e.g. the player has not made an attempt to match, or is between attempts (e.g. tried and failed, fail state ended) */
-  InProgress,
-  /**The user made an incorrect match, which will prompt a "try again" message for the current element */
-  Incorrect,
-  /**The user made a correct match, which will prompt a "congrats" message and then move on to the next active element */
-  Correct,
+export enum GamePhase {
+  /** All of the elements for the current word have been found, and it is showing the end screen */
+  CompletedWord,
+  /** The current guess state is "in progress" e.g. the player has not made an attempt to match, or is between attempts (e.g. tried and failed, fail state ended) */
+  SearchingForElement,
+  /** The user made an incorrect match, which will prompt a "try again" message for the current element */
+  ShowingIncorrect,
+  /** The user made a correct match, which will prompt a "congrats" message and then move on to the next active element */
+  ShowingCorrect,
 }
 
 const getInitialElementStates = () =>
@@ -36,7 +39,7 @@ export interface GameState {
   scoreCompTime: number; //the time bonus component of score
   /** The row and column corresponding to the element that is being looked for */
   activeElement: RowCol | undefined;
-  matchStatus: MatchStatus;
+  gamePhase: GamePhase;
   elementStates: ElementState[][];
   handleCorrectElementClick(): void;
   handleIncorrectElementClick(rowIndex: number, colIndex: number): void;
@@ -74,9 +77,10 @@ export const useGameState = (level: Level): GameState => {
   const [streak, setStreak] = useState(0);
   /** The amount of time that has passed since the current element began to be looked for */
   const [startTime, setStartTime] = useState(new Date().getTime());
-  const [matchStatus, setMatchStatus] = useState<MatchStatus>(
-    MatchStatus.InProgress,
+  const [gamePhase, setGamePhase] = useState<GamePhase>(
+    GamePhase.SearchingForElement,
   );
+  const timeoutIdRef = useRef<number | null>(null);
 
   // Stateful clickable button map, all set to not-clicked at first
   const [elementStates, setElementStates] = useState<ElementState[][]>(
@@ -93,13 +97,6 @@ export const useGameState = (level: Level): GameState => {
     }
   }, [word]);
 
-  // set match state to InProgress after 2 seconds upon change of matchStatus state
-  useEffect(() => {
-    setTimeout(() => {
-      setMatchStatus(MatchStatus.InProgress);
-    }, 5000);
-  }, [matchStatus]);
-
   // Whenever the placement changes
   useEffect(() => {
     // Recompute the randomized element sequence to find
@@ -111,14 +108,14 @@ export const useGameState = (level: Level): GameState => {
     );
     // Reset the element states (found/wrong elements)
     setElementStates(getInitialElementStates);
-    setMatchStatus(MatchStatus.InProgress);
+    setGamePhase(GamePhase.SearchingForElement);
   }, [placement]);
 
   const activeElement: RowCol | undefined = elementSequence[0];
 
   const handleCorrectElementClick = () => {
     // Update the state to mark it as found and reset wrong elements
-    setMatchStatus(MatchStatus.Correct);
+    setGamePhase(GamePhase.ShowingCorrect);
     setElementStates((click) =>
       click.map((row, rowIndex) =>
         row.map((elementState, colIndex) => {
@@ -145,7 +142,6 @@ export const useGameState = (level: Level): GameState => {
             setScoreCompStreak(streakBonus);
             setScoreCompTime(timeBonus);
 
-            setStartTime(new Date().getTime()); //set new startTime for next element to match
             return ElementState.FoundElement; //Mark as found
           } else if (
             // Reset any wrong elements clicked -> neutral
@@ -160,17 +156,36 @@ export const useGameState = (level: Level): GameState => {
       ),
     );
 
+    if (timeoutIdRef.current) {
+      window.clearTimeout(timeoutIdRef.current);
+      timeoutIdRef.current = null;
+    }
+    // Set new startTime for next element to match
+    setStartTime(new Date().getTime());
     // Advance the elements-to-find sequence ("activate" the next element to find)
-    setElementSequence((seq) => seq.slice(1));
+    setElementSequence((seq) => {
+      if (seq.length === 1) {
+        setGamePhase(GamePhase.CompletedWord);
+      } else {
+        timeoutIdRef.current = window.setTimeout(() => {
+          setGamePhase(GamePhase.SearchingForElement);
+        }, 3000);
+      }
+      return seq.slice(1);
+    });
   };
 
   const handleIncorrectElementClick = (rowIndex: number, colIndex: number) => {
     setStreak(0); //if there is an incorrect match, reset the streak but make no score penalty
-    setMatchStatus(MatchStatus.Incorrect);
+    setGamePhase(GamePhase.ShowingIncorrect);
     setElementStates((click) => {
       click[rowIndex][colIndex] = ElementState.WrongElementClicked;
       return [...click];
     });
+    if (timeoutIdRef.current) {
+      window.clearTimeout(timeoutIdRef.current);
+      timeoutIdRef.current = null;
+    }
   };
 
   return {
@@ -182,7 +197,7 @@ export const useGameState = (level: Level): GameState => {
     scoreCompStreak,
     scoreCompTime,
     activeElement,
-    matchStatus,
+    gamePhase,
     elementStates,
     handleCorrectElementClick,
     handleIncorrectElementClick,
