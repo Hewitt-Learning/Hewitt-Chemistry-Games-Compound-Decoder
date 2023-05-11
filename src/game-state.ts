@@ -108,7 +108,7 @@ export const useGameState = (level: Level): GameState => {
     );
     // Reset the element states (found/wrong elements)
     setElementStates(getInitialElementStates);
-    setGamePhase(GamePhase.SearchingForElement);
+    setGamePhase(GamePhase.SearchingForElement); //CHANGE BACK TO GamePhase.SearchingForElement when done testing
   }, [placement]);
 
   const activeElement: RowCol | undefined = elementSequence[0];
