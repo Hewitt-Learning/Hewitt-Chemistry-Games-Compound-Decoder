@@ -13,7 +13,7 @@ interface Props {
   /**
    * Gives information about the element, e.g. name, atomic number, symbol, atomic mass, & classification
    */
-  element: PeriodicTableElementType;
+  activeElement: PeriodicTableElementType;
 
   /**
    * Property for the difficulty of the game
@@ -26,7 +26,7 @@ interface Props {
  * @param element - The element that player needs to find from the periodic table
  * @param level - The difficulty of the game, There is Beginner, Intermediate and Advanced
  */
-export const ElementToFind = ({ element, level }: Props) => {
+export const ElementToFind = ({ activeElement: element, level }: Props) => {
   return level === Level.Beginner ? (
     <button
       class={clsx(

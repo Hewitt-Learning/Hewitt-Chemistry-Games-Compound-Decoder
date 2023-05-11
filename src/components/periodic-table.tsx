@@ -1,9 +1,20 @@
 import { periodicTable } from "../periodic-table-data";
 import { PeriodicTableElement } from "./periodic-table-element";
-import { ElementToFind } from "./periodic-table-to-find";
 import "./periodic-table.css";
-import { useGameState, MatchStatus } from "../game-state";
+import { useGameState } from "../game-state";
 import { InfoBox } from "./periodic-table-info-box";
+
+const playIncorrectSound = () => {
+  const audio = new Audio("./audio/boowomp.mp3");
+  audio.playbackRate = 1.25;
+  audio.play();
+};
+
+const playCorrectSound = () => {
+  const audio = new Audio("./audio/KH3v2.wav");
+  audio.playbackRate = 1.5;
+  audio.play();
+};
 
 /** The possible states for each displayed element during the game */
 export enum ElementState {
@@ -24,9 +35,10 @@ export enum Level {
 interface Props {
   /** A property that describes the difficulty of the game, which determines how the "active" element is displayed to the user */
   level: Level;
+  setSelectedLevel: (level: Level | null) => void;
 }
 
-export const PeriodicTable = ({ level }: Props) => {
+export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
   const gameState = useGameState(level);
 
   const activeElement =
@@ -37,13 +49,12 @@ export const PeriodicTable = ({ level }: Props) => {
     <div class="periodic-table-wrapper">
       <div class="periodic-table">
         {/* THE BOX */}
-        {activeElement && (
-          <InfoBox
-            gameState={gameState}
-            element={activeElement}
-            level={level}
-          />
-        )}
+        <InfoBox
+          gameState={gameState}
+          activeElement={activeElement}
+          level={level}
+          setSelectedLevel={setSelectedLevel}
+        />
         {/* end of THE BOX */}
 
         {periodicTable.map((row, rowIndex) => {
@@ -76,9 +87,11 @@ export const PeriodicTable = ({ level }: Props) => {
                     colIndex === gameState.activeElement.col
                   ) {
                     // The active (searched-for) element was clicked
+                    playCorrectSound();
                     gameState.handleCorrectElementClick();
                   } else {
                     // Wrong element was clicked
+                    playIncorrectSound();
                     gameState.handleIncorrectElementClick(rowIndex, colIndex);
                   }
                 }}
