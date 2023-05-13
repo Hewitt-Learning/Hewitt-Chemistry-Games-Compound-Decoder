@@ -79,7 +79,7 @@ export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
             //  were part of the word, so the user can distinguish the word more clearly.
             // The following return does this.
 
-            return gameState.gamePhase !== GamePhase.CompletedWord ? (
+            return (
               // Start with the case 1: The user has not completed the word
               <PeriodicTableElement
                 style={{ gridColumn: `${colIndex + 1} / span 1` }}
@@ -90,7 +90,8 @@ export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
                     gameState.elementStates[rowIndex][colIndex] ===
                       ElementState.FoundElement ||
                     gameState.elementStates[rowIndex][colIndex] ===
-                      ElementState.WrongElementClicked
+                      ElementState.WrongElementClicked ||
+                    gameState.gamePhase === GamePhase.CompletedWord
                   )
                     return;
 
@@ -112,18 +113,6 @@ export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
                     gameState.handleIncorrectElementClick(rowIndex, colIndex);
                   }
                 }}
-                elementState={gameState.elementStates[rowIndex][colIndex]}
-              />
-            ) : (
-              // user has completed the word, now we need to highlight the elements that were placed.
-              // assume that the game has placed a word on the table, and check which elements make up the word or not
-              //these elements do make up the word. Make the background and font color match so there is less confusion
-              <PeriodicTableElement
-                style={{
-                  gridColumn: `${colIndex + 1} / span 1`,
-                }}
-                element={element}
-                onClick={() => null}
                 elementState={gameState.elementStates[rowIndex][colIndex]}
               />
             );
