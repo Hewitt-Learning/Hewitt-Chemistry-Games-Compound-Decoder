@@ -77,7 +77,7 @@ export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
             // In the first case, we want to render the periodic table so that all of the elements and their details are displayed
             // In the second case, we only want to show the outlines of the elements, and in particular highlight the elements that
             //  were part of the word, so the user can distinguish the word more clearly.
-            // The following return does this.
+            // This is handled in periodic-table-element.css
 
             return (
               // Start with the case 1: The user has not completed the word
