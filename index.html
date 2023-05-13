@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- Webpage designed by Immanuel and others for Hewitt Learning-->
+<html lang="en">
+  <head>
+    <title>Hewitt Learning</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/homepage.css" />
+  </head>
+
+  <body>
+    <div class="main-container">
+      <h1>Hewitt Chemistry Games</h1>
+
+      <div class="row">
+        <div class="row-content">
+          <a href="/element-decoder/">
+            <div class="project-box">
+              <div
+                class="img"
+                style="
+                  background: #ffffff url(/images/element-decoder.png) center
+                    bottom no-repeat;
+                  background-size: 200px;
+                "
+              ></div>
+              <div class="body">
+                <div class="heading">Element Decoder</div>
+                <div class="content sub">
+                  Find the elements on the periodic table!
+                </div>
+                <span class="underline-d"></span>
+                <div class="info sub">2023, Hewitt Learning</div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="row-content">
+          <a href="/ionic-tetris/">
+            <div class="project-box">
+              <div
+                class="img"
+                style="
+                  background: #ffffff url(/images/ionic-tetris.png) center
+                    bottom no-repeat;
+                  background-size: 200px;
+                "
+              ></div>
+              <div class="body">
+                <div class="heading">Ionic Tetris</div>
+                <div class="content sub">
+                  Guide the falling ions into the right ionic compounds!
+                </div>
+                <span class="underline-d"></span>
+                <div class="info sub">2023, Hewitt Learning</div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div>
+        <p class="copyright-date">Hewitt Learning, Ⓒ2023</p>
+      </div>
+    </footer>
+    <script>
+      document.body.addEventListener("pointermove", (e) => {
+        const { currentTarget: el, clientX: x, clientY: y } = e;
+        const {
+          top: t,
+          left: l,
+          width: w,
+          height: h,
+        } = el.getBoundingClientRect();
+        el.style.setProperty("--posX", x - l - w / 2.5);
+        el.style.setProperty("--posY", y - t - h / 2.5);
+      });
+    </script>
+  </body>
+</html>
