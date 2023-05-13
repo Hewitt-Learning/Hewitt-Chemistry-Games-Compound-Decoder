@@ -58,7 +58,7 @@ export const useGameState = (level: Level): GameState => {
   /** Selects a random word from the wordList retrieved from DatoCMS and passed to GameState as a property. If no valid word can be found, returns fill */
   function selectRandomWord() {
     const randomElement = Math.round(Math.random() * Number.MAX_SAFE_INTEGER);
-    return "!"; //wordList[randomElement % wordList.length];
+    return wordList[randomElement % wordList.length];
   }
 
   /** The word that will be formed by all the searched-for elements */
