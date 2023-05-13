@@ -1,0 +1,98 @@
+.match-text-bad {
+  color: red;
+}
+.match-text-good {
+  color: green;
+}
+
+.feedback {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  font-size: 0.6em;
+}
+
+.element-and-feedback {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  grid-area: element;
+}
+
+.match-text-score-description {
+  grid-area: score-desc;
+  font-family: Soliloquous, sans-serif;
+  text-align: center;
+  font-size: 0.7em;
+}
+
+.clock-elements {
+  right: 0em;
+  bottom: 0em;
+  height: 3em;
+  display: flex;
+  align-items: center;
+  position: absolute;
+}
+
+.clock-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: inherit;
+  margin: auto 0em;
+  border: none;
+  cursor: pointer;
+  align-self: auto;
+  transition-property: transform, box-shadow, background-color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+.clock-icon {
+  width: 1.2em;
+  height: 1.2em;
+  align-self: auto;
+  justify-content: left;
+  transition-property: transform, box-shadow, background-color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+.clock-text {
+  font-size: 0.75em;
+}
+
+.game-info {
+  font-family: Soliloquous, sans-serif;
+  text-align: center;
+  font-size: 1.5em;
+  position: relative;
+  background: white;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas:
+    "element ."
+    "element score-desc";
+  grid-column: 3 / span 10;
+  grid-row: 1 / span 3;
+  gap: 0.5em;
+  margin: 1em;
+  padding: 3em;
+  align-items: center;
+}
+
+.end-screen {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

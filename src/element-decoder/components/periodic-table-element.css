@@ -1,0 +1,72 @@
+.periodic-table-element {
+  font-size: inherit;
+  font-family: inherit;
+  background: white;
+  display: grid;
+  border: none;
+  padding: 0.5em;
+  cursor: pointer;
+  transition-property: transform, box-shadow, background-color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+.periodic-table-element:is(:hover, :focus):not(
+    .periodic-table-element-good-click
+  ):not(.periodic-table-element-to-find) {
+  transform: scale(1.1);
+  box-shadow: 0.1em 0.1em 0.5em 0.1em rgb(0 0 0 / 35%);
+}
+
+.periodic-table-element-symbol {
+  font-family: Soliloquous, sans-serif;
+  font-size: 2.1em;
+  letter-spacing: -0.05em; /* Narrowing the letter space created in order to avoid being searched on page */
+}
+
+.periodic-table-element-name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 0.9em;
+  letter-spacing: -0.05em; /* Narrowing the letter space created in order to avoid being searched on page */
+}
+
+.periodic-table-element-atomic-number {
+  font-size: 1.1em;
+  text-align: left;
+  margin: -0.7px 0;
+}
+
+.periodic-table-element-to-find {
+  cursor: default;
+}
+
+.periodic-table-element-advanced {
+  /* Text for active element in advanced difficulty */
+  font-family: Soliloquous, sans-serif;
+  font-size: 2.1em;
+}
+.periodic-table-element-metal {
+  background: #9abee4;
+}
+
+.periodic-table-element-metalloid {
+  background: #fff980;
+}
+
+.periodic-table-element-nonmetal {
+  background: #87cc87;
+}
+
+.periodic-table-element-good-click {
+  background: black;
+  color: white;
+  cursor: not-allowed;
+}
+
+.periodic-table-element-bad-click {
+  background-color: red;
+  /* animation-name: bad-click;
+  animation-duration: 0.75s; */
+}
