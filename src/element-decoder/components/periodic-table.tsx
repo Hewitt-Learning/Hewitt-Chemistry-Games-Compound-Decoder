@@ -5,13 +5,13 @@ import { useGameState } from "../game-state";
 import { InfoBox } from "./periodic-table-info-box";
 
 const playIncorrectSound = () => {
-  const audio = new Audio("./audio/boowomp.mp3");
+  const audio = new Audio("/audio/boowomp.mp3");
   audio.playbackRate = 1.25;
   audio.play();
 };
 
 const playCorrectSound = () => {
-  const audio = new Audio("./audio/KH3v2.wav");
+  const audio = new Audio("/audio/KH3v2.wav");
   audio.playbackRate = 1.5;
   audio.play();
 };

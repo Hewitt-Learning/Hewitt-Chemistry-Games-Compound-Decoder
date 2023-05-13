@@ -1,0 +1,47 @@
+.ionic-tetris {
+  min-height: 100vh;
+  display: grid;
+  grid-auto-columns: auto;
+  grid-auto-flow: column;
+  align-content: stretch;
+  border: 1px solid var(--border-color);
+  --border-color: #0000003a;
+}
+.ionic-tetris .bucket {
+  border: 1px solid var(--border-color);
+  border-top: none;
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+}
+.ionic-tetris .column {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  align-content: end;
+}
+.ionic-tetris .column::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1em;
+  border: 1px solid var(--border-color);
+  border-top: none;
+  border-bottom: none;
+}
+.ionic-tetris .column:first-child::after {
+  border-left: none;
+}
+.ionic-tetris .column:last-child::after {
+  border-right: none;
+}
+
+.ionic-tetris .flying-ion {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
