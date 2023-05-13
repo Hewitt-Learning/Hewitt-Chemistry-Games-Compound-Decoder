@@ -114,22 +114,10 @@ export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
                 }}
                 elementState={gameState.elementStates[rowIndex][colIndex]}
               />
-            ) : // user has completed the word, now we need to highlight the elements that were placed.
-            // assume that the game has placed a word on the table, and check which elements make up the word or not
-            gameState.placement &&
-              gameState.placement[rowIndex][colIndex] === SpaceDef.Occupied ? (
-              //these elements do make up the word. Make the background and font color match so there is less confusion
-              <PeriodicTableElement
-                style={{
-                  gridColumn: `${colIndex + 1} / span 1`,
-                }}
-                element={element}
-                onClick={() => null}
-                elementState={gameState.elementStates[rowIndex][colIndex]}
-              />
             ) : (
-              // these elements do not make up the word. Make them contrast with the elements that do make up the word,
-              // and hide the text similar to what was done above.
+              // user has completed the word, now we need to highlight the elements that were placed.
+              // assume that the game has placed a word on the table, and check which elements make up the word or not
+              //these elements do make up the word. Make the background and font color match so there is less confusion
               <PeriodicTableElement
                 style={{
                   gridColumn: `${colIndex + 1} / span 1`,
