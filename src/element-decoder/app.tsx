@@ -8,7 +8,7 @@ export function App() {
   const [showIntro, setShowIntro] = useState(true);
 
   const playIntroSound = () => {
-    const audio = new Audio("./audio/KH3V1.wav");
+    const audio = new Audio("/audio/KH3V1.wav");
     audio.playbackRate = 1.25;
     audio.play();
   };

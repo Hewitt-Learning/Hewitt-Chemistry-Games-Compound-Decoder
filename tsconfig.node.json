@@ -3,14 +3,17 @@
     "composite": true,
     "module": "ESNext",
     "lib": ["ESNext"],
+    "skipLibCheck": true,
     "target": "ES2019",
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
-    "types": ["vitest/importMeta"]
+    "types": ["vitest/importMeta"],
+    "outDir": "ts-dist"
   },
   "include": [
     "vite.config.ts",
-    "src/word-placement",
-    "src/periodic-table-data.ts"
+    "src/element-decoder/word-placement",
+    "src/element-decoder/periodic-table-data.ts",
+    "src/fetch.d.ts"
   ]
 }

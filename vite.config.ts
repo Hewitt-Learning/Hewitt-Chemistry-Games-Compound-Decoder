@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import preact from "@preact/preset-vite";
 import * as fs from "fs/promises";
-import { placeWord } from "./src/word-placement";
+import { placeWord } from "./src/element-decoder/word-placement";
 
 async function getDefaultWordList(): Promise<string[]> {
   return JSON.parse(await fs.readFile("./src/word-list.json", "utf8"));
@@ -28,7 +28,7 @@ async function getWordList(): Promise<string[]> {
     mode: "cors",
     credentials: "include",
   });
-  const data = await response.json(); //await used for same reason here - can't get json data until response arrives
+  const data = (await response.json()) as any; //await used for same reason here - can't get json data until response arrives
   if (!response.ok) {
     //If the fetch response is anything other "ok" (e.g. outside of 200-299 range)
     throw new Error(`Invalid response (${response.status}).`);
@@ -93,5 +93,10 @@ export default defineConfig({
   plugins: [preact(), wordListPlugin()],
   test: {
     includeSource: ["src/**/*.ts", "src/**/*.tsx"],
+  },
+  build: {
+    rollupOptions: {
+      input: ["element-decoder/index.html", "ionic-tetris/index.html"],
+    },
   },
 });

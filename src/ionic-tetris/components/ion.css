@@ -1,0 +1,23 @@
+.ionic-tetris .ion {
+  font-family: Soliloquous;
+  font-size: 2.1em;
+  aspect-ratio: 1;
+  margin: 0.2em;
+  padding: 0.2em;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+}
+
+.ionic-tetris .ion-charge {
+  font-family: Soliloquous;
+  font-size: 0.7em;
+  vertical-align: super;
+}
+
+.ionic-tetris .ion-positive-charge {
+  background-color: #9abee4;
+}
+.ionic-tetris .ion-negative-charge {
+  background-color: #fff980;
+}
