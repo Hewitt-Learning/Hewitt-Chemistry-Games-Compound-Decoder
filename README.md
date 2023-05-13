@@ -53,7 +53,6 @@ All the source code lives in the `src` folder. Its folder structure is:
 - `vite-env.d.ts`: Sets up globals for TypeScript.
 - `vite.config.ts` retrieves the wordList for Element Decoder from DatoCMS, if the wordList on DatoCMS has been rebuilt. This file also checks for errors in the wordList retrieved from DatoCMS and updates the wordList to remove words from the list if they do not fit in the periodic table, based on our letter definitions. It is important to note that any word filtering done here does _not_ filter out inappropriate words. That responsibility lies on those who manage the DatoCMS wordList to not enter in inappropriate words.
 
-
 Below is a graph of the high-level architecture of this project. We used rounded boxes with links to subgraphs to represent the different folders inside of `src`, unrounded boxes for specific files or components, and arrow cardinality to represent interaction between files and components (e.g. one-way arrows mean that the source of the arrow is not affected by the destination). Certain file names have been condensed for brevity, specifically within the `/src/components/` subfolder. This graph was made with the [Mermaid](https://mermaid.js.org/) diagramming and charting tool for GitHub/GitLab, and tested on Mermaid's [live testing website](https://mermaid.live/).
 
 ```mermaid
@@ -78,8 +77,8 @@ graph TD
     subgraph "Main Graph"
     Node1[main.tsx] --> Node2[app.tsx]
     Node2 <--> SubGraph1(components/)
-    Node6[periodic-table-data] --> |data used as base for game| SubGraph1 
-    
+    Node6[periodic-table-data] --> |data used as base for game| SubGraph1
+
     Node3[game-state.tsx]
     Node3 <--> Node4[score-calc.tsx]
     Node5[random-element-sequence] -->|once per word change| Node3

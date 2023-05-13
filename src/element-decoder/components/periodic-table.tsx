@@ -1,8 +1,10 @@
 import { periodicTable } from "../periodic-table-data";
 import { PeriodicTableElement } from "./periodic-table-element";
 import "./periodic-table.css";
-import { useGameState } from "../game-state";
+import { useGameState, GamePhase } from "../game-state";
 import { InfoBox } from "./periodic-table-info-box";
+import { SpaceDef } from "../word-placement";
+import clsx from "clsx";
 
 const playIncorrectSound = () => {
   const audio = new Audio("/audio/boowomp.mp3");
@@ -47,7 +49,13 @@ export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
 
   return (
     <div class="periodic-table-wrapper">
-      <div class="periodic-table">
+      <div
+        class={clsx(
+          "periodic-table",
+          gameState.gamePhase === GamePhase.CompletedWord &&
+            "periodic-table-complete",
+        )}
+      >
         {/* THE BOX */}
         <InfoBox
           gameState={gameState}
@@ -63,7 +71,16 @@ export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
             if (element === null) {
               return null;
             }
+            // There are two options for how the periodic table is displayed:
+            // 1. The player has not yet completed filling out the word
+            // 2. The player has completed filling in the word
+            // In the first case, we want to render the periodic table so that all of the elements and their details are displayed
+            // In the second case, we only want to show the outlines of the elements, and in particular highlight the elements that
+            //  were part of the word, so the user can distinguish the word more clearly.
+            // This is handled in periodic-table-element.css
+
             return (
+              // Start with the case 1: The user has not completed the word
               <PeriodicTableElement
                 style={{ gridColumn: `${colIndex + 1} / span 1` }}
                 element={element}
@@ -73,7 +90,8 @@ export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
                     gameState.elementStates[rowIndex][colIndex] ===
                       ElementState.FoundElement ||
                     gameState.elementStates[rowIndex][colIndex] ===
-                      ElementState.WrongElementClicked
+                      ElementState.WrongElementClicked ||
+                    gameState.gamePhase === GamePhase.CompletedWord
                   )
                     return;
 
