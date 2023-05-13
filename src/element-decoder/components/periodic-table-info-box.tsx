@@ -113,14 +113,16 @@ export const InfoBox = ({
               Not quite! Try guessing the word again. {"\n"}
             </label>
           )}
+          
           <input
             type="text"
+            class="text-box"
             id="end-game-text-box"
             name="text-box-end"
             placeholder="Enter here"
             required
             size={10}
-          />
+          /><Button>Check</Button>
         </form>
       </div>
     );

@@ -103,8 +103,19 @@
   right: 0;
   top: 0;
   bottom: 0;
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: auto auto;
+  align-content: center;
+  gap: 1em;
   justify-content: center;
   flex-direction: column;
+}
+
+.user-guess label {
+  grid-column: span 2;
+}
+
+.text-box {
+  font-size: 1.3em;
+  padding: 0.8em;
 }
