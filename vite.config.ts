@@ -96,7 +96,11 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      input: ["element-decoder/index.html", "ionic-tetris/index.html"],
+      input: [
+        "element-decoder/index.html",
+        "ionic-tetris/index.html",
+        "index.html",
+      ],
     },
   },
 });
