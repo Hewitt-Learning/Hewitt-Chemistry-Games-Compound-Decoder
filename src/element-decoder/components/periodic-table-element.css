@@ -13,7 +13,7 @@
 
 .periodic-table-element:is(:hover, :focus):not(
     .periodic-table-element-good-click
-  ):not(.periodic-table-element-to-find) {
+  ):not(.periodic-table-element-to-find):not(.periodic-table-complete *) {
   transform: scale(1.1);
   box-shadow: 0.1em 0.1em 0.5em 0.1em rgb(0 0 0 / 35%);
 }
@@ -67,6 +67,9 @@
 
 .periodic-table-element-bad-click {
   background-color: red;
-  /* animation-name: bad-click;
-  animation-duration: 0.75s; */
+}
+
+.periodic-table-complete .periodic-table-element {
+  color: transparent;
+  cursor: default;
 }

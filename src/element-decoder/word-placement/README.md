@@ -15,10 +15,11 @@ The placement algorithm is in `index.ts` and is subject to the following constra
 - All letters will be converted to uppercase in order to be placed.
 
 The algorithm is outlined as follows:
+
 1. Get the letter definition for the word and begin searching for a place to put it the periodic table from the top left.
 2. For each letter in the word...
-    - If the top left piece of the letter (as defined in letter definitions) can be placed, try placing the rest of the letter based around the top left piece.
-    - If the full letter can be placed, place it and move two columns over and to see if the next letter can be placed. 
-    - If there is an error try the next row, or next column, until the letter cannot be placed. In this case, the return value is "false", since the word cannot be placed.
+   - If the top left piece of the letter (as defined in letter definitions) can be placed, try placing the rest of the letter based around the top left piece.
+   - If the full letter can be placed, place it and move two columns over and to see if the next letter can be placed.
+   - If there is an error try the next row, or next column, until the letter cannot be placed. In this case, the return value is "false", since the word cannot be placed.
 3. Actually place the word based on word definitions into the game board. The letters are placed in the same way that was found from the previous step, and at this point no errors should occur because the previous step weeds out words that do not fit.
-4. The final result that the algorithm outputs is a 2D array (a table) of spaces, which are identified as either *Occupied* (this periodic table element spells out a letter), *Unoccupied* (this periodic table element does not spell out a letter), or *Invalid* (indicates the "empty" items in the first three rows of elements).
+4. The final result that the algorithm outputs is a 2D array (a table) of spaces, which are identified as either _Occupied_ (this periodic table element spells out a letter), _Unoccupied_ (this periodic table element does not spell out a letter), or _Invalid_ (indicates the "empty" items in the first three rows of elements).
