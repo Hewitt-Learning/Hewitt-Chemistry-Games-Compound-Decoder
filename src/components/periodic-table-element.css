@@ -67,6 +67,8 @@
 
 .periodic-table-element-bad-click {
   background-color: red;
-  /* animation-name: bad-click;
-  animation-duration: 0.75s; */
+}
+
+.periodic-table-complete .periodic-table-element {
+  color:transparent;
 }

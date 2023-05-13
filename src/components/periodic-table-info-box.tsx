@@ -82,45 +82,53 @@ export const InfoBox = ({
   }, [gameState.gamePhase]);
 
   if (gameState.gamePhase === GamePhase.CompletedWord) {
-    
-    
-    //console.log(gameState.gamePhase);
-    return wordGuess === gameState.word ? (
+    //return two things, based on if the wordGuess the user has made matches the game's word or not
+    // 1. Show the "Congrats" screen
+    // 2. Ask the user to type in the word that they see on the screen until
+    //    the guess matches the game's word.
+    return wordGuess?.toLowerCase() === gameState.word.toLowerCase() ? (
+      // option 1: show end screen
       <div class="game-info">
         <EndScreen setSelectedLevel={setSelectedLevel} />
       </div>
     ) : (
+      // option 2: let user guess the word.
       <div class="game-info">
-        <label for="end-game-text-box">
-          You've filled in the word! Type it out in the text box below.
-        </label>
-        <input
-          type="text"
-          id="end-game-text-box"
-          name="text-box-end"
-          value="Enter here"
-          onInput={(event) => {
-            const guess = event.currentTarget.value;
-            const keydownListener = (e: KeyboardEvent) => {
-              if (e.key === "Enter") {
-                setWordGuess(guess);
-                console.log(wordGuess);
-              }
-            };
+        <form
+          class="user-guess"
+          onSubmit={(event) => {
+            event.preventDefault(); //dont reload page
+            const theGuess = new FormData(event.currentTarget).get(
+              "text-box-end",
+            );
+            setWordGuess(theGuess?.toString());
           }}
-          required
-          size={10}
-        />
+        >
+          {wordGuess === undefined ? (
+            <label for="end-game-text-box">
+              You have filled in the word! Type it out in the text box. {"\n"}
+            </label>
+          ) : (
+            <label for="end-game-text-box">
+              Not quite! Try guessing the word again. {"\n"}
+            </label>
+          )}
+          <input
+            type="text"
+            id="end-game-text-box"
+            name="text-box-end"
+            placeholder="Enter here"
+            required
+            size={10}
+          />
+        </form>
       </div>
     );
   }
-  console.log(wordGuess);
 
   return (
     <div class="game-info">
-      {/* row 1 column 1 */}
       {/* If the game has an error display the error, otherwise show the active element */}
-
       {gameState.error && <h1>{gameState.error}</h1>}
       {activeElement && (
         <div class="element-and-feedback">
@@ -136,7 +144,6 @@ export const InfoBox = ({
         </div>
       )}
 
-      {/* first row, second column */}
       <div>Score: {gameState.score}</div>
 
       {/* display score breakdown if there is a correct match or stay empty if incorrect match*/}
@@ -156,9 +163,7 @@ export const InfoBox = ({
         <div class="box-text"></div>
       )}
 
-      {/* second row, second column has the button to toggle the timer for the current element */}
-
-      {/* second row, final column should be a toggle-able clock that increments every second if enabled */}
+      {/* toggle-able clock that increments every second if enabled, not relative to grid but to the info box */}
       <div class="clock-elements">
         <span class="clock-text">
           {showClock && (Math.round(elapsedTime * 100) / 100).toFixed(0)}

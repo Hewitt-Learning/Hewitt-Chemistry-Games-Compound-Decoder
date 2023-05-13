@@ -4,6 +4,7 @@ import "./periodic-table.css";
 import { useGameState, GamePhase } from "../game-state";
 import { InfoBox } from "./periodic-table-info-box";
 import { SpaceDef } from "../word-placement";
+import clsx from "clsx";
 
 const playIncorrectSound = () => {
   const audio = new Audio("./audio/boowomp.mp3");
@@ -48,7 +49,13 @@ export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
 
   return (
     <div class="periodic-table-wrapper">
-      <div class="periodic-table">
+      <div
+        class={clsx(
+          "periodic-table",
+          gameState.gamePhase === GamePhase.CompletedWord &&
+            "periodic-table-complete",
+        )}
+      >
         {/* THE BOX */}
         <InfoBox
           gameState={gameState}
@@ -115,8 +122,6 @@ export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
               <PeriodicTableElement
                 style={{
                   gridColumn: `${colIndex + 1} / span 1`,
-                  color: `black`,
-                  background: `black`,
                 }}
                 element={element}
                 onClick={() => null}
@@ -128,8 +133,6 @@ export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
               <PeriodicTableElement
                 style={{
                   gridColumn: `${colIndex + 1} / span 1`,
-                  color: `white`,
-                  background: `white`,
                 }}
                 element={element}
                 onClick={() => null}
