@@ -1,4 +1,4 @@
-import { GameState, GamePhase } from "../game-state";
+import { GameState, GamePhase, Feedback } from "../game-state";
 import { useEffect, useState } from "preact/hooks";
 import { ElementToFind } from "./periodic-table-to-find";
 import { Level } from "./periodic-table";
@@ -7,28 +7,12 @@ import clsx from "clsx";
 import "./periodic-table-info-box.css";
 import Button from "./button";
 
-const correctFeedback: string[] = [
-  "Nice!",
-  "Great!",
-  "Good Job!",
-  "WOW!",
-  "Excellent!",
-  "Well Done!",
-];
-const incorrectFeedback: string[] = [
-  "Try again!",
-  "Whoops!",
-  "Almost!",
-  "Yikes!",
-  "Jinkies!",
-  "Not quite!",
-];
-
 interface Props {
   gameState: GameState;
   activeElement?: PeriodicTableElementType | undefined | null;
   level: Level;
   setSelectedLevel: (level: Level | null) => void;
+  feedback?: Feedback;
 }
 
 export const InfoBox = ({
@@ -36,14 +20,12 @@ export const InfoBox = ({
   activeElement,
   level,
   setSelectedLevel,
+  feedback,
 }: Props) => {
   /** Keeps track of whether the showClock is to be displayed or not */
   const [showClock, setShowClock] = useState<boolean>(false);
   /**  Keeps track of the current time (in milliseconds since enoch), used to figure out time spent matching the current element*/
   const [currTime, setCurrTime] = useState(new Date().getTime());
-
-  /** Keeps track of the current word(s) displayed as feedback to the user, e.g. "great job!" or "try again!" */
-  const [feedback, setFeedback] = useState<string>();
 
   /** Initial defn of elapsed time, which is the amount of time elapsed since the start of this element's matching phase in seconds*/
   const elapsedTime = (currTime - gameState.startTime) / 1000;
@@ -58,28 +40,6 @@ export const InfoBox = ({
       setCurrTime(new Date().getTime());
     }, 1000);
   }, []);
-
-  /**
-   * This useEffect handles what match status word the user sees when the user makes a match attempt.
-   */
-  useEffect(() => {
-    // if the match attempt was good
-    if (gameState.gamePhase === GamePhase.ShowingCorrect) {
-      setFeedback(
-        correctFeedback[Math.round(Math.random() * correctFeedback.length)],
-      );
-    }
-    // if the match attempt was bad
-    else if (gameState.gamePhase === GamePhase.ShowingIncorrect) {
-      setFeedback(
-        incorrectFeedback[Math.round(Math.random() * incorrectFeedback.length)],
-      );
-    }
-    // if the match has not happened yet, the word does not exist
-    else {
-      setFeedback("");
-    }
-  }, [gameState.gamePhase]);
 
   if (gameState.gamePhase === GamePhase.CompletedWord) {
     //return two things, based on if the wordGuess the user has made matches the game's word or not
@@ -136,14 +96,16 @@ export const InfoBox = ({
       {activeElement && (
         <div class="element-and-feedback">
           <ElementToFind activeElement={activeElement} level={level} />
-          <div class="feedback">
-            {gameState.gamePhase === GamePhase.ShowingCorrect && (
-              <h1 class="match-text-good">{feedback}</h1>
-            )}
-            {gameState.gamePhase === GamePhase.ShowingIncorrect && (
-              <h1 class="match-text-bad">{feedback}</h1>
-            )}
-          </div>
+          {feedback && (
+            <div class="feedback">
+              {feedback.type === "good" && (
+                <h1 class="match-text-good">{feedback.text}</h1>
+              )}
+              {feedback.type === "bad" && (
+                <h1 class="match-text-bad">{feedback.text}</h1>
+              )}
+            </div>
+          )}
         </div>
       )}
 

@@ -3,7 +3,6 @@ import { PeriodicTableElement } from "./periodic-table-element";
 import "./periodic-table.css";
 import { useGameState, GamePhase } from "../game-state";
 import { InfoBox } from "./periodic-table-info-box";
-import { SpaceDef } from "../word-placement";
 import clsx from "clsx";
 
 const playIncorrectSound = () => {
@@ -62,6 +61,7 @@ export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
           activeElement={activeElement}
           level={level}
           setSelectedLevel={setSelectedLevel}
+          feedback={gameState.feedback}
         />
         {/* end of THE BOX */}
 

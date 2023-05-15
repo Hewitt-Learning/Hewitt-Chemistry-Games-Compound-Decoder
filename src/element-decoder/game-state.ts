@@ -12,6 +12,23 @@ import { computeNewScore } from "./score-calc";
 // This happens through a custom vite plugin defined in vite.config.js
 import wordList from "word-list";
 
+const correctFeedback: string[] = [
+  "Nice!",
+  "Great!",
+  "Good Job!",
+  "WOW!",
+  "Excellent!",
+  "Well Done!",
+];
+const incorrectFeedback: string[] = [
+  "Try again!",
+  "Whoops!",
+  "Almost!",
+  "Yikes!",
+  "Jinkies!",
+  "Not quite!",
+];
+
 /**
  * signifies the state of the current "turn", e.g. if the active element is Neon, are we waiting on a click, has there been an incorrect click, or a correct click
  */
@@ -29,6 +46,11 @@ export enum GamePhase {
 const getInitialElementStates = () =>
   periodicTable.map((row) => row.map(() => ElementState.NotClicked));
 
+export interface Feedback {
+  text: string;
+  type: "good" | "bad";
+}
+
 export interface GameState {
   word: string;
   error: string | undefined;
@@ -43,6 +65,7 @@ export interface GameState {
   elementStates: ElementState[][];
   handleCorrectElementClick(): void;
   handleIncorrectElementClick(rowIndex: number, colIndex: number): void;
+  feedback?: Feedback;
 }
 
 /**
@@ -86,6 +109,10 @@ export const useGameState = (level: Level): GameState => {
   const [elementStates, setElementStates] = useState<ElementState[][]>(
     getInitialElementStates,
   );
+
+  /** Keeps track of the current word(s) displayed as feedback to the user, e.g. "great job!" or "try again!" */
+  const [feedback, setFeedback] = useState<Feedback>();
+
   // Whenever word changes, recompute the placement
   useEffect(() => {
     try {
@@ -114,6 +141,10 @@ export const useGameState = (level: Level): GameState => {
   const activeElement: RowCol | undefined = elementSequence[0];
 
   const handleCorrectElementClick = () => {
+    setFeedback({
+      type: "good",
+      text: correctFeedback[Math.round(Math.random() * correctFeedback.length)],
+    });
     // Update the state to mark it as found and reset wrong elements
     setGamePhase(GamePhase.ShowingCorrect);
     setElementStates((click) =>
@@ -169,6 +200,7 @@ export const useGameState = (level: Level): GameState => {
       } else {
         timeoutIdRef.current = window.setTimeout(() => {
           setGamePhase(GamePhase.SearchingForElement);
+          setFeedback(undefined);
         }, 3000);
       }
       return seq.slice(1);
@@ -176,6 +208,12 @@ export const useGameState = (level: Level): GameState => {
   };
 
   const handleIncorrectElementClick = (rowIndex: number, colIndex: number) => {
+    setFeedback({
+      type: "bad",
+      text: incorrectFeedback[
+        Math.round(Math.random() * incorrectFeedback.length)
+      ],
+    });
     setStreak(0); //if there is an incorrect match, reset the streak but make no score penalty
     setGamePhase(GamePhase.ShowingIncorrect);
     setElementStates((click) => {
@@ -201,5 +239,6 @@ export const useGameState = (level: Level): GameState => {
     elementStates,
     handleCorrectElementClick,
     handleIncorrectElementClick,
+    feedback,
   };
 };
