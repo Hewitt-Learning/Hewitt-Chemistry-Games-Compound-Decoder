@@ -2,6 +2,8 @@ import { Bucket } from "./components/bucket";
 import "./app.css";
 import { useEffect, useState } from "preact/hooks";
 import { cation, anion } from "./ion-list";
+import Button from "../element-decoder/components/button";
+import { ThemeToggle } from "../theme";
 
 export interface Ion {
   symbol: string;
@@ -160,7 +162,8 @@ export function App() {
 
   return (
     <>
-      <button
+      <ThemeToggle />
+      <Button
         onClick={() =>
           setFlyingIon({
             ion: randIon(),
@@ -170,8 +173,8 @@ export function App() {
           })
         }
       >
-        Click me
-      </button>
+        Send an element
+      </Button>
       <div
         class="ionic-tetris"
         style={{

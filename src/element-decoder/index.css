@@ -8,6 +8,11 @@ body {
   background: #eee;
 }
 
+body.theme-dark {
+  background: #2a2c2d;
+  color: white;
+}
+
 @font-face {
   font-family: Soliloquous;
   src: url("/fonts/ccsoliloquous-regular.woff2") format("woff2"),
