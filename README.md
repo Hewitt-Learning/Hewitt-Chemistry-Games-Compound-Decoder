@@ -49,7 +49,7 @@ Element Decoder is the game we have made the most progress on. Its folder struct
 
 - `components`: Holds Preact components for the UI, including current game board, info box, and the individual element info from the periodic table.
 - `word-placement`: Holds logic related to the placement/fitting of words onto the periodic table grid. Used primarily with `vite.config.ts` to filter the wordList and `game-state.ts` to place the current word on the periodic table.
-- `app.tsx`: The top-level rendered component.
+- `app.tsx`: The top-level rendered component. Helps with displaying different screens the user might see (e.g. introductory screen or level selector screen). Also contains components that play sound on correct or incorrect matches.
 - `game-state.ts`: Keeps track of all of the game state. Most of the game logic is in here. This file exports a `useGameState` [hook](https://preactjs.com/guide/v10/hooks) that allow it to be pulled into components (in our case, specifically the `PeriodicTable` component). The `useGameState` hook returns properties for all the externally-visible state values, as well as functions to modify the state.
 - `main.tsx`: The entrypoint file, it renders the top-level component into the page.
 - `periodic-table-data.ts`: Contains the raw data for the elements of the periodic table.
