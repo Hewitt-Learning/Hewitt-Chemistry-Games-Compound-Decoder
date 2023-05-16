@@ -37,9 +37,14 @@ interface Props {
   /** A property that describes the difficulty of the game, which determines how the "active" element is displayed to the user */
   level: Level;
   setSelectedLevel: (level: Level | null) => void;
+  setShowLevel: (showLevel: boolean) => void;
 }
 
-export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
+export const PeriodicTable = ({
+  level,
+  setSelectedLevel,
+  setShowLevel,
+}: Props) => {
   const gameState = useGameState(level);
 
   const activeElement =
@@ -61,6 +66,7 @@ export const PeriodicTable = ({ level, setSelectedLevel }: Props) => {
           activeElement={activeElement}
           level={level}
           setSelectedLevel={setSelectedLevel}
+          setShowLevel={setShowLevel}
           feedback={gameState.feedback}
         />
         {/* end of THE BOX */}

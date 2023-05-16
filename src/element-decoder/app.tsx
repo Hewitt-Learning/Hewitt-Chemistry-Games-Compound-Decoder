@@ -51,7 +51,7 @@ export function App() {
       >
         <div class="difficulty-chooser">
           <div class="difficulty-chooser-text">Select Difficulty</div>
-          
+
           <Button onClick={() => handleLevelChange(Level.Beginner)}>
             Beginner
           </Button>
@@ -83,7 +83,7 @@ export function App() {
     setSelectedLevel(level);
     setShowLevel(false);
   };
-
+  console.log("do we show level?:", showLevel);
   return (
     <>
       <ThemeToggle />
@@ -93,6 +93,10 @@ export function App() {
           <p>
             Match elements until you spell out a word! When an element is shaded
             in, it has already been matched.
+          </p>
+          <p>
+            Lower difficulties give more information about the element to match,
+            whereas higher difficulties give less information.
           </p>
           <Button onClick={handleStartButtonClick}>Start</Button>
         </div>
@@ -106,6 +110,7 @@ export function App() {
               <PeriodicTable
                 level={selectedLevel}
                 setSelectedLevel={setSelectedLevel}
+                setShowLevel={setShowLevel}
               />
               <Button
                 onClick={() => {

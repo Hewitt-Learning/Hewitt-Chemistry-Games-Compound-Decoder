@@ -12,6 +12,7 @@ interface Props {
   activeElement?: PeriodicTableElementType | undefined | null;
   level: Level;
   setSelectedLevel: (level: Level | null) => void;
+  setShowLevel: (showLevel: boolean) => void;
   feedback?: Feedback;
 }
 
@@ -20,6 +21,7 @@ export const InfoBox = ({
   activeElement,
   level,
   setSelectedLevel,
+  setShowLevel,
   feedback,
 }: Props) => {
   /** Keeps track of whether the showClock is to be displayed or not */
@@ -49,7 +51,10 @@ export const InfoBox = ({
     return wordGuess?.toLowerCase() === gameState.word.toLowerCase() ? (
       // option 1: show end screen
       <div class="game-info">
-        <EndScreen setSelectedLevel={setSelectedLevel} />
+        <EndScreen
+          setSelectedLevel={setSelectedLevel}
+          setShowLevel={setShowLevel}
+        />
       </div>
     ) : (
       // option 2: let user guess the word.
@@ -155,12 +160,20 @@ export const InfoBox = ({
 
 interface EndScreenProps {
   setSelectedLevel: (level: Level | null) => void;
+  setShowLevel: (showLevel: boolean) => void;
 }
-const EndScreen = ({ setSelectedLevel }: EndScreenProps) => {
+const EndScreen = ({ setSelectedLevel, setShowLevel }: EndScreenProps) => {
   return (
     <div class="end-screen">
       <h1>Congrats!</h1>
-      <Button onClick={() => setSelectedLevel(null)}>Play again</Button>
+      <Button
+        onClick={() => {
+          setSelectedLevel(null);
+          setShowLevel(true);
+        }}
+      >
+        Play again
+      </Button>
     </div>
   );
 };
