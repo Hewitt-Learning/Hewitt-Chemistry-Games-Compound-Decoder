@@ -7,6 +7,9 @@
   border: 1px solid var(--border-color);
   --border-color: #0000003a;
 }
+.theme-dark .ionic-tetris {
+  --border-color: black;
+}
 .ionic-tetris .bucket {
   border: 1px solid var(--border-color);
   border-top: none;

@@ -7,6 +7,10 @@ body {
   margin: 0;
   background: #eee;
 }
+body.theme-dark {
+  background: #2a2c2d;
+  color: white;
+}
 
 @font-face {
   font-family: Soliloquous;

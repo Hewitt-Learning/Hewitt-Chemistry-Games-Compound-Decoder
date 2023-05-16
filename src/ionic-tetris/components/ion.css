@@ -18,6 +18,13 @@
 .ionic-tetris .ion-positive-charge {
   background-color: #9abee4;
 }
+.theme-dark .ionic-tetris .ion-positive-charge {
+  background: #416a96;
+}
+
 .ionic-tetris .ion-negative-charge {
   background-color: #fff980;
+}
+.theme-dark .ionic-tetris .ion-negative-charge {
+  background: #a38000;
 }

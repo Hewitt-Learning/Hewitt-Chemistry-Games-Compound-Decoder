@@ -1,8 +1,14 @@
 .match-text-bad {
-  color: red;
+  color: #de0c0c;
+}
+.theme-dark .match-text-bad {
+  color: #ff4c4c;
 }
 .match-text-good {
-  color: green;
+  color: #169516;
+}
+.theme-dark .match-text-good {
+  color: #41ae41;
 }
 
 .feedback {
@@ -30,20 +36,24 @@
 .clock-elements {
   right: 0em;
   bottom: 0em;
-  height: 3em;
+  height: 2.5em;
   display: flex;
+  gap: 0.5em;
   align-items: center;
   position: absolute;
 }
 
 .clock-toggle {
+  color: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: inherit;
   font-family: inherit;
   background-color: inherit;
-  margin: auto 0em;
+  padding: 0;
+  aspect-ratio: 1;
+  height: 100%;
   border: none;
   cursor: pointer;
   align-self: auto;
@@ -53,6 +63,7 @@
 }
 
 .clock-icon {
+  fill: currentColor;
   width: 1.2em;
   height: 1.2em;
   align-self: auto;
@@ -83,6 +94,10 @@
   margin: 1em;
   padding: 3em;
   align-items: center;
+}
+
+.theme-dark .game-info {
+  background: #3f3f3f;
 }
 
 .end-screen {

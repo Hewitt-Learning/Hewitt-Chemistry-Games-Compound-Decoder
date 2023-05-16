@@ -2,6 +2,7 @@ import { Level, PeriodicTable } from "./components/periodic-table";
 import { useEffect, useState } from "preact/hooks";
 import Button from "./components/button";
 import "./app.css";
+import { ThemeToggle } from "../theme";
 
 export function App() {
   const [selectedLevel, setSelectedLevel] = useState<Level | null>(null);
@@ -85,6 +86,7 @@ export function App() {
 
   return (
     <>
+      <ThemeToggle />
       {showIntro && (
         <div class="game-intro">
           <h1>Welcome to Element Decoder!</h1>

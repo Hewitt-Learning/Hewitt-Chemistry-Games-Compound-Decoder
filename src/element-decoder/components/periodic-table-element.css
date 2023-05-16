@@ -1,7 +1,8 @@
 .periodic-table-element {
+  color: black;
   font-size: inherit;
   font-family: inherit;
-  background: white;
+  background: inherit;
   display: grid;
   border: none;
   padding: 0.5em;
@@ -9,6 +10,10 @@
   transition-property: transform, box-shadow, background-color;
   transition-duration: 0.3s;
   transition-timing-function: ease;
+}
+
+.theme-dark .periodic-table-element {
+  color: white;
 }
 
 .periodic-table-element:is(:hover, :focus):not(
@@ -47,16 +52,25 @@
   font-family: Soliloquous, sans-serif;
   font-size: 2.1em;
 }
+
 .periodic-table-element-metal {
   background: #9abee4;
 }
-
 .periodic-table-element-metalloid {
   background: #fff980;
 }
-
 .periodic-table-element-nonmetal {
   background: #87cc87;
+}
+
+.theme-dark .periodic-table-element-metal {
+  background: #416a96;
+}
+.theme-dark .periodic-table-element-metalloid {
+  background: #a38000;
+}
+.theme-dark .periodic-table-element-nonmetal {
+  background: #4c844c;
 }
 
 .periodic-table-element-good-click {
@@ -65,11 +79,24 @@
   cursor: not-allowed;
 }
 
+.theme-dark .periodic-table-element-good-click {
+  background: black;
+  color: white;
+}
+
 .periodic-table-element-bad-click {
   background-color: red;
+}
+
+.theme-dark .periodic-table-element-bad-click {
+  background-color: #c10101;
+  color: white;
 }
 
 .periodic-table-complete .periodic-table-element {
   color: transparent;
   cursor: default;
+}
+.theme-dark .periodic-table-complete .periodic-table-element-good-click {
+  background: white;
 }

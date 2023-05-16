@@ -1,0 +1,24 @@
+.toggle-theme-button {
+  width: 3em;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  aspect-ratio: 1;
+  margin: 1em;
+  background: transparent;
+  border-radius: 50%;
+  border: 0.2em solid currentColor;
+  cursor: pointer;
+  display: flex;
+  padding: 0.5em;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  fill: currentColor;
+  z-index: 2;
+}
+
+.theme-dark .toggle-theme-button {
+  color: white;
+  background: black;
+}
