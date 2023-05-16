@@ -4,6 +4,7 @@ This folder holds Preact components for the UI. Each component is defined in a `
 
 The components are:
 
+- `button`: defines our own custom button component, which has curved edges and uses the font given from the client.
 - `periodic-table`: Displays the whole periodic table, including all elements according to other defined components below (namely `periodic-table-element` and `periodic-table-info-box`). Most of the game logic is loaded into this component via the `useGameState` hook, defined in `src/game-state.ts`. When the user makes a match attempt, the feedback on the periodic table is handled here. An incorrect match changes the element's background to red, and a correct match makes the element background black and clears the incorrect (red) match attempt backgrounds throughout the board.
 - `periodic-table-element`: Displays a single element (used inside `periodic-table`). Changes how the elements are displayed based on if they were correctly matched or incorrectly matched. It is here where functionality from `periodic-table-space` is implemented.
 - `periodic-table-space`: A helper component to put null spaces between characters so that users cannot use the keyboard shortcut CTRL+F to search for elements on the game (essentially "cheating").
