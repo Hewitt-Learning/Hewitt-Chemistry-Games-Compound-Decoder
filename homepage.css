@@ -273,7 +273,8 @@ header {
 }
 
 .row .row-content .project-box .body .content {
-  height: 80px;
+  min-height:80px;
+  height: 80%;
 }
 
 .row .row-content .project-box .body .heading {
