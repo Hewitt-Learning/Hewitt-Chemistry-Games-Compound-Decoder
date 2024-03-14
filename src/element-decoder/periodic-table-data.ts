@@ -21,7 +21,9 @@ export enum ElementClassification {
 
   **/
 
-  AlkalineEarthMetal,
+  AlkalineEarthMetal, /**alkaine earth metal */
+
+  Actinide, /** actinide */
 }
 
 /**

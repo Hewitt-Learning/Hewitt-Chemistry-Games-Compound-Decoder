@@ -48,6 +48,8 @@ export const PeriodicTableElement = ({
           "periodic-table-element-alkalimetal",
           element.classification === ElementClassification.AlkalineEarthMetal &&
           "periodic-table-element-alkalineearthmetal",
+          element.classification === ElementClassification.Actinide &&
+          "periodic-table-element-actinide",
         elementState === ElementState.FoundElement &&
           "periodic-table-element-good-click",
         elementState === ElementState.WrongElementClicked &&
