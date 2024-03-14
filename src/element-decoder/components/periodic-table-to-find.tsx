@@ -42,6 +42,8 @@ export const ElementToFind = ({ activeElement: element, level }: Props) => {
           "periodic-table-element-alkalimetal",
           element.classification === ElementClassification.AlkalineEarthMetal &&
             "periodic-table-element-alkalineearthmetal",
+            element.classification === ElementClassification.Actinide &&
+            "periodic-table-element-actinide",
       )}
     >
       <span class="periodic-table-element-atomic-number">
