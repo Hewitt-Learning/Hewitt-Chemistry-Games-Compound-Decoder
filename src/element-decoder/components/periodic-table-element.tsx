@@ -44,10 +44,15 @@ export const PeriodicTableElement = ({
           "periodic-table-element-metalloid",
         element.classification === ElementClassification.Nonmetal &&
           "periodic-table-element-nonmetal",
+          element.classification === ElementClassification.AlkaliMetal &&
+          "periodic-table-element-alkalimetal",
+          element.classification === ElementClassification.AlkalineEarthMetal &&
+          "periodic-table-element-alkalineearthmetal",
         elementState === ElementState.FoundElement &&
           "periodic-table-element-good-click",
         elementState === ElementState.WrongElementClicked &&
           "periodic-table-element-bad-click",
+      
       )}
     >
       <span class="periodic-table-element-atomic-number">

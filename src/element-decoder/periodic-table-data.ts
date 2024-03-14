@@ -14,6 +14,14 @@ export enum ElementClassification {
    * The element classification is a metalloid (between metals and nonmetals, towards the right-hand side of the periodic table).
    */
   Metalloid,
+
+  AlkaliMetal,
+  /**
+  The element classification for alkalimetal
+
+  **/
+
+  AlkalineEarthMetal,
 }
 
 /**
@@ -74,14 +82,14 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 3,
       symbol: "Li",
       atomicMass: 6.94,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkaliMetal,
     },
     {
       name: "Beryllium",
       atomicNumber: 4,
       symbol: "Be",
       atomicMass: 9.01,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkalineEarthMetal,
     },
     null,
     null,
@@ -143,14 +151,14 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 11,
       symbol: "Na",
       atomicMass: 22.99,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkaliMetal,
     },
     {
       name: "Magnesium",
       atomicNumber: 12,
       symbol: "Mg",
       atomicMass: 24.31,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkalineEarthMetal,
     },
     null,
     null,
@@ -212,14 +220,14 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 19,
       symbol: "K",
       atomicMass: 39.1,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkaliMetal,
     },
     {
       name: "Calcium",
       atomicNumber: 20,
       symbol: "Ca",
       atomicMass: 40.08,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkalineEarthMetal,
     },
     {
       name: "Scandium",
@@ -341,14 +349,14 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 37,
       symbol: "Rb",
       atomicMass: 85.47,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkaliMetal,
     },
     {
       name: "Strontium",
       atomicNumber: 38,
       symbol: "Sr",
       atomicMass: 87.62,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkalineEarthMetal,
     },
     {
       name: "Yttrium",
@@ -470,14 +478,14 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 55,
       symbol: "Cs",
       atomicMass: 132.91,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkaliMetal,
     },
     {
       name: "Barium",
       atomicNumber: 56,
       symbol: "Ba",
       atomicMass: 137.33,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkalineEarthMetal,
     },
     {
       name: "Lutetium",
@@ -599,14 +607,14 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 87,
       symbol: "Fr",
       atomicMass: 223.02,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkaliMetal,
     },
     {
       name: "Radium",
       atomicNumber: 88,
       symbol: "Ra",
       atomicMass: 226.03,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkalineEarthMetal,
     },
     {
       name: "Lawrencium",
