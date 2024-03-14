@@ -63,7 +63,7 @@
   background: #c74427;
 }
 .periodic-table-element-alkalimetal{
-  background:#8d9895;
+  background:#456e2d;
 }
 
 .periodic-table-element-alkalineearthmetal{
@@ -74,6 +74,25 @@
   background:#0f0fd3;
 }
 
+.periodic-table-element-poly{
+  background:#0f0fd3;
+}
+
+.periodic-table-element-di{
+  background:#4c1715;
+}
+
+.periodic-table-element-unknown{
+  background:#616164;
+}
+
+.periodic-table-element-poly{
+  background:#713580;
+}
+
+.periodic-table-element-noblegas{
+  background:#1d0342;
+}
 .theme-dark .periodic-table-element-metal {
   background: #416a96;
 }

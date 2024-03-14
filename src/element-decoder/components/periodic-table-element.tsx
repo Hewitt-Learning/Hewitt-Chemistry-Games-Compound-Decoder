@@ -50,6 +50,14 @@ export const PeriodicTableElement = ({
           "periodic-table-element-alkalineearthmetal",
           element.classification === ElementClassification.Actinide &&
           "periodic-table-element-actinide",
+          element.classification === ElementClassification.Unknown &&
+          "periodic-table-element-unknown",
+          element.classification === ElementClassification.PolyatomicNonMetal &&
+          "periodic-table-element-poly",
+          element.classification === ElementClassification.DiatomicNonMetal &&
+          "periodic-table-element-di",
+          element.classification === ElementClassification.NobleGas &&
+          "periodic-table-element-noblegas",
         elementState === ElementState.FoundElement &&
           "periodic-table-element-good-click",
         elementState === ElementState.WrongElementClicked &&
