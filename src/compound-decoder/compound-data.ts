@@ -2,6 +2,13 @@
  * This file will define data structures and storage of the compounds
  * so they can be used in the compound decoder game
  */
+
+
+
+/**
+ * This import is not currently being used, but could be used to handle comparisons
+ * between the elements and their corresponding compounds.
+ */
 import { PeriodicTableElement } from "../element-decoder/periodic-table-data";
 
 /**
