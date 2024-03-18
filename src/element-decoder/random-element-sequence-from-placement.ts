@@ -1,6 +1,6 @@
 import { SpaceDef } from "./word-placement";
 import { periodicTable } from "./periodic-table-data";
-import { compoundQuestions } from "../compound-decoder/compound-data";
+import { Compound, compoundQuestions } from "../compound-decoder/compound-data";
 
 export interface RowCol {
   row: number;
@@ -53,23 +53,30 @@ export const randomElementSequenceFromPlacement = (
   //Deep copy the elementCoordinates array to eliminate used elements.
   //NOTE: Now pointless, as the coordinate array is unchanged as of yet.
   //but might be needed to use for sorting.
-  const elemCoordCopy = JSON.parse(JSON.stringify(elementCoordinates));
+  const elemCoordCopy:RowCol[] = JSON.parse(JSON.stringify(elementCoordinates));
 
+  /**
+   * excludes the elements from being included in future loops.
+   * Index is arbitrary, Value is atomic number.
+  */
+  const usedElements:number[] = []; 
+  /** 
+   * holds the number identifier of each compound used.
+   * index is arbitrary, value is compound question.
+  */
+  const usedCompounds:Compound[] = []; 
 
-
-  const usedElements:number[] = []; //excludes the elements from being included in future loops
-  const usedCompounds:number[] = []; //holds the number identifier of each compound used
   for (let i = 0; i < elemCoordCopy.length; i++) {
     //check each compound option
     for (let j = 0; j < compoundQuestions.length; j++) {
       //the first elementCoordinate pair as an atomic number.
       let firstElement = periodicTable[elemCoordCopy[i].row][elemCoordCopy[i].col]?.atomicNumber;
       
-      //This checks 3 things.
+      //This checks 2 things.
       //1. That the compound question at index j contains first element, as the first element
       //2. That the firstElement is not already used.
-      //3. That the compound has not already been used. <-- This one might be redundant, because the first element of a compound is required
-      if ((firstElement === compoundQuestions[j].atomicNumbers[0]) && (!usedElements.includes(firstElement)) && (!usedCompounds.includes(j))){
+      
+      if ((firstElement === compoundQuestions[j].atomicNumbers[0]) && (!usedElements.includes(firstElement))){
 
         //Check for the second element in each compound
         for (let k = 0; k < elemCoordCopy.length; k++) {
@@ -81,7 +88,7 @@ export const randomElementSequenceFromPlacement = (
           
             usedElements.push(compoundQuestions[j].atomicNumbers[0]);
             usedElements.push(compoundQuestions[j].atomicNumbers[1]);
-            usedCompounds.push(j);
+            usedCompounds.push(compoundQuestions[j]);
 
           }
         }
@@ -97,8 +104,90 @@ export const randomElementSequenceFromPlacement = (
   }
 
 
+  //Sorting Algorithm, to put compound pairs in sequential order.
+  //Go through each element, when you find the used element search
+  //for second element and move it to the corresponding slot.
 
-  return elementCoordinates;
+  
+  
+  
+  for(let i = 0; i < elemCoordCopy.length; i++){
+    
+    let firstElement = periodicTable[elemCoordCopy[i].row][elemCoordCopy[i].col]?.atomicNumber;
+    let index = usedElements.indexOf(Number(firstElement));
+    if(index !== -1){ //if element is in usedElements
+      
+      for(let j = 0; j < usedCompounds.length; j++){ //check each compound if it includes the atomic number
+        let atomIndex = usedCompounds[j].atomicNumbers.indexOf(usedElements[index])
+        if(atomIndex !== -1){ //if matches
+          if(atomIndex === 0){ //if first element is found first
+            //check next element to see if pair has already been made
+            //if not make pair
+            if(i === elemCoordCopy.length-1){
+              //if element is at end of array
+              //this case should never happen if its pair exists in list.
+              //ERROR
+            }else{
+               let secondElement = periodicTable[elemCoordCopy[i+1].row][elemCoordCopy[i+1].col]?.atomicNumber;
+               if(usedCompounds[j].atomicNumbers[1] === secondElement){
+                //compound is in order
+               }else{
+                //search for second element
+                for(let k = i; k < elemCoordCopy.length; k++){ //search each index past this one.
+                  secondElement = periodicTable[elemCoordCopy[k].row][elemCoordCopy[k].col]?.atomicNumber;
+                  if(secondElement === usedCompounds[j].atomicNumbers[1]){
+                    elemCoordCopy.push(JSON.parse(JSON.stringify(elemCoordCopy[i+1]))); //deep copy next index to end of array
+                    elemCoordCopy[i+1] = JSON.parse(JSON.stringify(elemCoordCopy[k])); //deep copy second element into next index
+                    elemCoordCopy.splice(k,1); //remove original second element
+                  }
+                }
+               }
+            }
+
+          } else if(atomIndex === 1){ //if second element is found first
+            //check previous element to see if pair has already been made
+            //if not, make pair
+            if(i === elemCoordCopy.length-1){
+              //if we make it here, then the previous index should be first element in compound
+              //covers edge case of last index
+            }else{
+              let previousElement = periodicTable[elemCoordCopy[i-1].row][elemCoordCopy[i-1].col]?.atomicNumber;
+              if(previousElement === usedCompounds[j].atomicNumbers[0]){
+                //compound is in order
+              }else{
+                //search for first element
+                for(let k = i; k < elemCoordCopy.length; k++){ //search each index past this one.
+                  previousElement = periodicTable[elemCoordCopy[k].row][elemCoordCopy[k].col]?.atomicNumber;
+                  if(previousElement === usedCompounds[j].atomicNumbers[0]){
+                    //if first element is found
+                    if(i === 0){
+                      elemCoordCopy.unshift(JSON.parse(JSON.stringify(elemCoordCopy[k]))); //add a deep copy to beginning of array
+                      elemCoordCopy.splice(k+1,1); //remove original copy from array (shifted forward due to added value?)
+                    }else{
+                      elemCoordCopy.push(JSON.parse(JSON.stringify(elemCoordCopy[i+1]))); //add next element to end of array
+                      elemCoordCopy[i+1] = JSON.parse(JSON.stringify(elemCoordCopy[i])); //copy second element forward
+                      elemCoordCopy[i] = JSON.parse(JSON.stringify(elemCoordCopy[k])); //put first element in first slot
+                      elemCoordCopy.splice(k,1); //remove original copy of first element
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+  
+  /**
+   * Uncomment this line to revert to original function,
+   * will not use sorted array and will instead use random ordering.
+   * for use in lower difficulties
+  */
+  //return elementCoordinates
+
+  return elemCoordCopy;
 };
 
 if (import.meta.vitest) {
