@@ -1,4 +1,6 @@
 import { SpaceDef } from "./word-placement";
+import { periodicTable } from "./periodic-table-data";
+import { compoundQuestions } from "../compound-decoder/compound-data";
 
 export interface RowCol {
   row: number;
@@ -37,6 +39,64 @@ export const randomElementSequenceFromPlacement = (
     elementCoordinates[i] = elementCoordinates[swapIndex];
     elementCoordinates[swapIndex] = tmp;
   }
+  ///// TO-DO: search list for possible compounds
+  /**
+  List of compounds available is generated, this now needs to sort the elements
+  in a way that makes the game logic work. (Element 1, before Element 2)
+
+  We should also recall the word function to guarantee that at least a few compounds are made.
+
+  This can be done by also changing the order in which compounds are paired, randomly becoming more optimal
+
+  */
+
+  //Deep copy the elementCoordinates array to eliminate used elements.
+  //NOTE: Now pointless, as the coordinate array is unchanged as of yet.
+  //but might be needed to use for sorting.
+  const elemCoordCopy = JSON.parse(JSON.stringify(elementCoordinates));
+
+
+
+  const usedElements:number[] = []; //excludes the elements from being included in future loops
+  const usedCompounds:number[] = []; //holds the number identifier of each compound used
+  for (let i = 0; i < elemCoordCopy.length; i++) {
+    //check each compound option
+    for (let j = 0; j < compoundQuestions.length; j++) {
+      //the first elementCoordinate pair as an atomic number.
+      let firstElement = periodicTable[elemCoordCopy[i].row][elemCoordCopy[i].col]?.atomicNumber;
+      
+      //This checks 3 things.
+      //1. That the compound question at index j contains first element, as the first element
+      //2. That the firstElement is not already used.
+      //3. That the compound has not already been used. <-- This one might be redundant, because the first element of a compound is required
+      if ((firstElement === compoundQuestions[j].atomicNumbers[0]) && (!usedElements.includes(firstElement)) && (!usedCompounds.includes(j))){
+
+        //Check for the second element in each compound
+        for (let k = 0; k < elemCoordCopy.length; k++) {
+
+          let secondElement = periodicTable[elemCoordCopy[k].row][elemCoordCopy[k].col]?.atomicNumber;
+
+          //If the second element also matches the compound, and is not already used
+          if ((compoundQuestions[j].atomicNumbers[1] === secondElement) && (!usedElements.includes(secondElement))) {
+          
+            usedElements.push(compoundQuestions[j].atomicNumbers[0]);
+            usedElements.push(compoundQuestions[j].atomicNumbers[1]);
+            usedCompounds.push(j);
+
+          }
+        }
+      }
+    }
+
+  }
+  //This log shows the above function working as intended. Running a dev build
+  //and selecting a difficulty will show the results in the console log.
+  //Note: inspect the page and navigate to console, there is a chance there is no possible compounds.
+  for(let i = 0; i < usedElements.length; i++){
+    console.log("Element %d: %d",i,usedElements[i]);
+  }
+
+
 
   return elementCoordinates;
 };
