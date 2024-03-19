@@ -24,7 +24,7 @@
 }
 
 .periodic-table-element-symbol {
-  font-family: Soliloquous, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 2.1em;
   letter-spacing: -0.05em; /* Narrowing the letter space created in order to avoid being searched on page */
 }
@@ -49,20 +49,50 @@
 
 .periodic-table-element-advanced {
   /* Text for active element in advanced difficulty */
-  font-family: Soliloquous, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 2.1em;
 }
 
 .periodic-table-element-metal {
-  background: #9abee4;
+  background: #e8a851;
 }
 .periodic-table-element-metalloid {
-  background: #fff980;
+  background: #e63b2e;
 }
 .periodic-table-element-nonmetal {
-  background: #87cc87;
+  background: #5998c5;
+}
+.periodic-table-element-alkalimetal{
+  background:#791e94;
 }
 
+.periodic-table-element-alkalineearthmetal{
+  background:#ddc3d0;
+}
+
+.periodic-table-element-actinide{
+  background:#57c4e5;
+}
+
+/* .periodic-table-element-poly{
+  background:#5998c5;
+} */
+
+.periodic-table-element-di{
+  background:#ffeee2;
+}
+
+.periodic-table-element-unknown{
+  background:#71797e;
+}
+
+.periodic-table-element-poly{
+  background:#9f7e69;
+}
+
+.periodic-table-element-noblegas{
+  background:#5998c5;
+}
 .theme-dark .periodic-table-element-metal {
   background: #416a96;
 }
@@ -71,6 +101,10 @@
 }
 .theme-dark .periodic-table-element-nonmetal {
   background: #4c844c;
+}
+
+.theme-dark .periodic-table-elements-alkalimetal{
+  background:#1999e8;
 }
 
 .periodic-table-element-good-click {
