@@ -59,7 +59,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 1,
       symbol: "H",
       atomicMass: 1.01,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.DiatomicNonMetal,
     },
     null,
     null,
@@ -600,7 +600,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 85,
       symbol: "At",
       atomicMass: 209.99,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.Metalloid,
     },
     {
       name: "Radon",

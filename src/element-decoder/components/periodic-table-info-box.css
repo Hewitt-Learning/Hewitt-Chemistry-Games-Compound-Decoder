@@ -5,7 +5,7 @@
   color: #ff4c4c;
 }
 .match-text-good {
-  color: #169516;
+  color: #0a1f10;
 }
 .theme-dark .match-text-good {
   color: #41ae41;
@@ -28,7 +28,7 @@
 
 .match-text-score-description {
   grid-area: score-desc;
-  font-family: Soliloquous, sans-serif;
+  font-family: 'Lucida Grande',sans-serif;
   text-align: center;
   font-size: 0.7em;
 }
@@ -82,7 +82,7 @@
   text-align: center;
   font-size: 1.5em;
   position: relative;
-  background: white;
+  background: #a3e1b5;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-areas:

@@ -84,19 +84,6 @@ export const ElementToFind = ({ activeElement: element, level }: Props) => {
     >
       <span class="periodic-table-element-name">{addSpace(element.name)}</span>
     </button>
-  /////  TO-DO: Compound Questions
-  /**
-  This is where we can implement the additional logic to handle displaying compounds for the next difficulty.
-
-  What if we go through the list of elements, find what elements can make compounds and record the combinations.
-  This will be passed to this component, and will be checked for display.
-
-  These combinations need to have a way to compare the combination with the current element, since this should be in order
-  it should display when the first element of the pair becomes the 'active-element' and continue displaying until the second item is selected.
-  
-  
-  */
-  /////
   ) : (
     <></>
   );
