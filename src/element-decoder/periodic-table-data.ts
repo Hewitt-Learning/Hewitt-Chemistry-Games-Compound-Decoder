@@ -14,6 +14,24 @@ export enum ElementClassification {
    * The element classification is a metalloid (between metals and nonmetals, towards the right-hand side of the periodic table).
    */
   Metalloid,
+
+  AlkaliMetal,
+  /**
+  The element classification for alkalimetal
+
+  **/
+
+  AlkalineEarthMetal, /**alkaine earth metal */
+
+  Actinide, /** actinide */
+
+  Unknown, /**Unknown chemical compounds  */
+
+  PolyatomicNonMetal, /**Poly Atmomic Non Metals */
+
+  DiatomicNonMetal, /** Diatomic non metal element classification  */
+
+  NobleGas, /**element classification for noble gas */
 }
 
 /**
@@ -64,7 +82,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 2,
       symbol: "He",
       atomicMass: 4.0,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.NobleGas,
     },
   ], //end row 1
   [
@@ -74,14 +92,14 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 3,
       symbol: "Li",
       atomicMass: 6.94,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkaliMetal,
     },
     {
       name: "Beryllium",
       atomicNumber: 4,
       symbol: "Be",
       atomicMass: 9.01,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkalineEarthMetal,
     },
     null,
     null,
@@ -105,35 +123,35 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 6,
       symbol: "C",
       atomicMass: 12.01,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.PolyatomicNonMetal,
     },
     {
       name: "Nitrogen",
       atomicNumber: 7,
       symbol: "N",
       atomicMass: 14.01,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.DiatomicNonMetal,
     },
     {
       name: "Oxygen",
       atomicNumber: 8,
       symbol: "O",
       atomicMass: 16.0,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.DiatomicNonMetal,
     },
     {
       name: "Flourine",
       atomicNumber: 9,
       symbol: "F",
       atomicMass: 19.0,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.DiatomicNonMetal,
     },
     {
       name: "Neon",
       atomicNumber: 10,
       symbol: "Ne",
       atomicMass: 20.18,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.NobleGas,
     },
   ], //end row 2
   [
@@ -143,14 +161,14 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 11,
       symbol: "Na",
       atomicMass: 22.99,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkaliMetal,
     },
     {
       name: "Magnesium",
       atomicNumber: 12,
       symbol: "Mg",
       atomicMass: 24.31,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkalineEarthMetal,
     },
     null,
     null,
@@ -167,7 +185,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 13,
       symbol: "Al",
       atomicMass: 26.98,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.Actinide,
     },
     {
       name: "Silicon",
@@ -181,28 +199,28 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 15,
       symbol: "P",
       atomicMass: 30.97,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.PolyatomicNonMetal,
     },
     {
       name: "Sulfur",
       atomicNumber: 16,
       symbol: "S",
       atomicMass: 32.07,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.PolyatomicNonMetal,
     },
     {
       name: "Chlorine",
       atomicNumber: 17,
       symbol: "Cl",
       atomicMass: 35.45,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.DiatomicNonMetal,
     },
     {
       name: "Argon",
       atomicNumber: 18,
       symbol: "Ar",
       atomicMass: 39.95,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.NobleGas,
     },
   ], //end row 3
   [
@@ -212,14 +230,14 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 19,
       symbol: "K",
       atomicMass: 39.1,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkaliMetal,
     },
     {
       name: "Calcium",
       atomicNumber: 20,
       symbol: "Ca",
       atomicMass: 40.08,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkalineEarthMetal,
     },
     {
       name: "Scandium",
@@ -296,7 +314,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 31,
       symbol: "Ga",
       atomicMass: 69.72,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.Actinide,
     },
     {
       name: "Germanium",
@@ -317,21 +335,21 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 34,
       symbol: "Se",
       atomicMass: 78.97,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.PolyatomicNonMetal,
     },
     {
       name: "Bromine",
       atomicNumber: 35,
       symbol: "Br",
       atomicMass: 79.9,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.DiatomicNonMetal,
     },
     {
       name: "Krypton",
       atomicNumber: 36,
       symbol: "Kr",
       atomicMass: 83.8,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.NobleGas,
     },
   ], //end row 4
   [
@@ -341,14 +359,14 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 37,
       symbol: "Rb",
       atomicMass: 85.47,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkaliMetal,
     },
     {
       name: "Strontium",
       atomicNumber: 38,
       symbol: "Sr",
       atomicMass: 87.62,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkalineEarthMetal,
     },
     {
       name: "Yttrium",
@@ -425,14 +443,14 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 49,
       symbol: "In",
       atomicMass: 114.82,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.Actinide,
     },
     {
       name: "Tin",
       atomicNumber: 50,
       symbol: "Sn",
       atomicMass: 118.71,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.Actinide,
     },
     {
       name: "Antimony",
@@ -453,14 +471,14 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 53,
       symbol: "I",
       atomicMass: 126.9,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.DiatomicNonMetal,
     },
     {
       name: "Xenon",
       atomicNumber: 54,
       symbol: "Xe",
       atomicMass: 131.29,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.NobleGas,
     },
   ], //end row 5
   [
@@ -470,14 +488,14 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 55,
       symbol: "Cs",
       atomicMass: 132.91,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkaliMetal,
     },
     {
       name: "Barium",
       atomicNumber: 56,
       symbol: "Ba",
       atomicMass: 137.33,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkalineEarthMetal,
     },
     {
       name: "Lutetium",
@@ -554,28 +572,28 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 81,
       symbol: "Tl",
       atomicMass: 204.38,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.Actinide,
     },
     {
       name: "Lead",
       atomicNumber: 82,
       symbol: "Pb",
       atomicMass: 207.0,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.Actinide,
     },
     {
       name: "Bismuth",
       atomicNumber: 83,
       symbol: "Bi",
       atomicMass: 208.98,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.Actinide,
     },
     {
       name: "Polonium",
       atomicNumber: 84,
       symbol: "Po",
       atomicMass: 208.93,
-      classification: ElementClassification.Metalloid,
+      classification: ElementClassification.Actinide,
     },
     {
       name: "Astatine",
@@ -589,7 +607,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 86,
       symbol: "Rn",
       atomicMass: 222.02,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.NobleGas,
     },
   ], //end row 6
   [
@@ -599,14 +617,14 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 87,
       symbol: "Fr",
       atomicMass: 223.02,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkaliMetal,
     },
     {
       name: "Radium",
       atomicNumber: 88,
       symbol: "Ra",
       atomicMass: 226.03,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.AlkalineEarthMetal,
     },
     {
       name: "Lawrencium",
@@ -655,21 +673,21 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 109,
       symbol: "Mt",
       atomicMass: 277.15,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.Unknown,
     },
     {
       name: "Darmstadtium",
       atomicNumber: 110,
       symbol: "Ds",
       atomicMass: 282.16,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.Unknown,
     },
     {
       name: "Roentgenium",
       atomicNumber: 111,
       symbol: "Rg",
       atomicMass: 282.17,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.Unknown,
     },
     {
       name: "Copernicium",
@@ -683,42 +701,42 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicNumber: 113,
       symbol: "Nh",
       atomicMass: 286.18,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.Unknown,
     },
     {
       name: "Flerovium",
       atomicNumber: 114,
       symbol: "Fl",
       atomicMass: 290.19,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.Unknown,
     },
     {
       name: "Moscovium",
       atomicNumber: 115,
       symbol: "Mc",
       atomicMass: 290.2,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.Unknown,
     },
     {
       name: "Livermorium",
       atomicNumber: 116,
       symbol: "Lv",
       atomicMass: 293.21,
-      classification: ElementClassification.Metal,
+      classification: ElementClassification.Unknown,
     },
     {
       name: "Tennessine",
       atomicNumber: 117,
       symbol: "Ts",
       atomicMass: 294.21,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.Unknown,
     },
     {
       name: "Oganesson",
       atomicNumber: 118,
       symbol: "Og",
       atomicMass: 295.22,
-      classification: ElementClassification.Nonmetal,
+      classification: ElementClassification.Unknown,
     },
   ], //end row 7
 ];

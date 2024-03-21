@@ -18,6 +18,7 @@ const playCorrectSound = () => {
 };
 
 /** The possible states for each displayed element during the game */
+
 export enum ElementState {
   /** Elements of the current word that have been found */
   FoundElement,
@@ -25,6 +26,7 @@ export enum ElementState {
   NotClicked,
   /** Elements that were clicked incorrectly (gets reset after a the correct element is found) */
   WrongElementClicked,
+  
 }
 
 export enum Level {
