@@ -33,6 +33,7 @@ export enum Level {
   Beginner,
   Intermediate,
   Advanced,
+  Compound, 
 }
 
 interface Props {
