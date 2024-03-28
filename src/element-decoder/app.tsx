@@ -61,6 +61,9 @@ export function App() {
           <Button onClick={() => handleLevelChange(Level.Advanced)}>
             Advanced
           </Button>
+          <Button onClick={() => handleLevelChange(Level.Compound)}>
+            Compound
+          </Button>
         </div>
       </div>
     );

@@ -2,6 +2,7 @@ import {
   PeriodicTableElement as PeriodicTableElementType,
   ElementClassification,
 } from "../periodic-table-data";
+import { Compound as CompoundType, CompoundClassification } from "../../compound-decoder/compound-data";
 import "./periodic-table-element.css";
 import clsx from "clsx";
 import { useState } from "preact/hooks";
@@ -15,6 +16,8 @@ interface Props {
    */
   activeElement: PeriodicTableElementType;
 
+  compoundElement: CompoundType;
+
   /**
    * Property for the difficulty of the game
    */
@@ -24,9 +27,10 @@ interface Props {
 /**
  * Displays element to search for based on the difficulty of the game
  * @param element - The element that player needs to find from the periodic table
+ * @param celement
  * @param level - The difficulty of the game, There is Beginner, Intermediate and Advanced
  */
-export const ElementToFind = ({ activeElement: element, level }: Props) => {
+export const ElementToFind = ({ activeElement: element, compoundElement: celement, level }: Props) => {
   return level === Level.Beginner ? (
     <button
       class={clsx(
@@ -83,7 +87,29 @@ export const ElementToFind = ({ activeElement: element, level }: Props) => {
   
   */
   /////
-  ) : (
+  ) : level === Level.Compound ? (
+    <button
+      class={clsx(
+        "periodic-table-element",
+        "periodic-table-element-to-find",
+        celement.classification === CompoundClassification.BinaryIonicCompound &&
+        "periodic-table-compound-binaryIonic",
+      )}
+    >
+      <span class="periodic-table-compound-atomic-number">
+        {celement.atomicNumbers}
+      </span>
+      <span class="periodic-table-element-formula">
+        {celement.formula}
+      </span>
+      <span class="periodic-table-compound-name">
+        {celement.name}
+      </span>
+      <span class="periodic-table-compound-elements">
+        {celement.elements}
+      </span>
+    </button>
+  ): (
     <></>
   );
 };

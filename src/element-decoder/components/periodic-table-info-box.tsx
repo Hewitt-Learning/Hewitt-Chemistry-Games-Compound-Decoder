@@ -3,6 +3,7 @@ import { useEffect, useState } from "preact/hooks";
 import { ElementToFind } from "./periodic-table-to-find";
 import { Level } from "./periodic-table";
 import { PeriodicTableElement as PeriodicTableElementType } from "../periodic-table-data";
+import { Compound as CompoundType} from "../../compound-decoder/compound-data";
 import clsx from "clsx";
 import "./periodic-table-info-box.css";
 import Button from "./button";
@@ -10,6 +11,7 @@ import Button from "./button";
 interface Props {
   gameState: GameState;
   activeElement?: PeriodicTableElementType | undefined | null;
+  compoundref: CompoundType;
   level: Level;
   setSelectedLevel: (level: Level | null) => void;
   setShowLevel: (showLevel: boolean) => void;
@@ -19,6 +21,7 @@ interface Props {
 export const InfoBox = ({
   gameState,
   activeElement,
+  compoundref,
   level,
   setSelectedLevel,
   setShowLevel,
@@ -100,7 +103,7 @@ export const InfoBox = ({
       {gameState.error && <h1>{gameState.error}</h1>}
       {activeElement && (
         <div class="element-and-feedback">
-          <ElementToFind activeElement={activeElement} level={level} />
+          <ElementToFind activeElement={activeElement} compoundElement={compoundref} level={level} />
           {feedback && (
             <div class="feedback">
               {feedback.type === "good" && (

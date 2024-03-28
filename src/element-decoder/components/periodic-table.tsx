@@ -1,5 +1,6 @@
 import { periodicTable } from "../periodic-table-data";
-import { PeriodicTableElement } from "./periodic-table-element";
+import { compoundQuestions } from "../../compound-decoder/compound-data";
+import { PeriodicTableElement, CompoundTableElement } from "./periodic-table-element";
 import "./periodic-table.css";
 import { useGameState, GamePhase } from "../game-state";
 import { InfoBox } from "./periodic-table-info-box";
@@ -31,6 +32,7 @@ export enum Level {
   Beginner,
   Intermediate,
   Advanced,
+  Compound,
 }
 
 interface Props {
