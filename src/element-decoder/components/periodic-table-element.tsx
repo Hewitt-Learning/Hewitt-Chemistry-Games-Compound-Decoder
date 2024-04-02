@@ -44,7 +44,7 @@ export const PeriodicTableElement = ({
           "periodic-table-element-metalloid",
         element.classification === ElementClassification.Nonmetal &&
           "periodic-table-element-nonmetal",
-          element.classification === ElementClassification.AlkaliMetal &&
+          /* element.classification === ElementClassification.AlkaliMetal &&
           "periodic-table-element-alkalimetal",
           element.classification === ElementClassification.AlkalineEarthMetal &&
           "periodic-table-element-alkalineearthmetal",
@@ -57,7 +57,7 @@ export const PeriodicTableElement = ({
           element.classification === ElementClassification.DiatomicNonMetal &&
           "periodic-table-element-di",
           element.classification === ElementClassification.NobleGas &&
-          "periodic-table-element-noblegas",
+          "periodic-table-element-noblegas", */
         elementState === ElementState.FoundElement &&
           "periodic-table-element-good-click",
         elementState === ElementState.WrongElementClicked &&

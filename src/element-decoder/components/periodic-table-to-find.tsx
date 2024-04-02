@@ -38,7 +38,7 @@ export const ElementToFind = ({ activeElement: element, level }: Props) => {
           "periodic-table-element-metalloid",
         element.classification === ElementClassification.Nonmetal &&
           "periodic-table-element-nonmetal",
-          element.classification === ElementClassification.AlkaliMetal &&
+          /* element.classification === ElementClassification.AlkaliMetal &&
           "periodic-table-element-alkalimetal",
           element.classification === ElementClassification.AlkalineEarthMetal &&
             "periodic-table-element-alkalineearthmetal",
@@ -51,7 +51,7 @@ export const ElementToFind = ({ activeElement: element, level }: Props) => {
           element.classification === ElementClassification.DiatomicNonMetal &&
           "periodic-table-element-di",
           element.classification === ElementClassification.NobleGas &&
-          "periodic-table-element-noblegas",
+          "periodic-table-element-noblegas", */
       )}
     >
       <span class="periodic-table-element-atomic-number">
