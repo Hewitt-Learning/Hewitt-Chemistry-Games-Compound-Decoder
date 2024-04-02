@@ -28,6 +28,7 @@ body {
   --x: calc(var(--posX, 0) * 1px);
   --y: calc(var(--posY, 0) * 1px);
   background-color: whitesmoke;
+  /* get rid of the gradient color background */
   /* background-image: linear-gradient(115deg, rgb(211 255 215), rgb(0 0 0)),
     radial-gradient(
       90% 100% at calc(50% + var(--x)) calc(0% + var(--y)),
