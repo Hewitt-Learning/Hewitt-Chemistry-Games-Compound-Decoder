@@ -1,6 +1,6 @@
-import { periodicTable } from "../periodic-table-data";
-import { letterMapNormalized } from "./letter-definitions";
-//import { letterMapNormalizedCompounds } from "../../compound-decoder/letters-basic-compounds";
+import { periodicTable } from "../element-decoder/periodic-table-data";
+//import { letterMapNormalized } from "./letter-definitions"; Original Letter Defintions
+import { letterMapNormalizedCompounds } from "./letters-basic-compounds";
 
 /** enum to make it more clear in our code what the status of the game board is */
 export enum SpaceDef {
@@ -17,7 +17,7 @@ export enum SpaceDef {
  * @param word A word in the form of a string, generally around 4-5 characters long (to fit on the table)
  * @returns outputs - returns a grid of the word placed on the periodic table, or returns false if the word cannot be placed
  */
-export const placeWord = (word: string): SpaceDef[][] | false => {
+export const placeWordCompound = (word: string): SpaceDef[][] | false => {
   const wordUppercase = word.toUpperCase();
 
   /**
@@ -39,8 +39,8 @@ export const placeWord = (word: string): SpaceDef[][] | false => {
 
   // loop through and set letter in table
   wordLoop: for (const letter of wordUppercase) {
-    const letterDefinition = letterMapNormalized[letter];
-    //const letterDefinition = letterMapNormalizedCompounds[letter];
+    //const letterDefinition = letterMapNormalized[letter]; Original Letter Sizing
+    const letterDefinition = letterMapNormalizedCompounds[letter];
     if (letterDefinition === undefined) {
       //error check
       throw new Error(`${letter} is not defined in the letter map`);
