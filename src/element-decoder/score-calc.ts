@@ -1,4 +1,6 @@
 import { Level } from "./components/periodic-table";
+declare var EndScore: number
+
 
 /**
  * Calculate components of the score based on current state of game (curr score, time to match curr element, and current streak number)
@@ -12,7 +14,7 @@ export const computeNewScore = (
   streak: number,
   level: Level,
 ) => {
-  const baseCorrectPoints = 1000;
+  const baseCorrectPoints = 200;
   // return invidiual elements of new score calculation:
   // a base number of points, streakBonus, and timeBonus per correct match.
   return [baseCorrectPoints, streakBonusCalc(streak), timeBonus(time, level)];
@@ -48,7 +50,7 @@ const streakBonusCalc = (streak: number) => {
  * @param time - time that the user has taken to correctly match in seconds
  */
 const timeBonus = (time: number, level: Level) => {
-  const timeBonusMax = 1000; //the maximum number of points that can be added (e.g. quickest match = 0 seconds)
+  const timeBonusMax = 500; //the maximum number of points that can be added (e.g. quickest match = 0 seconds)
   let decayRate = 1.0;
   if (level == Level.Beginner) {
     decayRate = 0.1;
@@ -58,5 +60,20 @@ const timeBonus = (time: number, level: Level) => {
     decayRate = 0.8;
   }
 
+  if(timeBonusMax >= 1500){ //reward tiers 
+      console.log("Tier 1");
+      EndScore = 1;
+  }
+    if(timeBonusMax >= 3000){
+      console.log("Tier 2");
+      EndScore = 2;
+  }
+    if(timeBonusMax >= 10000){
+      console.log("Tier 3");
+      EndScore = 3; 
+  }
   return Math.round(timeBonusMax * Math.exp(-decayRate * time));
+
+  
+  
 };

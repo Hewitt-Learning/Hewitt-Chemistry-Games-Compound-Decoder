@@ -17,7 +17,9 @@
   right: 0;
   top: 100%;
   font-size: 0.6em;
+
 }
+
 
 .element-and-feedback {
   position: relative;
@@ -133,4 +135,5 @@
 .text-box {
   font-size: 1.3em;
   padding: 0.8em;
+  
 }
