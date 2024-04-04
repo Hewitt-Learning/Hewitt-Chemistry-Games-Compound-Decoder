@@ -971,3 +971,14 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
     null,
   ], //end row 9
 ];
+
+export function hideLastTwoRows() {
+  const numRows = periodicTable.length;
+  
+  // Ensuring if there are at least two rows
+  if (numRows >= 2) {
+    // Set the last two rows to null
+    periodicTable[numRows - 1] = null;
+    periodicTable[numRows - 2] = null;
+  }
+}

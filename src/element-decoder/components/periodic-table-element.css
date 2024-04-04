@@ -53,6 +53,12 @@
   font-size: 2.1em;
 }
 
+.periodic-table-element-compound {
+  /* Text for active element in compound difficulty */
+  font-family: Chemistry, sans-serif;
+  font-size: 3.5em;
+}
+
 .periodic-table-element-metal {
   background: #9abee4;
 }
