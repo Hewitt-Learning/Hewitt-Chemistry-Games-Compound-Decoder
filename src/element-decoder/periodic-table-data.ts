@@ -15,23 +15,23 @@ export enum ElementClassification {
    */
   Metalloid,
 
-  // AlkaliMetal,
+  AlkaliMetal,
   // /**
   // The element classification for alkalimetal
 
   // **/
 
-  // AlkalineEarthMetal, /**alkaine earth metal */
+  AlkalineEarthMetal, /**alkaine earth metal */
 
-  // Actinide, /** actinide */
+  Actinide, /** actinide */
 
-  // Unknown, /**Unknown chemical compounds  */
+  Unknown, /**Unknown chemical compounds  */
 
-  // PolyatomicNonMetal, /**Poly Atmomic Non Metals */
+  PolyatomicNonMetal, /**Poly Atmomic Non Metals */
 
-  // DiatomicNonMetal, /** Diatomic non metal element classification  */
+  DiatomicNonMetal, /** Diatomic non metal element classification  */
 
-  // NobleGas, /**element classification for noble gas */
+  NobleGas, /**element classification for noble gas */
 }
 
 /**
