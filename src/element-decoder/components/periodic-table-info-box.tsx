@@ -1,3 +1,5 @@
+import { Compound, CompoundClassification } from "../../compound-decoder/compound-data";
+import usedCompounds from "../random-element-sequence-from-placement";
 import { GameState, GamePhase, Feedback } from "../game-state";
 import { useEffect, useState } from "preact/hooks";
 import { ElementToFind } from "./periodic-table-to-find";
@@ -6,9 +8,6 @@ import { PeriodicTableElement as PeriodicTableElementType } from "../periodic-ta
 import clsx from "clsx";
 import "./periodic-table-info-box.css";
 import Button from "./button";
-import { Compound } from "../../compound-decoder/compound-data";
-//import EndScore from "../score-calc.ts";
-//import { EndScore } from "../score-calc.ts";
 
 interface Props {
   gameState: GameState;
@@ -17,7 +16,6 @@ interface Props {
   setSelectedLevel: (level: Level | null) => void;
   setShowLevel: (showLevel: boolean) => void;
   feedback?: Feedback;
-  
 }
 
 /**
@@ -71,7 +69,6 @@ export const InfoBox = ({
         <EndScreen
           setSelectedLevel={setSelectedLevel}
           setShowLevel={setShowLevel}
-          gameState={gameState}
         />
       </div>
     ) : (
@@ -179,10 +176,8 @@ export const InfoBox = ({
 interface EndScreenProps {
   setSelectedLevel: (level: Level | null) => void;
   setShowLevel: (showLevel: boolean) => void;
-  gameState: GameState;
-  
 }
-const EndScreen = ({ setSelectedLevel, setShowLevel, gameState }: EndScreenProps) => {
+const EndScreen = ({ setSelectedLevel, setShowLevel }: EndScreenProps) => {
   return (
     <div class="end-screen">
       <h1>Congrats!</h1>
@@ -191,10 +186,8 @@ const EndScreen = ({ setSelectedLevel, setShowLevel, gameState }: EndScreenProps
           setSelectedLevel(null);
           setShowLevel(true);
         }}
-        
       >
-        Play again 
-        Final Score is: {gameState.score}
+        Play again
       </Button>
     </div>
   );
