@@ -65,9 +65,9 @@ h1 {
   padding: 1em;
   font-weight: 600;
   line-height: 40px;
-  letter-spacing: -0.5px;
-  color: white;
-  background: rgba(0, 0, 0, 0.3);
+  /* letter-spacing: -0.5px; */
+  color: black;
+  background: white;
   text-align: center;
 }
 
@@ -304,11 +304,16 @@ header {
 }
 
 .copyright-date {
-  color: antiquewhite;
+  color: black;
 }
 
 footer {
   position: fixed;
-  left: 0px;
-  bottom: 0px;
+  width: 100%;
+  bottom: 0;
+  font-size: 16px;
+  padding: 0.2em;
+  color: black;
+  background: white;
+  text-align: center;
 }
