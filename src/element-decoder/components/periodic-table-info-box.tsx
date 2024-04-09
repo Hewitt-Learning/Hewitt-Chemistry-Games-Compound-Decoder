@@ -6,6 +6,7 @@ import { PeriodicTableElement as PeriodicTableElementType } from "../periodic-ta
 import clsx from "clsx";
 import "./periodic-table-info-box.css";
 import Button from "./button";
+import { Compound } from "../../compound-decoder/compound-data";
 //import EndScore from "../score-calc.ts";
 //import { EndScore } from "../score-calc.ts";
 

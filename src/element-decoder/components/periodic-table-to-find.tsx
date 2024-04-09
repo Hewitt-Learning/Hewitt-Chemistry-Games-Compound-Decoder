@@ -1,4 +1,4 @@
-import { Compound } from "../../compound-decoder/compound-data";
+import { Compound, CompoundClassification } from "../../compound-decoder/compound-data";
 import {
   PeriodicTableElement as PeriodicTableElementType,
   ElementClassification,
@@ -11,6 +11,10 @@ import { Level } from "./periodic-table";
 import { addSpace } from "./periodic-table-space";
 
 interface Props {
+  
+  activeCompound:CompoundClassification;
+  
+  
   /**
    * Gives information about the element, e.g. name, atomic number, symbol, atomic mass, & classification
    */
