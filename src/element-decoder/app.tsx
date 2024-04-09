@@ -3,6 +3,7 @@ import { useEffect, useState } from "preact/hooks";
 import Button from "./components/button";
 import "./app.css";
 import { ThemeToggle } from "../theme";
+import { hideLastTwoRows } from "./periodic-table-data";
 
 export function App() {
   const [selectedLevel, setSelectedLevel] = useState<Level | null>(null);
@@ -60,6 +61,9 @@ export function App() {
           </Button>
           <Button onClick={() => handleLevelChange(Level.Advanced)}>
             Advanced
+          </Button>
+          <Button onClick={() => handleLevelChange(Level.Compound)}>
+            Compound
           </Button>
         </div>
       </div>

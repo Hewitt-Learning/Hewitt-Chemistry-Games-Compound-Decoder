@@ -1,4 +1,4 @@
-import { GameState, GamePhase, Feedback, useGameState } from "../game-state";
+import { GameState, GamePhase, Feedback } from "../game-state";
 import { useEffect, useState } from "preact/hooks";
 import { ElementToFind } from "./periodic-table-to-find";
 import { Level } from "./periodic-table";
@@ -17,6 +17,19 @@ interface Props {
   setShowLevel: (showLevel: boolean) => void;
   feedback?: Feedback;
   
+}
+
+/**
+ * This Compound was used for testing the Compound display,
+ * as it gave a static Compound to use as a prop.
+ */
+
+const example:Compound = {
+  name: "aluminum nitride",
+  elements: ["aluminum","nitrogen"],
+  atomicNumbers: [13,7],
+  formula: "Al N",
+  classification: CompoundClassification.BinaryIonicCompound
 }
 
 export const InfoBox = ({
@@ -104,7 +117,7 @@ export const InfoBox = ({
       {gameState.error && <h1>{gameState.error}</h1>}
       {activeElement && (
         <div class="element-and-feedback">
-          <ElementToFind activeElement={activeElement} level={level} />
+          <ElementToFind activeElement={activeElement} level={level} comp={CompoundDisplay(activeElement,usedCompounds)} />
           {feedback && (
             <div class="feedback">
               {feedback.type === "good" && (
@@ -185,3 +198,22 @@ const EndScreen = ({ setSelectedLevel, setShowLevel, gameState }: EndScreenProps
     </div>
   );
 };
+/**
+ * This function checks the current element and tests if it is part of a usedCompound,
+ * if it is it will return the compound that the element is a part of, so it can be displayed.
+ * @param element - active element that would normally be displayed
+ * @param usedCompounds - array of compounds that were found within the list of elements
+ */
+function CompoundDisplay(element:PeriodicTableElementType,usedCompounds:Compound[]):Compound | null{
+
+  for(let i = 0; i < usedCompounds.length; i++){
+    if(element.name === usedCompounds[i].elements[0])
+    {
+      return usedCompounds[i];
+    }else if (element.name === usedCompounds[i].elements[1]){
+      return usedCompounds[i];
+    }
+  }
+
+  return null;
+}
