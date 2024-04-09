@@ -4,6 +4,7 @@ import { ElementToFind } from "./periodic-table-to-find";
 import { Level } from "./periodic-table";
 import { PeriodicTableElement as PeriodicTableElementType } from "../periodic-table-data";
 import { Compound as CompoundType} from "../../compound-decoder/compound-data";
+import {computeNewScore} from "../score-calc";
 import clsx from "clsx";
 import "./periodic-table-info-box.css";
 import Button from "./button";
@@ -34,7 +35,9 @@ export const InfoBox = ({
 
   /** Initial defn of elapsed time, which is the amount of time elapsed since the start of this element's matching phase in seconds*/
   const elapsedTime = (currTime - gameState.startTime) / 1000;
+
   const [wordGuess, setWordGuess] = useState<string>();
+  const [runBonus, setRunningTime] = useState(1000);
 
   /**
    * This useEffect function updates the current time every second (since updating currTime as fast as possible
@@ -45,6 +48,57 @@ export const InfoBox = ({
       setCurrTime(new Date().getTime());
     }, 1000);
   }, []);
+  let time:number;
+
+  /**
+   * This useEffect function updates the timebonus every second at a specified rate that differs
+   * across levels.
+  */
+  useEffect(() => {
+    let duration = 1000;
+      if (level == Level.Beginner) {
+        duration = 500;
+      } else if (level == Level.Intermediate) {
+        duration = 1000;
+      } else if (level == Level.Advanced) {
+        duration = 1500;
+      }
+
+    const interval = setInterval(() => {
+      /*const startT = new Date();
+      const timeBonusMax = 1000; //the maximum number of points that can be added (e.g. quickest match = 0 seconds)
+
+      const target = new Date("12/31/2024 23:59:59");
+      const now = new Date();
+      
+      let decayRate = 1.0;
+      if (level == Level.Beginner) {
+        decayRate = 0.3;
+      } else if (level == Level.Intermediate) {
+        decayRate = 0.5;
+      } else if (level == Level.Advanced) {
+        decayRate = 0.8;
+      }
+      const elapsedT = (now.getTime() - startT.getTime()) / 1000;
+      const s = Math.round(timeBonusMax * Math.exp(-decayRate * (new Date().getTime())));
+      const t = Math.floor(timeBonusMax * Math.exp(-decayRate *elapsedT));
+      const r = Math.round(timeBonusMax * Math.exp(-decayRate * -(new Date().getTime())));
+      */
+      
+      setRunningTime(prevtime => Math.max(prevtime-1, 0));
+
+      if (runBonus === 0){
+        clearInterval(interval);
+      }
+    }, duration)
+
+    return () => clearInterval(interval)
+  }, []);
+
+  //If the user clicks the right element, set the running bonus to 1000 to countdown anew
+  if (gameState.gamePhase === GamePhase.ShowingCorrect){
+    setRunningTime(1000)
+  }
 
   if (gameState.gamePhase === GamePhase.CompletedWord) {
     //return two things, based on if the wordGuess the user has made matches the game's word or not
@@ -118,6 +172,7 @@ export const InfoBox = ({
       )}
 
       <div>Score: {gameState.score}</div>
+      <div> time: <span>{runBonus}</span></div> /*displays the current timebonus counting down*/
 
       {/* display score breakdown if there is a correct match or stay empty if incorrect match*/}
       {gameState.gamePhase === GamePhase.ShowingCorrect ? (
@@ -135,7 +190,7 @@ export const InfoBox = ({
       ) : (
         <div class="box-text"></div>
       )}
-
+      
       {/* toggle-able clock that increments every second if enabled, not relative to grid but to the info box */}
       <div class="clock-elements">
         <span class="clock-text">
