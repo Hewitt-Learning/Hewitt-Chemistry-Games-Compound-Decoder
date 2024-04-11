@@ -12,7 +12,7 @@ const playIncorrectSound = () => {
 };
 
 const playCorrectSound = () => {
-  const audio = new Audio("/audio/KH3v2.wav");
+  const audio = new Audio("/audio/Click_sound.wav");
   audio.playbackRate = 1.5;
   audio.play();
 };
