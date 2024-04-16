@@ -61,7 +61,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 1.01,
       classification: ElementClassification.Nonmetal,
     },
-    null,
+    // null,
     null,
     null,
     null,
@@ -102,7 +102,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 9.01,
       classification: ElementClassification.Metal,
     },
-    null,
+    // null,
     null,
     null,
     null,
@@ -172,7 +172,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 24.31,
       classification: ElementClassification.Metal,
     },
-    null,
+    // null,
     null,
     null,
     null,
@@ -242,7 +242,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 40.08,
       classification: ElementClassification.Metal,
     },
-    null,
+    // null,
     {
       name: "Scandium",
       atomicNumber: 21,
@@ -372,7 +372,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 87.62,
       classification: ElementClassification.Metal,
     },
-    null,
+    // null,
     {
       name: "Yttrium",
       atomicNumber: 39,
@@ -502,13 +502,13 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 137.33,
       classification: ElementClassification.Metal,
     },
-    {
+    /* {
       name: "57-70",
       atomicNumber: null,
       symbol: "*",
       atomicMass: null,
       classification: ElementClassification.Metal,
-    },
+    }, */
     {
       name: "Lutetium",
       atomicNumber: 71,
@@ -638,13 +638,13 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 226.03,
       classification: ElementClassification.Metal,
     },
-    {
+    /* {
       name: "89-102",
       atomicNumber: null,
       symbol: "**",
       atomicMass: null,
       classification: ElementClassification.Metal,
-    },
+    }, */
     {
       name: "Lawrencium",
       atomicNumber: 103,
