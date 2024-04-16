@@ -9,6 +9,7 @@ export function App() {
   const [selectedLevel, setSelectedLevel] = useState<Level | null>(null);
   const [showIntro, setShowIntro] = useState(true);
   const [showLevel, setShowLevel] = useState(false);
+  const [compoundClicked, setCompoundClicked] = useState(false);
 
   // when the selectedLevel state changes, useEffect updates and
   // listens for an escape key press when the difficulty options are displays,
@@ -90,23 +91,55 @@ export function App() {
     setSelectedLevel(level);
     setShowLevel(false);
   };
+
+  useEffect(() => {
+    if (compoundClicked) {
+      window.location.href = "/element-decoder/"; // Redirect to the URL when compoundClicked is true
+    }
+  }, [compoundClicked]);
+
+  const handleCompoundClick = () => {
+    playIntroSound();
+    setCompoundClicked(false);
+  };
+
   return (
     <>
       <ThemeToggle />
-      {showIntro && (
-        <div class="game-intro">
-          <h1>Welcome to Element Decoder!</h1>
-          <p>
-            Match elements until you spell out a word! When an element is shaded
-            in, it has already been matched.
-          </p>
-          <p>
-            Lower difficulties give more information about the element to match,
-            whereas higher difficulties give less information.
-          </p>
-          <Button onClick={handleStartButtonClick}>Start</Button>
-        </div>
-      )}
+      <div class="row-content">
+        {(showIntro && !compoundClicked)&& (
+          <div class="game-intro">
+            <h1>Welcome to Element Decoder!</h1>
+            <p>
+              Match elements until you spell out a word! When an element is shaded
+              in, it has already been matched.
+            </p>
+            <p>
+              Lower difficulties give more information about the element to match,
+              whereas higher difficulties give less information.
+            </p>
+            <Button onClick={handleStartButtonClick}>Start</Button>
+          </div>
+        )}
+      </div>
+
+      {/* Render the compound decoder intro if showIntro is true and compoundClicked is false */}
+      <div class="row-content-compound">
+        {(showIntro && compoundClicked) && (
+          <div class="game-intro" onClick={handleCompoundClick}>
+            <h1>Welcome to Compound Decoder Game!</h1>
+            <p>
+              Match elements until you spell out a word! When an element is shaded
+              in, it has already been matched.
+            </p>
+            <p>
+              Lower difficulties give more information about the element to match,
+              whereas higher difficulties give less information.
+            </p>
+            <Button onClick={handleStartButtonClick}>Start Game</Button>
+          </div>
+        )}
+      </div>
 
       {!showIntro && (
         <>
@@ -132,3 +165,4 @@ export function App() {
     </>
   );
 }
+export default App;

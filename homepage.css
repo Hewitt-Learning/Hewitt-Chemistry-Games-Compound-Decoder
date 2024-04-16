@@ -285,6 +285,8 @@ header {
   font-weight: 600;
   margin-bottom: 10px;
 }
+
+/* -------------------- */
 /* separate CSS for the box of the compound decoder a.k.a for the class "row-content-compound" */
 .row .row-content-compound-4 {
   flex-basis: 25%;
@@ -354,6 +356,7 @@ header {
   font-weight: 600;
   margin-bottom: 10px;
 }
+/* -------------------- */
 
 .introImg {
   text-align: center;
