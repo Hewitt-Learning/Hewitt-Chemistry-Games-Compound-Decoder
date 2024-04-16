@@ -38,6 +38,7 @@ export const InfoBox = ({
 
   const [wordGuess, setWordGuess] = useState<string>();
   const [runBonus, setRunningTime] = useState(1000);
+  const [widthset, setWidth] = useState(100);
 
   /**
    * This useEffect function updates the current time every second (since updating currTime as fast as possible
@@ -64,28 +65,11 @@ export const InfoBox = ({
         duration = 1500;
       }
 
-    const interval = setInterval(() => {
-      /*const startT = new Date();
-      const timeBonusMax = 1000; //the maximum number of points that can be added (e.g. quickest match = 0 seconds)
-
-      const target = new Date("12/31/2024 23:59:59");
-      const now = new Date();
-      
-      let decayRate = 1.0;
-      if (level == Level.Beginner) {
-        decayRate = 0.3;
-      } else if (level == Level.Intermediate) {
-        decayRate = 0.5;
-      } else if (level == Level.Advanced) {
-        decayRate = 0.8;
-      }
-      const elapsedT = (now.getTime() - startT.getTime()) / 1000;
-      const s = Math.round(timeBonusMax * Math.exp(-decayRate * (new Date().getTime())));
-      const t = Math.floor(timeBonusMax * Math.exp(-decayRate *elapsedT));
-      const r = Math.round(timeBonusMax * Math.exp(-decayRate * -(new Date().getTime())));
-      */
-      
+    const interval = setInterval(() => {      
       setRunningTime(prevtime => Math.max(prevtime-1, 0));
+      if(runBonus % 10 === 0){
+        setWidth(runBonus/10);
+      }
 
       if (runBonus === 0){
         clearInterval(interval);
@@ -94,6 +78,13 @@ export const InfoBox = ({
 
     return () => clearInterval(interval)
   }, []);
+
+  // useEffect(() =>{
+  //   const maximumTime = 1000;
+  //   const progress = (runBonus/maximumTime) * 100;
+  //   setwidth(progress);
+  // }, [runBonus] );
+
 
   //If the user clicks the right element, set the running bonus to 1000 to countdown anew
   if (gameState.gamePhase === GamePhase.ShowingCorrect){
@@ -172,7 +163,13 @@ export const InfoBox = ({
       )}
 
       <div>Score: {gameState.score}</div>
-      <div> time: <span>{runBonus}</span></div> /*displays the current timebonus counting down*/
+      {/* displays the current timebonus counting down  style="height:24px; width:1%; color:black" */}
+      <div> 
+        time: <span>{runBonus}</span>
+        <div class="time-elements">
+          <div class="time-icon" style={{"animationDuration": `${runBonus/10}s`, "backgroundColor": 'green'}}></div>
+        </div>
+      </div> 
 
       {/* display score breakdown if there is a correct match or stay empty if incorrect match*/}
       {gameState.gamePhase === GamePhase.ShowingCorrect ? (
