@@ -7,6 +7,8 @@ export interface RowCol {
   col: number;
 }
 
+const usedCompounds:Compound[] = [];
+
 /**
  * @param placement The pre-generated arrangement of elements to find
  * @param rng a function that returns a random number between [0, 1)
@@ -51,8 +53,6 @@ export const randomElementSequenceFromPlacement = (
   */
 
   //Deep copy the elementCoordinates array to eliminate used elements.
-  //NOTE: Now pointless, as the coordinate array is unchanged as of yet.
-  //but might be needed to use for sorting.
   const elemCoordCopy:RowCol[] = JSON.parse(JSON.stringify(elementCoordinates));
 
   /**
@@ -64,7 +64,7 @@ export const randomElementSequenceFromPlacement = (
    * holds the number identifier of each compound used.
    * index is arbitrary, value is compound question.
   */
-  const usedCompounds:Compound[] = []; 
+  //const usedCompounds:Compound[] = []; 
 
   for (let i = 0; i < elemCoordCopy.length; i++) {
     //check each compound option
@@ -186,9 +186,13 @@ export const randomElementSequenceFromPlacement = (
    * for use in lower difficulties
   */
   //return elementCoordinates
+  
+
 
   return elemCoordCopy;
 };
+
+export default usedCompounds;
 
 if (import.meta.vitest) {
   const { expect, test } = import.meta.vitest;

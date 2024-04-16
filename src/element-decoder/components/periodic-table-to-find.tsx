@@ -1,3 +1,4 @@
+import { Compound } from "../../compound-decoder/compound-data";
 import {
   PeriodicTableElement as PeriodicTableElementType,
   ElementClassification,
@@ -22,26 +23,45 @@ interface Props {
    * Property for the difficulty of the game
    */
   level: Level;
+
+  /**
+   * Gives information regarding compounds, e.g. name, elements used, chemical formulation, classification
+   */
+  comp: Compound | null;
 }
 
 /**
  * Displays element to search for based on the difficulty of the game
  * @param element - The element that player needs to find from the periodic table
- * @param celement
- * @param level - The difficulty of the game, There is Beginner, Intermediate and Advanced
+ * @param level - The difficulty of the game, There is Beginner, Intermediate and Advanced and Compound
+ * @param comp - The Compound that the element is in.
  */
-export const ElementToFind = ({ activeElement: element, compoundElement: celement, level }: Props) => {
+export const ElementToFind = ({ activeElement: element, level, comp }: Props) => {
   return level === Level.Beginner ? (
     <button
       class={clsx(
         "periodic-table-element",
         "periodic-table-element-to-find",
         element.classification === ElementClassification.Metal &&
-          "periodic-table-element-metal",
+        "periodic-table-element-metal",
         element.classification === ElementClassification.Metalloid &&
-          "periodic-table-element-metalloid",
+        "periodic-table-element-metalloid",
         element.classification === ElementClassification.Nonmetal &&
-          "periodic-table-element-nonmetal",
+        "periodic-table-element-nonmetal",
+        element.classification === ElementClassification.AlkaliMetal &&
+        "periodic-table-element-alkalimetal",
+        element.classification === ElementClassification.AlkalineEarthMetal &&
+        "periodic-table-element-alkalineearthmetal",
+        element.classification === ElementClassification.Actinide &&
+        "periodic-table-element-actinide",
+        element.classification === ElementClassification.Unknown &&
+        "periodic-table-element-unknown",
+        element.classification === ElementClassification.PolyatomicNonMetal &&
+        "periodic-table-element-poly",
+        element.classification === ElementClassification.DiatomicNonMetal &&
+        "periodic-table-element-di",
+        element.classification === ElementClassification.NobleGas &&
+        "periodic-table-element-noblegas",
       )}
     >
       <span class="periodic-table-element-atomic-number">
@@ -74,42 +94,35 @@ export const ElementToFind = ({ activeElement: element, compoundElement: celemen
     >
       <span class="periodic-table-element-name">{addSpace(element.name)}</span>
     </button>
-  /////  TO-DO: Compound Questions
-  /**
-  This is where we can implement the additional logic to handle displaying compounds for the next difficulty.
-
-  What if we go through the list of elements, find what elements can make compounds and record the combinations.
-  This will be passed to this component, and will be checked for display.
-
-  These combinations need to have a way to compare the combination with the current element, since this should be in order
-  it should display when the first element of the pair becomes the 'active-element' and continue displaying until the second item is selected.
-  
-  
-  */
-  /////
   ) : level === Level.Compound ? (
     <button
       class={clsx(
         "periodic-table-element",
         "periodic-table-element-to-find",
-        celement.classification === CompoundClassification.BinaryIonicCompound &&
-        "periodic-table-compound-binaryIonic",
-      )}
-    >
-      <span class="periodic-table-compound-atomic-number">
-        {celement.atomicNumbers}
-      </span>
-      <span class="periodic-table-element-formula">
-        {celement.formula}
-      </span>
-      <span class="periodic-table-compound-name">
-        {celement.name}
-      </span>
-      <span class="periodic-table-compound-elements">
-        {celement.elements}
-      </span>
+        "periodic-table-element-advanced",
+      )}>
+      <span class="periodic-table-element-name">{CompNull(comp, element)}</span>
     </button>
-  ): (
+  ) : (
     <></>
   );
 };
+
+
+/**
+ * This function checks to see if a compound was supplied with element,
+ * if yes it will display the compound name, if no it will display the 
+ * element name.
+ * @param comp - compound passed into <ElementToFind>
+ * @param element - current element being displayed
+ * @returns - compound name, or element name if compound is null or missing name.
+ */
+function CompNull(comp: Compound | null, element: PeriodicTableElementType): string {
+  if (comp !== null) {
+    //The addspace function doesn't work with strings with spaces, so that functionality
+    //has been taken out for compound name.
+    return comp?.name;
+  } else {
+    return addSpace(element.name);
+  }
+}
