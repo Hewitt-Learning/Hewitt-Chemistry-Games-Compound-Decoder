@@ -91,8 +91,8 @@ export const PeriodicTable = ({
             return (
               // Start with the case 1: The user has not completed the word
               <PeriodicTableElement
-                style={{ gridColumn: `${colIndex + 1} / span 1` }}
-                element={element}
+                style={{ gridColumn: `${colIndex + 1} / span 1`, borderRadius: 10}}
+                element={element} 
                 onClick={() => {
                   // If it was already found, or already clicked but was wrong, ignore the click
                   if (

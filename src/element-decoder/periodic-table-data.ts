@@ -758,7 +758,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       classification: ElementClassification.Nonmetal,
     },
   ], //end row 7
-  [
+/*   [
     //row 8
     null,
     null,
@@ -969,6 +969,6 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
     null,
     null,
     null,
-  ], //end row 9
+  ], //end row 9 */
 ];
 
