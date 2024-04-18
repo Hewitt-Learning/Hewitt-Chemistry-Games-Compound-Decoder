@@ -17,7 +17,6 @@ interface Props {
    */
   activeElement: PeriodicTableElementType;
 
-  compoundElement: CompoundType;
 
   /**
    * Property for the difficulty of the game
