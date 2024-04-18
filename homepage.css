@@ -310,6 +310,11 @@ header {
 
 footer {
   position: fixed;
-  left: 0px;
-  bottom: 0px;
+  width: 100%;
+  bottom: 0;
+  font-size: 16px;
+  padding: 0.2em;
+  color: black;
+  background: white;
+  text-align: center;
 }
