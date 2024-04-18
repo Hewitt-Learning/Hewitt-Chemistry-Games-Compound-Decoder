@@ -67,9 +67,9 @@ h1 {
   line-height: 40px;
   letter-spacing: -0.5px;
   color: white;
-  background: rgba(0, 0, 0, 0.3);
+  background: white;
   text-align: center;
-  height: 120px;
+  height: 110px;
 }
 
 h2 {
