@@ -3,6 +3,7 @@ import {
   PeriodicTableElement as PeriodicTableElementType,
   ElementClassification,
 } from "../periodic-table-data";
+import { Compound as CompoundType, CompoundClassification } from "../../compound-decoder/compound-data";
 import "./periodic-table-element.css";
 import clsx from "clsx";
 import { useState } from "preact/hooks";
@@ -15,6 +16,7 @@ interface Props {
    * Gives information about the element, e.g. name, atomic number, symbol, atomic mass, & classification
    */
   activeElement: PeriodicTableElementType;
+
 
   /**
    * Property for the difficulty of the game
