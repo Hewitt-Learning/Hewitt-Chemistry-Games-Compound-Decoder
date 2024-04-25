@@ -138,3 +138,11 @@
 .theme-dark .periodic-table-complete .periodic-table-element-good-click {
   background: white;
 }
+
+.periodic-table-element-compound-click {
+  background-color: rgb(255, 203, 32);
+}
+
+.theme-dark .periodic-table-element-compound-click {
+  background-color: orange;
+}

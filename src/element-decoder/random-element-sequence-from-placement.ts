@@ -7,6 +7,11 @@ export interface RowCol {
   col: number;
 }
 
+export interface RetValues {
+  usedC: Compound[];
+  place: RowCol[] | false;
+}
+
 const usedCompounds:Compound[] = [];
 
 /**
@@ -17,7 +22,7 @@ const usedCompounds:Compound[] = [];
 export const randomElementSequenceFromPlacement = (
   placement: SpaceDef[][],
   rng: () => number,
-): RowCol[] => {
+): RetValues => {
   // Generate (row, col) for each occupied space in the table
   const elementCoordinates = placement.reduce((output, row, rowIndex) => {
     return [
@@ -151,7 +156,13 @@ export const randomElementSequenceFromPlacement = (
               //if we make it here, then the previous index should be first element in compound
               //covers edge case of last index
             }else{
-              let previousElement = periodicTable[elemCoordCopy[i-1].row][elemCoordCopy[i-1].col]?.atomicNumber;
+              let previousElement;
+              if(i > 0){
+                previousElement = periodicTable[elemCoordCopy[i-1].row][elemCoordCopy[i-1].col]?.atomicNumber;
+              }else {
+                previousElement = 0;
+              }
+              
               if(previousElement === usedCompounds[j].atomicNumbers[0]){
                 //compound is in order
               }else{
@@ -187,9 +198,14 @@ export const randomElementSequenceFromPlacement = (
   */
   //return elementCoordinates
   
+let obj:RetValues = {
+  usedC: usedCompounds,
+  place: elemCoordCopy,
+}
 
+  return obj;
 
-  return elemCoordCopy;
+  //return elemCoordCopy;
 };
 
 export default usedCompounds;

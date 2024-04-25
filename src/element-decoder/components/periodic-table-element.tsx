@@ -71,6 +71,8 @@ export const PeriodicTableElement = ({
           "periodic-table-element-good-click",
         elementState === ElementState.WrongElementClicked &&
           "periodic-table-element-bad-click",
+        elementState === ElementState.Compound &&
+          "periodic-table-element-compound-click",
       
       )}
     >
@@ -106,6 +108,8 @@ export const CompoundTableElement = ({
           "periodic-table-element-good-click",
         elementState === ElementState.WrongElementClicked &&
           "periodic-table-element-bad-click",
+        elementState === ElementState.Compound && 
+          "periodic-table-element-compound-click",
       )}
     >
       <span class="periodic-table-compound-atomic-number">

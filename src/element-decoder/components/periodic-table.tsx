@@ -27,7 +27,8 @@ export enum ElementState {
   NotClicked,
   /** Elements that were clicked incorrectly (gets reset after a the correct element is found) */
   WrongElementClicked,
-  
+
+  Compound,  
 }
 
 export enum Level {
@@ -101,6 +102,8 @@ export const PeriodicTable = ({
                       ElementState.FoundElement ||
                     gameState.elementStates[rowIndex][colIndex] ===
                       ElementState.WrongElementClicked ||
+                    gameState.elementStates[rowIndex][colIndex] ===
+                      ElementState.Compound ||
                     gameState.gamePhase === GamePhase.CompletedWord
                   )
                     return;
