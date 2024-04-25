@@ -5,6 +5,7 @@ import { useEffect, useState } from "preact/hooks";
 import { ElementToFind } from "./periodic-table-to-find";
 import { Level } from "./periodic-table";
 import { PeriodicTableElement as PeriodicTableElementType } from "../periodic-table-data";
+import {computeNewScore} from "../score-calc";
 import clsx from "clsx";
 import "./periodic-table-info-box.css";
 import Button from "./button";
@@ -46,7 +47,10 @@ export const InfoBox = ({
 
   /** Initial defn of elapsed time, which is the amount of time elapsed since the start of this element's matching phase in seconds*/
   const elapsedTime = (currTime - gameState.startTime) / 1000;
+
   const [wordGuess, setWordGuess] = useState<string>();
+  const [runBonus, setRunningTime] = useState(1000);
+  const [widthset, setWidth] = useState(100);
 
   /**
    * This useEffect function updates the current time every second (since updating currTime as fast as possible
@@ -57,6 +61,47 @@ export const InfoBox = ({
       setCurrTime(new Date().getTime());
     }, 1000);
   }, []);
+  let time:number;
+
+  /**
+   * This useEffect function updates the timebonus every second at a specified rate that differs
+   * across levels.
+  */
+  useEffect(() => {
+    let duration = 1000;
+      if (level == Level.Beginner) {
+        duration = 500;
+      } else if (level == Level.Intermediate) {
+        duration = 1000;
+      } else if (level == Level.Advanced) {
+        duration = 1500;
+      }
+
+    const interval = setInterval(() => {      
+      setRunningTime(prevtime => Math.max(prevtime-1, 0));
+      if(runBonus % 10 === 0){
+        setWidth(runBonus/10);
+      }
+
+      if (runBonus === 0){
+        clearInterval(interval);
+      }
+    }, duration)
+
+    return () => clearInterval(interval)
+  }, []);
+
+  // useEffect(() =>{
+  //   const maximumTime = 1000;
+  //   const progress = (runBonus/maximumTime) * 100;
+  //   setwidth(progress);
+  // }, [runBonus] );
+
+
+  //If the user clicks the right element, set the running bonus to 1000 to countdown anew
+  if (gameState.gamePhase === GamePhase.ShowingCorrect){
+    setRunningTime(1000)
+  }
 
   if (gameState.gamePhase === GamePhase.CompletedWord) {
     //return two things, based on if the wordGuess the user has made matches the game's word or not
@@ -130,6 +175,13 @@ export const InfoBox = ({
       )}
 
       <div>Score: {gameState.score}</div>
+      {/* displays the current timebonus counting down  style="height:24px; width:1%; color:black" */}
+      <div> 
+        time: <span>{runBonus}</span>
+        <div class="time-elements">
+          <div class="time-icon" style={{"animationDuration": `${runBonus/10}s`, "backgroundColor": 'green'}}></div>
+        </div>
+      </div> 
 
       {/* display score breakdown if there is a correct match or stay empty if incorrect match*/}
       {gameState.gamePhase === GamePhase.ShowingCorrect ? (
@@ -147,7 +199,7 @@ export const InfoBox = ({
       ) : (
         <div class="box-text"></div>
       )}
-
+      
       {/* toggle-able clock that increments every second if enabled, not relative to grid but to the info box */}
       <div class="clock-elements">
         <span class="clock-text">

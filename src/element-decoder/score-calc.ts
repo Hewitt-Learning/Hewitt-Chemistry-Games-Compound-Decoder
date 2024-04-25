@@ -14,7 +14,12 @@ export const computeNewScore = (
   streak: number,
   level: Level,
 ) => {
+<<<<<<< HEAD
   const baseCorrectPoints = 200;
+=======
+  const baseCorrectPoints = 1000;
+  
+>>>>>>> main
   // return invidiual elements of new score calculation:
   // a base number of points, streakBonus, and timeBonus per correct match.
   return [baseCorrectPoints, streakBonusCalc(streak), timeBonus(time, level)];
@@ -49,8 +54,35 @@ const streakBonusCalc = (streak: number) => {
  * lower bonus given for slower match. Uses exponential decay for the bonus amount based on the time.
  * @param time - time that the user has taken to correctly match in seconds
  */
+<<<<<<< HEAD
 const timeBonus = (time: number, level: Level) => {
   const timeBonusMax = 500; //the maximum number of points that can be added (e.g. quickest match = 0 seconds)
+=======
+const timeBonus = ( time: number, level: Level) => {
+  const timeBonusMax = 1000; //the maximum number of points that can be added (e.g. quickest match = 0 seconds)
+  let duration = 1000;
+  if (level == Level.Beginner) {
+    duration = 500;
+  } else if (level == Level.Intermediate) {
+    duration = 1000;
+  } else if (level == Level.Advanced) {
+    duration = 1500;
+  }
+
+  const decay = 1 / duration;
+  const bonus = timeBonusMax * decay * (duration - time);
+  return Math.round(Math.max(bonus, 0));
+  
+  //return Math.round(Math.max(timeBonusMax * Math.exp(- 1 * duration)), 0);
+  //const bonus = timeBonusMax - Math.floor(time / duration);
+  //return Math.round(timeBonusMax * Math.exp(-decayRate * time));
+  //return Math.round(Math.max(bonus, 0));
+};
+
+/*
+const runTime = (time: number, level: Level) => {
+  const timeBonusMax = 1000; //the maximum number of points that can be added (e.g. quickest match = 0 seconds)
+>>>>>>> main
   let decayRate = 1.0;
   if (level == Level.Beginner) {
     decayRate = 0.1;
@@ -73,7 +105,12 @@ const timeBonus = (time: number, level: Level) => {
       EndScore = 3; 
   }
   return Math.round(timeBonusMax * Math.exp(-decayRate * time));
+<<<<<<< HEAD
 
   
   
+=======
+  return Math.round(timeBonusMax * Math.exp(-decayRate * time));
+>>>>>>> main
 };
+*/
