@@ -19,7 +19,9 @@
   font-size: 0.6em;
 
 }
+.shark .game-info{
 
+}
 
 .element-and-feedback {
   position: relative;
@@ -77,6 +79,14 @@
 
 .clock-text {
   font-size: 0.75em;
+}
+
+.char-icon{
+  width: 5.0em;
+  height: 5.0em;
+
+
+
 }
 
 .time-elements {
@@ -182,8 +192,12 @@
   grid-column: span 2;
 }
 
+
+
 .text-box {
   font-size: 1.3em;
   padding: 0.8em;
-  
 }
+
+
+

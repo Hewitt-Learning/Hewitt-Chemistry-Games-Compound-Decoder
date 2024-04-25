@@ -9,6 +9,7 @@ import {computeNewScore} from "../score-calc";
 import clsx from "clsx";
 import "./periodic-table-info-box.css";
 import Button from "./button";
+import shark from './chem_photo4.png';
 
 interface Props {
   gameState: GameState;
@@ -44,6 +45,8 @@ export const InfoBox = ({
   const [showClock, setShowClock] = useState<boolean>(false);
   /**  Keeps track of the current time (in milliseconds since enoch), used to figure out time spent matching the current element*/
   const [currTime, setCurrTime] = useState(new Date().getTime());
+
+  const[showChar,setChar] = useState<boolean>(false);
 
   /** Initial defn of elapsed time, which is the amount of time elapsed since the start of this element's matching phase in seconds*/
   const elapsedTime = (currTime - gameState.startTime) / 1000;
@@ -221,7 +224,26 @@ export const InfoBox = ({
           </svg>
         </button>
       </div>
-    </div>
+       {/* character placement in the infobox*/}
+       <div class="char-icon">
+        <span class="char-text">
+        {showChar && (Math.round(elapsedTime * 100) / 100).toFixed(0)}
+        </span>
+        <button
+          class="char-toggle"
+          onClick={() => {
+            setChar(!showChar);
+          }}
+        >
+        
+          <img src={ shark } class="char-icon"/>
+          
+            
+            <title>Toggle Char</title>
+         </button>
+
+      </div>
+      </div>
   );
 };
 
