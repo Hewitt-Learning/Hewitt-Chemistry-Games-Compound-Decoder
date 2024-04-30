@@ -8,6 +8,7 @@ import { PeriodicTableElement as PeriodicTableElementType } from "../periodic-ta
 import clsx from "clsx";
 import "./periodic-table-info-box.css";
 import Button from "./button";
+import shark from './chem_photo4.png';
 
 interface Props {
   gameState: GameState;
@@ -43,6 +44,8 @@ export const InfoBox = ({
   const [showClock, setShowClock] = useState<boolean>(false);
   /**  Keeps track of the current time (in milliseconds since enoch), used to figure out time spent matching the current element*/
   const [currTime, setCurrTime] = useState(new Date().getTime());
+
+  const[showChar,setChar] = useState<boolean>(false);
 
   /** Initial defn of elapsed time, which is the amount of time elapsed since the start of this element's matching phase in seconds*/
   const elapsedTime = (currTime - gameState.startTime) / 1000;
@@ -168,10 +171,43 @@ export const InfoBox = ({
             <path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" />
           </svg>
         </button>
+        
+      </div>
+       {/* character placement in the infobox*/}
+       <div class="character-chooser">
+        <span class="character-chooser-text">
+        {showChar && (Math.round(elapsedTime * 100) / 100).toFixed(0)}
+        </span>
+        <Button
+          class="char-toggle"
+          onClick={() => {
+            window.open(shark)
+          }}
+        >Characters      
+            <title>Character-chooser</title>
+         </Button>
       </div>
     </div>
   );
 };
+
+const characterChooser = () => {
+  return ( 
+
+<div class="character-chooser">
+  <div class="character-chooser-text">Characters</div>
+  
+  <Button
+        class="char-toggle"
+      >
+        <img src={ shark } class="char-icon"/>
+        
+          
+          <title>Toggle Char</title>
+       </Button>
+  </div>
+  )
+}
 
 interface EndScreenProps {
   setSelectedLevel: (level: Level | null) => void;
