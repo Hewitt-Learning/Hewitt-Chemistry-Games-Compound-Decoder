@@ -19,9 +19,6 @@
   font-size: 0.6em;
 
 }
-.shark .game-info{
-
-}
 
 .element-and-feedback {
   position: relative;
@@ -84,9 +81,15 @@
 .char-icon{
   width: 5.0em;
   height: 5.0em;
+  position:inherit;
 
 
 
+}
+
+.current-icon{
+  width: 5.0em;
+  height: 5.0em;
 }
 
 .time-elements {

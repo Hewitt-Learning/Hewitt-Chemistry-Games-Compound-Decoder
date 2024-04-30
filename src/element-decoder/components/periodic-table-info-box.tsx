@@ -10,6 +10,10 @@ import clsx from "clsx";
 import "./periodic-table-info-box.css";
 import Button from "./button";
 import shark from './chem_photo4.png';
+import owl from './chem_photo3.png';
+import soccer from './chem_photo2.png';
+import oct from './chem_photo1.png';
+
 
 interface Props {
   gameState: GameState;
@@ -47,6 +51,8 @@ export const InfoBox = ({
   const [currTime, setCurrTime] = useState(new Date().getTime());
 
   const[showChar,setChar] = useState<boolean>(false);
+
+  const[showCurrent,setCurrent] = useState<boolean>(false);
 
   /** Initial defn of elapsed time, which is the amount of time elapsed since the start of this element's matching phase in seconds*/
   const elapsedTime = (currTime - gameState.startTime) / 1000;
@@ -227,19 +233,46 @@ export const InfoBox = ({
        {/* character placement in the infobox*/}
        <div class="char-icon">
         <span class="char-text">
-        {showChar && (Math.round(elapsedTime * 100) / 100).toFixed(0)}
+        {showChar && "Characters Availible: "}
         </span>
         <button
           class="char-toggle"
           onClick={() => {
             setChar(!showChar);
+            
           }}
         >
         
           <img src={ shark } class="char-icon"/>
+         
+          <img src={ owl } class="char-icon"/>
+
+          <img src={ soccer } class="char-icon"/>
+
+          <img src={ oct } class="char-icon"/>
+
+          
           
             
             <title>Toggle Char</title>
+         </button>
+
+      </div>
+
+      <div class="current-icon">
+        <span class="current-text">
+        {showCurrent && "Current Character: "}
+        </span>
+        <button
+          class="current-toggle"
+          onClick={() => {
+            setCurrent(!showCurrent);
+            
+          }}
+        >
+        
+          <img src={ shark } class="current-icon"/>
+          <title>Toggle Char</title>
          </button>
 
       </div>
@@ -259,8 +292,12 @@ const EndScreen = ({ setSelectedLevel, setShowLevel }: EndScreenProps) => {
         onClick={() => {
           setSelectedLevel(null);
           setShowLevel(true);
-        }}
-      >
+            
+          }}
+        >
+        
+          <img src={ shark } class="char-icon"/>
+      
         Play again
       </Button>
     </div>
