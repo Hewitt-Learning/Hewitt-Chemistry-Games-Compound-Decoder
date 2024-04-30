@@ -5,7 +5,7 @@ import "./app.css";
 import { ThemeToggle } from "../theme";
 // import { hideLastTwoRows } from "./periodic-table-data";
 
-export function App() {
+export function AppComp() {
   const [selectedLevel, setSelectedLevel] = useState<Level | null>(null);
   const [showIntro, setShowIntro] = useState(true);
   const [showLevel, setShowLevel] = useState(false);
@@ -95,10 +95,10 @@ export function App() {
   return (
     <>
       <ThemeToggle />
-      <div class="row-content">
+      <div class="row-content-compound">
         {showIntro && (
           <div class="game-intro">
-            <h1>Welcome to Element Decoder!</h1>
+            <h1>Welcome to Compound Decoder Game!</h1>
             <p>
               Match elements until you spell out a word! When an element is shaded
               in, it has already been matched.
@@ -107,7 +107,7 @@ export function App() {
               Lower difficulties give more information about the element to match,
               whereas higher difficulties give less information.
             </p>
-            <Button onClick={handleStartButtonClick}>Start</Button>
+            <Button onClick={handleStartButtonClick}>Start Game</Button>
           </div>
         )}
       </div>
