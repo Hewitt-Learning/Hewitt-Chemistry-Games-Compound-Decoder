@@ -97,8 +97,9 @@ export function AppComp() {
       <ThemeToggle />
       <div class="row-content-compound" 
             style="background: #ffffff url(/images/compound.gif) center
-                  top no-repeat;
-                  background-size: 300px;
+                  top repeat;
+                  background-size: 550px;
+                  // filter:blur(2px);
                 ">
         {showIntro && (
           <div class="game-intro">

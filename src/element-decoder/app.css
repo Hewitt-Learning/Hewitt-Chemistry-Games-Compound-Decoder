@@ -62,3 +62,10 @@
     grid-column: 1;
   }
 }
+
+/* .row-content-compound {
+  background: white;
+  background-image: url(/public/images/compound.gif);
+  background-size: 550px;
+  filter:blur(2px);
+} */
