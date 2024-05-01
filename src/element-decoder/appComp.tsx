@@ -95,7 +95,11 @@ export function AppComp() {
   return (
     <>
       <ThemeToggle />
-      <div class="row-content-compound">
+      <div class="row-content-compound" 
+            style="background: #ffffff url(/images/compound.gif) center
+                  top no-repeat;
+                  background-size: 300px;
+                ">
         {showIntro && (
           <div class="game-intro">
             <h1>Welcome to Compound Decoder Game!</h1>
