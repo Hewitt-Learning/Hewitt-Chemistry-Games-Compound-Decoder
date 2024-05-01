@@ -4,11 +4,18 @@ import Button from "./components/button";
 import "./app.css";
 import { ThemeToggle } from "../theme";
 
+import { FunctionComponent } from "preact";
 
-export function App() {
+interface AppProps {
+  difficulty: string;
+}
+
+
+export const App:FunctionComponent<AppProps> = ({difficulty}) => {
   const [selectedLevel, setSelectedLevel] = useState<Level | null>(null);
   const [showIntro, setShowIntro] = useState(true);
   const [showLevel, setShowLevel] = useState(false);
+
 
   // when the selectedLevel state changes, useEffect updates and
   // listens for an escape key press when the difficulty options are displays,
@@ -87,6 +94,9 @@ export function App() {
     setSelectedLevel(level);
     setShowLevel(false);
   };
+  if(difficulty === "Compound"){
+    handleLevelChange(Level.Compound);
+  }
   return (
     <>
       <ThemeToggle />
