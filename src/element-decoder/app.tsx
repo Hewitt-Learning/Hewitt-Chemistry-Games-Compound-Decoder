@@ -96,6 +96,49 @@ export const App:FunctionComponent<AppProps> = ({difficulty}) => {
   };
   if(difficulty === "Compound"){
     handleLevelChange(Level.Compound);
+    return (
+      <>
+        <ThemeToggle />
+        <div class="row-content-compound">
+          {showIntro && (
+            <div class="game-intro">
+              <h1>Welcome to Compound Decoder Game!</h1>
+              <p>
+                Match elements until you spell out a word! When an element is shaded
+                in, it has already been matched.
+              </p>
+              <p>
+                Lower difficulties give more information about the element to match,
+                whereas higher difficulties give less information.
+              </p>
+              <Button onClick={handleStartButtonClick}>Start Game</Button>
+            </div>
+          )}
+        </div>
+  
+        {!showIntro && (
+          <>
+            {showLevel && difficultyChange()}
+            {selectedLevel !== null && (
+              <>
+                <PeriodicTable
+                  level={selectedLevel}
+                  setSelectedLevel={setSelectedLevel}
+                  setShowLevel={setShowLevel}
+                />
+                <Button
+                  onClick={() => {
+                    setShowLevel(true);
+                  }}
+                >
+                  Change Difficulty
+                </Button>
+              </>
+            )}
+          </>
+        )}
+      </>
+    );
   }
   return (
     <>
