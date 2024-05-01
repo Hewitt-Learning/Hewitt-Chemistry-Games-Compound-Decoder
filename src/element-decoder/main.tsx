@@ -3,7 +3,7 @@ import { subscribeToTheme } from "../theme";
 import { App } from "./app";
 import "./index.css";
 
-render(<App difficulty="Element" />, document.getElementById("app") as HTMLElement);
+render(<App game="Element" />, document.getElementById("app") as HTMLElement);
 
 subscribeToTheme((theme) => {
   for (const className of document.body.classList.values()) {

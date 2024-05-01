@@ -7,11 +7,11 @@ import { ThemeToggle } from "../theme";
 import { FunctionComponent } from "preact";
 
 interface AppProps {
-  difficulty: string;
+  game: string; //tells the app what game was selected.
 }
 
 
-export const App:FunctionComponent<AppProps> = ({difficulty}) => {
+export const App:FunctionComponent<AppProps> = ({game}) => {
   const [selectedLevel, setSelectedLevel] = useState<Level | null>(null);
   const [showIntro, setShowIntro] = useState(true);
   const [showLevel, setShowLevel] = useState(false);
@@ -94,57 +94,34 @@ export const App:FunctionComponent<AppProps> = ({difficulty}) => {
     setSelectedLevel(level);
     setShowLevel(false);
   };
-  if(difficulty === "Compound"){
+
+  let isCompound = false;
+  if(game === "Compound"){
     handleLevelChange(Level.Compound);
-    return (
-      <>
-        <ThemeToggle />
-        <div class="row-content-compound">
-          {showIntro && (
-            <div class="game-intro">
-              <h1>Welcome to Compound Decoder Game!</h1>
-              <p>
-                Match elements until you spell out a word! When an element is shaded
-                in, it has already been matched.
-              </p>
-              <p>
-                Lower difficulties give more information about the element to match,
-                whereas higher difficulties give less information.
-              </p>
-              <Button onClick={handleStartButtonClick}>Start Game</Button>
-            </div>
-          )}
-        </div>
-  
-        {!showIntro && (
-          <>
-            {showLevel && difficultyChange()}
-            {selectedLevel !== null && (
-              <>
-                <PeriodicTable
-                  level={selectedLevel}
-                  setSelectedLevel={setSelectedLevel}
-                  setShowLevel={setShowLevel}
-                />
-                <Button
-                  onClick={() => {
-                    setShowLevel(true);
-                  }}
-                >
-                  Change Difficulty
-                </Button>
-              </>
-            )}
-          </>
-        )}
-      </>
-    );
+    isCompound = true;
   }
+
   return (
     <>
       <ThemeToggle />
       {showIntro && (
-        <div class="game-intro">
+        <div class="row-content-compound">
+          {isCompound ? ( // This displays the compound intro if the compound game is selected. 
+                          //Otherwise it shows element intro screen.
+            <div class="game-intro">
+            <h1>Welcome to Compound Decoder Game!</h1>
+            <p>
+              Match elements until you spell out a word! When an element is shaded
+              in, it has already been matched.
+            </p>
+            <p>
+              Lower difficulties give more information about the element to match,
+              whereas higher difficulties give less information.
+            </p>
+            <Button onClick={handleStartButtonClick}>Start Game</Button>
+          </div>
+          ) : (
+          <div class="game-intro">
           <h1>Welcome to Element Decoder!</h1>
           <p>
             Match elements until you spell out a word! When an element is shaded
@@ -155,7 +132,9 @@ export const App:FunctionComponent<AppProps> = ({difficulty}) => {
             whereas higher difficulties give less information.
           </p>
           <Button onClick={handleStartButtonClick}>Start</Button>
-        </div>
+          </div> 
+          )}
+      </div>
       )}
 
       {!showIntro && (
