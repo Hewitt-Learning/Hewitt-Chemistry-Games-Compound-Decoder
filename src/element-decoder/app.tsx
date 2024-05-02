@@ -67,7 +67,9 @@ export const App:FunctionComponent<AppProps> = ({game}) => {
       >
         <div class="difficulty-chooser">
           <div class="difficulty-chooser-text">Select Difficulty</div>
-          {isCompound && handleLevelChange(Level.Compound)}
+          
+          {isCompound && (handleLevelChange(Level.Compound))}
+          
           <Button onClick={() => handleLevelChange(Level.Beginner)}>
             Beginner
           </Button>
@@ -95,6 +97,7 @@ export const App:FunctionComponent<AppProps> = ({game}) => {
     playIntroSound();
     setShowIntro(false);
     setShowLevel(true);
+    //isCompound && handleLevelChange(Level.Compound);
   };
 
   const handleLevelChange = (level: Level) => {
@@ -135,7 +138,7 @@ export const App:FunctionComponent<AppProps> = ({game}) => {
             Lower difficulties give more information about the element to match,
             whereas higher difficulties give less information.
           </p>
-          <Button onClick={handleStartButtonClick}>Start</Button>
+          <Button onClick={handleStartButtonClick}>Start Game</Button>
           </div> 
           )}
       </div>
@@ -143,14 +146,13 @@ export const App:FunctionComponent<AppProps> = ({game}) => {
 
       {!showIntro && (
         <>
-          {showLevel && difficultyChange()}
+          {showLevel && (difficultyChange())}
           {selectedLevel !== null && (
             <>
               <PeriodicTable
                 level={selectedLevel}
                 setSelectedLevel={setSelectedLevel}
                 setShowLevel={setShowLevel}
-                isCompound={isCompound}
               />
               <Button
                 onClick={() => {
