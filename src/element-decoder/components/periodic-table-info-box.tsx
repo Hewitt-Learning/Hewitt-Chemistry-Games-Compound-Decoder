@@ -9,6 +9,10 @@ import {computeNewScore} from "../score-calc";
 import clsx from "clsx";
 import "./periodic-table-info-box.css";
 import Button from "./button";
+import octopus from './chem_photo1.png';
+import boy from './chem_photo2.png';
+import owl from './chem_photo3.png';
+import shark from './chem_photo4.png';
 
 interface Props {
   gameState: GameState;
@@ -16,6 +20,7 @@ interface Props {
   level: Level;
   setSelectedLevel: (level: Level | null) => void;
   setShowLevel: (showLevel: boolean) => void;
+  
   feedback?: Feedback;
 }
 
@@ -44,6 +49,8 @@ export const InfoBox = ({
   const [showClock, setShowClock] = useState<boolean>(false);
   /**  Keeps track of the current time (in milliseconds since enoch), used to figure out time spent matching the current element*/
   const [currTime, setCurrTime] = useState(new Date().getTime());
+
+  const[showChar,setChar] = useState<boolean>(false);
 
   /** Initial defn of elapsed time, which is the amount of time elapsed since the start of this element's matching phase in seconds*/
   const elapsedTime = (currTime - gameState.startTime) / 1000;
@@ -221,9 +228,42 @@ export const InfoBox = ({
           </svg>
         </button>
       </div>
-    </div>
+       {/* character placement in the infobox*/}
+       <div class="character-chooser">
+        <span class="character-chooser-text">
+        {showChar && (Math.round(elapsedTime * 100) / 100).toFixed(0)}
+        </span>
+        <Button
+          class="char-toggle"
+          onClick={() => {
+            window.open(shark)
+          }}
+        >Characters      
+            <title>Character-chooser</title>
+         </Button>
+
+      </div>
+      </div>
   );
 };
+
+const characterChooser = () => {
+  return ( 
+
+<div class="character-chooser">
+  <div class="character-chooser-text">Characters</div>
+  
+  <Button
+        class="char-toggle"
+      >
+        <img src={ shark } class="char-icon"/>
+        
+          
+          <title>Toggle Char</title>
+       </Button>
+  </div>
+  )
+}
 
 interface EndScreenProps {
   setSelectedLevel: (level: Level | null) => void;

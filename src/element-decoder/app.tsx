@@ -10,6 +10,7 @@ export function App() {
   const [showIntro, setShowIntro] = useState(true);
   const [showLevel, setShowLevel] = useState(false);
 
+
   // when the selectedLevel state changes, useEffect updates and
   // listens for an escape key press when the difficulty options are displays,
   // but only after the difficulty is initially set
