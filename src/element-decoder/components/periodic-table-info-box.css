@@ -81,7 +81,8 @@
 .char-icon{
   width: 5.0em;
   height: 5.0em;
-  position:inherit;
+ position:static;
+
 
 
 
@@ -90,6 +91,9 @@
 .current-icon{
   width: 5.0em;
   height: 5.0em;
+  
+  position: static;
+
 }
 
 .time-elements {
