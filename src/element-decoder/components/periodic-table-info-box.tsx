@@ -5,7 +5,6 @@ import { useEffect, useState } from "preact/hooks";
 import { ElementToFind } from "./periodic-table-to-find";
 import { Level } from "./periodic-table";
 import { PeriodicTableElement as PeriodicTableElementType } from "../periodic-table-data";
-import { Compound as CompoundType} from "../../compound-decoder/compound-data";
 import {computeNewScore} from "../score-calc";
 import clsx from "clsx";
 import "./periodic-table-info-box.css";
@@ -14,7 +13,6 @@ import Button from "./button";
 interface Props {
   gameState: GameState;
   activeElement?: PeriodicTableElementType | undefined | null;
-  compoundref: CompoundType;
   level: Level;
   setSelectedLevel: (level: Level | null) => void;
   setShowLevel: (showLevel: boolean) => void;
@@ -37,7 +35,6 @@ const example:Compound = {
 export const InfoBox = ({
   gameState,
   activeElement,
-  compoundref,
   level,
   setSelectedLevel,
   setShowLevel,
@@ -230,7 +227,7 @@ export const InfoBox = ({
 
 interface EndScreenProps {
   setSelectedLevel: (level: Level | null) => void;
-  setShowLevel: (showLevel: boolean) => void;
+  setShowLevel: (showLevel: boolean) => void;  
 }
 const EndScreen = ({ setSelectedLevel, setShowLevel }: EndScreenProps) => {
   return (
@@ -239,7 +236,7 @@ const EndScreen = ({ setSelectedLevel, setShowLevel }: EndScreenProps) => {
       <Button
         onClick={() => {
           setSelectedLevel(null);
-          setShowLevel(true);
+          setShowLevel(true);  
         }}
       >
         Play again

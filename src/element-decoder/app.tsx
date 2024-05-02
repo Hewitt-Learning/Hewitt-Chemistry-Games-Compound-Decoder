@@ -15,6 +15,14 @@ export const App:FunctionComponent<AppProps> = ({game}) => {
   const [selectedLevel, setSelectedLevel] = useState<Level | null>(null);
   const [showIntro, setShowIntro] = useState(true);
   const [showLevel, setShowLevel] = useState(false);
+  
+
+
+  let isCompound = false;
+  if(game === "Compound"){
+    //handleLevelChange(Level.Compound);
+    isCompound = true;
+  }
 
 
   // when the selectedLevel state changes, useEffect updates and
@@ -59,7 +67,7 @@ export const App:FunctionComponent<AppProps> = ({game}) => {
       >
         <div class="difficulty-chooser">
           <div class="difficulty-chooser-text">Select Difficulty</div>
-
+          {isCompound && handleLevelChange(Level.Compound)}
           <Button onClick={() => handleLevelChange(Level.Beginner)}>
             Beginner
           </Button>
@@ -69,9 +77,9 @@ export const App:FunctionComponent<AppProps> = ({game}) => {
           <Button onClick={() => handleLevelChange(Level.Advanced)}>
             Advanced
           </Button>
-          <Button onClick={() => handleLevelChange(Level.Compound)}>
+          {/*<Button onClick={() => handleLevelChange(Level.Compound)}>
             Compound
-          </Button>
+      </Button>*/}
         </div>
       </div>
     );
@@ -95,11 +103,7 @@ export const App:FunctionComponent<AppProps> = ({game}) => {
     setShowLevel(false);
   };
 
-  let isCompound = false;
-  if(game === "Compound"){
-    handleLevelChange(Level.Compound);
-    isCompound = true;
-  }
+  
 
   return (
     <>
@@ -146,6 +150,7 @@ export const App:FunctionComponent<AppProps> = ({game}) => {
                 level={selectedLevel}
                 setSelectedLevel={setSelectedLevel}
                 setShowLevel={setShowLevel}
+                isCompound={isCompound}
               />
               <Button
                 onClick={() => {
