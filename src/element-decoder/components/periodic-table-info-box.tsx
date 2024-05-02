@@ -288,6 +288,7 @@ const EndScreen = ({ setSelectedLevel, setShowLevel }: EndScreenProps) => {
   return (
     <div class="end-screen">
       <h1>Congrats!</h1>
+      <h2> "You unlocked: showCurrent </h2> 
       <Button
         onClick={() => {
           setSelectedLevel(null);
