@@ -51,6 +51,7 @@ export const InfoBox = ({
   const [wordGuess, setWordGuess] = useState<string>();
   const [runBonus, setRunningTime] = useState(1000);
   const [widthset, setWidth] = useState(100);
+  let toggleExecuted = false;
 
   /**
    * This useEffect function updates the current time every second (since updating currTime as fast as possible
@@ -111,6 +112,43 @@ export const InfoBox = ({
     const correctPoints = Math.max(0, Math.min(100, points));
 
     scoreProgress.style.width = `${correctPoints}`;
+  }
+
+  if(gameState.score >= 10000 && !toggleExecuted){
+    let scores = gameState.score;
+    let intervalpop: ReturnType<typeof setInterval> | undefined;
+    const toggle = (scores : number) => {
+      let popup = document.getElementById("congrats-Modal");
+      let popupContent = document.getElementById("congrats-Modal-Text");
+      
+      if(popup && popupContent){
+        popup.style.display = "flex";
+        popupContent.textContent = `Great! You have unlocked a new character`;
+
+        intervalpop = setInterval(scaleImage, 50);
+
+        setTimeout(() => {
+          popup.style.display = "none";
+          clearInterval(intervalpop);
+        }, 4000);
+      }
+    };
+
+    let factor = 1;
+    let popImage = document.getElementById("congrats-Modal-Image");
+
+    const scaleImage = () => {
+      if (factor === 1){
+        factor = 0.8;
+      } else {
+        factor = 1;
+      }
+      if(popImage){
+        popImage.style.transform = `scale(${factor})`;
+      }
+    }
+    toggle(scores);
+    toggleExecuted = true;
   }
 
   if (gameState.gamePhase === GamePhase.CompletedWord) {
@@ -195,6 +233,14 @@ export const InfoBox = ({
       <div>Score: {gameState.score}
         <div class="score-element">
           <div class="score-bar" style={{width: `${gameState.score / 1000}%`}}></div>
+        </div>
+      </div>
+      
+      <div class="Modal" id="congrats-Modal">
+        <div class="Modal-content">
+          <div id="Modal-text">
+                <p id="congrats-Modal-Text">Yay! You've unlocked a new character.</p>
+          </div>
         </div>
       </div>
 
