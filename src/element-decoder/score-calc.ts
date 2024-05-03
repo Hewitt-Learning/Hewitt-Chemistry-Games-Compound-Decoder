@@ -52,11 +52,11 @@ const timeBonus = ( time: number, level: Level) => {
   const timeBonusMax = 1000; //the maximum number of points that can be added (e.g. quickest match = 0 seconds)
   let duration = 1000;
   if (level == Level.Beginner) {
-    duration = 500;
+    duration = 25;
   } else if (level == Level.Intermediate) {
-    duration = 1000;
+    duration = 50;
   } else if (level == Level.Advanced) {
-    duration = 1500;
+    duration = 100;
   }
 
   const decay = 1 / duration;

@@ -58,6 +58,7 @@ export const InfoBox = ({
   const [wordGuess, setWordGuess] = useState<string>();
   const [runBonus, setRunningTime] = useState(1000);
   const [widthset, setWidth] = useState(100);
+  //let toggleExecuted = false;
 
   /**
    * This useEffect function updates the current time every second (since updating currTime as fast as possible
@@ -77,18 +78,15 @@ export const InfoBox = ({
   useEffect(() => {
     let duration = 1000;
       if (level == Level.Beginner) {
-        duration = 500;
+        duration = 25;
       } else if (level == Level.Intermediate) {
-        duration = 1000;
+        duration = 50;
       } else if (level == Level.Advanced) {
-        duration = 1500;
+        duration = 100;
       }
 
     const interval = setInterval(() => {      
       setRunningTime(prevtime => Math.max(prevtime-1, 0));
-      if(runBonus % 10 === 0){
-        setWidth(runBonus/10);
-      }
 
       if (runBonus === 0){
         clearInterval(interval);
@@ -98,17 +96,67 @@ export const InfoBox = ({
     return () => clearInterval(interval)
   }, []);
 
-  // useEffect(() =>{
-  //   const maximumTime = 1000;
-  //   const progress = (runBonus/maximumTime) * 100;
-  //   setwidth(progress);
-  // }, [runBonus] );
-
-
   //If the user clicks the right element, set the running bonus to 1000 to countdown anew
   if (gameState.gamePhase === GamePhase.ShowingCorrect){
-    setRunningTime(1000)
+    setRunningTime(1000);
+    const timeBar = timeBarChange(runBonus);
+    const element = document.querySelector('.time-icon') as HTMLElement;
+    element.style.width = '100%';
+    element.style.animation = 'progress linear';
+    element.style.animationDuration = setRunningTime(1000) + 'ms';
   }
+
+  function timeBarChange(runBonus:number): string{
+    return `<div> 
+      
+      <div class="time-icon" style="animationDuration: ${runBonus*100}ms; backgroundColor: green; width: 100%;"></div>
+      
+    </div>`;
+  }
+  
+  const scoreProgress = document.querySelector('.score-bar') as HTMLElement;
+  function updateScore(points: number){
+    const correctPoints = Math.max(0, Math.min(100, points));
+
+    scoreProgress.style.width = `${correctPoints}`;
+  }
+
+  // if(gameState.score >= 10000 && !toggleExecuted){
+  //   let scores = gameState.score;
+  //   let intervalpop: ReturnType<typeof setInterval> | undefined;
+  //   const toggle = (scores : number) => {
+  //     let popup = document.getElementById("congrats-Modal");
+  //     let popupContent = document.getElementById("congrats-Modal-Text");
+      
+  //     if(popup && popupContent){
+  //       popup.style.display = "flex";
+  //       popupContent.textContent = `Great! You have unlocked a new character`;
+
+  //       intervalpop = setInterval(scaleImage, 50);
+
+  //       setTimeout(() => {
+  //         popup.style.display = "none";
+  //         clearInterval(intervalpop);
+  //       }, 4000);
+  //     }
+  //   };
+
+  //   let factor = 1;
+  //   let popImage = document.getElementById("congrats-Modal-Image");
+
+  //   const scaleImage = () => {
+  //     if (factor === 1){
+  //       factor = 0.8;
+  //     } else {
+  //       factor = 1;
+  //     }
+  //     if(popImage){
+  //       popImage.style.transform = `scale(${factor})`;
+  //     }
+  //   }
+  //   toggle(scores);
+  //   toggleExecuted = true;
+  // }
 
   if (gameState.gamePhase === GamePhase.CompletedWord) {
     //return two things, based on if the wordGuess the user has made matches the game's word or not
@@ -181,14 +229,27 @@ export const InfoBox = ({
         </div>
       )}
 
-      <div>Score: {gameState.score}</div>
+      
       {/* displays the current timebonus counting down  style="height:24px; width:1%; color:black" */}
       <div> 
         time: <span>{runBonus}</span>
         <div class="time-elements">
-          <div class="time-icon" style={{"animationDuration": `${runBonus/10}s`, "backgroundColor": 'green'}}></div>
+          <div class="time-icon" style={{width: `${runBonus/10}%`}}></div>
         </div>
       </div> 
+      <div>Score: {gameState.score}
+        <div class="score-element">
+          <div class="score-bar" style={{width: `${gameState.score / 1000}%`}}></div>
+        </div>
+      </div>
+      
+      <div class="Modal" id="congrats-Modal">
+        <div class="Modal-content">
+          <div id="Modal-text">
+                {/* <p id="congrats-Modal-Text">Yay! You've unlocked a new character.</p> */}
+          </div>
+        </div>
+      </div>
 
       {/* display score breakdown if there is a correct match or stay empty if incorrect match*/}
       {gameState.gamePhase === GamePhase.ShowingCorrect ? (
