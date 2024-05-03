@@ -51,7 +51,7 @@
   font-size: inherit;
   font-family: inherit;
   background-color: inherit;
-  padding: 0;
+  padding: 0px;
   aspect-ratio: 1;
   height: 100%;
   border: none;
@@ -171,7 +171,8 @@
   text-align: center;
   font-size: 1.5em;
   position: relative;
-  background: #a9a8a8;
+  background: #e7e7e7;
+  border-radius: 20px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-areas:
@@ -180,8 +181,10 @@
   grid-column: 3 / span 10;
   grid-row: 1 / span 3;
   gap: 0.5em;
-  margin: 1em;
-  padding: 3em;
+  margin: .5em;
+  margin-top: 0;
+  margin-bottom: 5px;
+  padding: 2.8em;
   align-items: center;
 }
 
