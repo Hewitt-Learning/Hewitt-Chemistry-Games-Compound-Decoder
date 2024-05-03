@@ -17,7 +17,6 @@
   right: 0;
   top: 100%;
   font-size: 0.6em;
-
 }
 
 .element-and-feedback {
@@ -76,27 +75,6 @@
 
 .clock-text {
   font-size: 0.75em;
-}
-
-.char-icon{
-  width: 5.0em;
-  height: 5.0em;
- position:static;
-
-
-
-
-}
-
-.current-icon{
-  width: 5.0em;
-  height: 5.0em;
-  
-  position: static;
-
-
-
-
 }
 
 .time-elements {
@@ -244,12 +222,7 @@
   grid-column: span 2;
 }
 
-
-
 .text-box {
   font-size: 1.3em;
   padding: 0.8em;
 }
-
-
-
