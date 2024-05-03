@@ -9,10 +9,11 @@ import {computeNewScore} from "../score-calc";
 import clsx from "clsx";
 import "./periodic-table-info-box.css";
 import Button from "./button";
-import octopus from './chem_photo1.png';
-import boy from './chem_photo2.png';
-import owl from './chem_photo3.png';
 import shark from './chem_photo4.png';
+import owl from './chem_photo3.png';
+import soccer from './chem_photo2.png';
+import oct from './chem_photo1.png';
+
 
 interface Props {
   gameState: GameState;
@@ -51,6 +52,9 @@ export const InfoBox = ({
   const [currTime, setCurrTime] = useState(new Date().getTime());
 
   const[showChar,setChar] = useState<boolean>(false);
+
+  const[showCurrent,setCurrent] = useState<boolean>(false);
+
 
   /** Initial defn of elapsed time, which is the amount of time elapsed since the start of this element's matching phase in seconds*/
   const elapsedTime = (currTime - gameState.startTime) / 1000;
@@ -290,18 +294,49 @@ export const InfoBox = ({
         </button>
       </div>
        {/* character placement in the infobox*/}
-       <div class="character-chooser">
-        <span class="character-chooser-text">
-        {showChar && (Math.round(elapsedTime * 100) / 100).toFixed(0)}
+       <div class="char-icon">
+        <span class="char-text">
+        {showChar && "Characters Availible: "}
         </span>
-        <Button
+        <button
           class="char-toggle"
           onClick={() => {
-            window.open(shark)
+            setChar(!showChar);
+            
           }}
-        >Characters      
-            <title>Character-chooser</title>
-         </Button>
+        >
+        
+          <img src={ shark } class="char-icon"/>
+         
+          <img src={ owl } class="char-icon"/>
+
+          <img src={ soccer } class="char-icon"/>
+
+          <img src={ oct } class="char-icon"/>
+
+          
+          
+            
+            <title>Toggle Char</title>
+         </button>
+
+      </div>
+
+      <div class="current-icon">
+        <span class="current-text">
+        {showCurrent && "Current Character: "}
+        </span>
+        <button
+          class="current-toggle"
+          onClick={() => {
+            setCurrent(!showCurrent);
+            
+          }}
+        >
+        
+          <img src={ shark } class="current-icon"/>
+          <title>Toggle Char</title>
+         </button>
 
       </div>
       </div>
@@ -334,12 +369,17 @@ const EndScreen = ({ setSelectedLevel, setShowLevel }: EndScreenProps) => {
   return (
     <div class="end-screen">
       <h1>Congrats!</h1>
+      <h2> "You unlocked: showCurrent </h2> 
       <Button
         onClick={() => {
           setSelectedLevel(null);
           setShowLevel(true);
-        }}
-      >
+            
+          }}
+        >
+        
+          <img src={ shark } class="char-icon"/>
+      
         Play again
       </Button>
     </div>
