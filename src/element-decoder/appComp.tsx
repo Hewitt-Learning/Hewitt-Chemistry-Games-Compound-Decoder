@@ -97,7 +97,7 @@ export function AppComp() {
       <ThemeToggle />
       <div class="row-content-compound">
         {showIntro && (
-          <div class="game-intro">
+          <div class="game-intro-comp">
             <h1>Welcome to Compound Decoder Game!</h1>
             <p>
               Match elements until you spell out a word! When an element is shaded

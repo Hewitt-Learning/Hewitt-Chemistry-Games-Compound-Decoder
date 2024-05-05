@@ -18,7 +18,7 @@
   width: 100%;
   height: 100%;
   background-image: url("/public/images/thumbnail_Aluminum.jpg"), 
-                    url("/public/images/thumbnail_Hydrogen.jpg");
+                    url("/public/images/thumbnail_Zinc.jpg");
   background-size: 500px 500px, 500px 500px;
   background-repeat: no-repeat, no-repeat;
   z-index: -1;
@@ -34,6 +34,45 @@
 }
 
 .game-intro p {
+  max-width: 25em;
+}
+
+.game-intro-comp {
+  display: grid;
+  height: 100vh;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  gap: 1em;
+  padding: 2em;
+  position: relative;
+  justify-items: center;
+}
+
+.game-intro-comp::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/public/images/thumbnail_Neon.jpg"),
+                    url("/public/images/thumbnail_Hydrogen.jpg");
+  background-size: 500px 500px, 500px 500px;
+  background-repeat: no-repeat, no-repeat;
+  z-index: -1;
+  background-position: 87% 40%, 10% 35%;
+}
+
+.game-intro-comp > * {
+  margin: 0;
+}
+
+.game-intro-comp > h1 {
+  text-align: center;
+}
+
+.game-intro-comp p {
   max-width: 25em;
 }
 
@@ -79,10 +118,3 @@
     grid-column: 1;
   }
 }
-
-/* .back-visuals {
-  background: white;
-  background-image: url(/public/images/thumbnail_Aluminum.jpg);
-  background-size: 350px;
-  background-repeat: no-repeat;
-} */
