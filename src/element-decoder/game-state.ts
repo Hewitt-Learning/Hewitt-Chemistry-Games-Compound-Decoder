@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { periodicTable } from "./periodic-table-data";
 import { ElementState, Level } from "./components/periodic-table";
-import {
+import usedCompounds, {
   randomElementSequenceFromPlacement,
   RowCol,
 } from "./random-element-sequence-from-placement";
 import { placeWord, SpaceDef } from "./word-placement";
 import { computeNewScore } from "./score-calc";
+import { RetValues } from "./random-element-sequence-from-placement";
 
 // The 'word-list' is a "magic" import that will pull in the word list from the CMS.
 // This happens through a custom vite plugin defined in vite.config.js
@@ -124,15 +125,22 @@ export const useGameState = (level: Level): GameState => {
     }
   }, [word]);
 
+  let randElemUsedComp:RetValues = {usedC:[],place:[]};
   // Whenever the placement changes
   useEffect(() => {
     // Recompute the randomized element sequence to find
     setScore(0);
-    setElementSequence(
+  
+    randElemUsedComp = randomElementSequenceFromPlacement(placement?placement:[], Math.random);
+
+    setElementSequence(randElemUsedComp.place?randElemUsedComp.place:[]);
+    /*setElementSequence(
       placement
         ? randomElementSequenceFromPlacement(placement, Math.random)
         : [],
-    );
+    );*/
+
+
     // Reset the element states (found/wrong elements)
     setElementStates(getInitialElementStates);
     setGamePhase(GamePhase.SearchingForElement); //CHANGE BACK TO GamePhase.SearchingForElement WHEN DONE TESTING
@@ -172,14 +180,34 @@ export const useGameState = (level: Level): GameState => {
             setScoreCompBase(basePoints);
             setScoreCompStreak(streakBonus);
             setScoreCompTime(timeBonus);
-
+            
+            /**
+             * If there are compounds within the game, check to see if the element clicked is the first element of the pair.
+             * If it is change its state to make it orange.
+             */
+            if(usedCompounds !== null){ 
+              for(let i = 0; i < usedCompounds.length; i++){
+                 if(periodicTable[activeElement.row][activeElement.col]?.atomicNumber == usedCompounds[i].atomicNumbers[0]){
+                   //console.log("First Element of Compound Detected!!");
+                   return ElementState.Compound;
+                 }
+                 if(periodicTable[activeElement.row][activeElement.col]?.atomicNumber == usedCompounds[i].atomicNumbers[1]){
+                  //console.log("Second Element of Compound Detected!!");
+                  return ElementState.FoundElement;
+                }
+              }
+            }
+        
             return ElementState.FoundElement; //Mark as found
           } else if (
             // Reset any wrong elements clicked -> neutral
             elementState === ElementState.WrongElementClicked
           ) {
             return ElementState.NotClicked;
-          } else {
+          } else if(elementState === ElementState.Compound){
+            // Set the state of the first element of compound to correct after another thing is clicked
+            return ElementState.FoundElement;
+          }else {
             // Leave other elements as is
             return elementState;
           }

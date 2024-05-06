@@ -5,11 +5,18 @@
   background: inherit;
   display: grid;
   border: none;
-  padding: 0.5em;
+  padding: 0.7em;
   cursor: pointer;
   transition-property: transform, box-shadow, background-color;
   transition-duration: 0.3s;
   transition-timing-function: ease;
+  height: 7.7em;
+  margin: 0;
+}
+.periodic-table-element-to-find {
+  height: 8em;
+  width: auto;
+  border-radius: 10px;
 }
 
 .theme-dark .periodic-table-element {
@@ -53,12 +60,6 @@
   font-size: 2.1em;
 }
 
-.periodic-table-element-compound {
-  /* Text for active element in compound difficulty */
-  font-family: Chemistry, sans-serif;
-  font-size: 3.5em;
-}
-
 .periodic-table-element-metal {
   background: #9abee4;
 }
@@ -68,37 +69,37 @@
 .periodic-table-element-nonmetal {
   background: #87cc87;
 }
-/* .periodic-table-element-alkalimetal{
-  background:#9abee4;
+.periodic-table-element-alkalimetal{
+  background:#456e2d;
 }
 
 .periodic-table-element-alkalineearthmetal{
-  background:#9abee4;
+  background:#08e83c;
 }
 
 .periodic-table-element-actinide{
-  background:#9abee4;
+  background:#0f0fd3;
 }
 
 .periodic-table-element-poly{
-  background:#87cc87;
+  background:#0f0fd3;
 }
 
 .periodic-table-element-di{
-  background:#87cc87;
+  background:#4c1715;
 }
 
 .periodic-table-element-unknown{
-  background:#9abee4;
+  background:#616164;
 }
 
 .periodic-table-element-poly{
-  background:#87cc87;
+  background:#713580;
 }
 
 .periodic-table-element-noblegas{
-  background:#87cc87;
-} */
+  background:#1d0342;
+}
 .theme-dark .periodic-table-element-metal {
   background: #416a96;
 }
@@ -109,13 +110,13 @@
   background: #4c844c;
 }
 
-/* .theme-dark .periodic-table-elements-alkalimetal{
+.theme-dark .periodic-table-elements-alkalimetal{
   background:#1999e8;
 }
 
 .theme-dark .periodic-table-elements-alkalimetal{
   background:#1999e8;
-} */
+}
 
 .periodic-table-element-good-click {
   background: black;
@@ -143,4 +144,12 @@
 }
 .theme-dark .periodic-table-complete .periodic-table-element-good-click {
   background: white;
+}
+
+.periodic-table-element-compound-click {
+  background-color: rgb(255, 203, 32);
+}
+
+.theme-dark .periodic-table-element-compound-click {
+  background-color: orange;
 }

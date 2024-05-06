@@ -1,5 +1,6 @@
 import { periodicTable } from "../periodic-table-data";
-import { PeriodicTableElement } from "./periodic-table-element";
+import { compoundQuestions } from "../../compound-decoder/compound-data";
+import { PeriodicTableElement, CompoundTableElement } from "./periodic-table-element";
 import "./periodic-table.css";
 import { useGameState, GamePhase } from "../game-state";
 import { InfoBox } from "./periodic-table-info-box";
@@ -12,7 +13,7 @@ const playIncorrectSound = () => {
 };
 
 const playCorrectSound = () => {
-  const audio = new Audio("/audio/KH3v2.wav");
+  const audio = new Audio("/audio/Click_sound.wav");
   audio.playbackRate = 1.5;
   audio.play();
 };
@@ -26,14 +27,15 @@ export enum ElementState {
   NotClicked,
   /** Elements that were clicked incorrectly (gets reset after a the correct element is found) */
   WrongElementClicked,
-  
+
+  Compound,  
 }
 
 export enum Level {
   Beginner,
   Intermediate,
   Advanced,
-  Compound,
+  Compound, 
 }
 
 interface Props {
@@ -91,8 +93,8 @@ export const PeriodicTable = ({
             return (
               // Start with the case 1: The user has not completed the word
               <PeriodicTableElement
-                style={{ gridColumn: `${colIndex + 1} / span 1` }}
-                element={element}
+                style={{ gridColumn: `${colIndex + 1} / span 1`, borderRadius: 10}}
+                element={element} 
                 onClick={() => {
                   // If it was already found, or already clicked but was wrong, ignore the click
                   if (
@@ -100,6 +102,8 @@ export const PeriodicTable = ({
                       ElementState.FoundElement ||
                     gameState.elementStates[rowIndex][colIndex] ===
                       ElementState.WrongElementClicked ||
+                    gameState.elementStates[rowIndex][colIndex] ===
+                      ElementState.Compound ||
                     gameState.gamePhase === GamePhase.CompletedWord
                   )
                     return;

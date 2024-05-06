@@ -11,6 +11,7 @@ export function App() {
   const [showLevel, setShowLevel] = useState(false);
   // const [compoundClicked, setCompoundClicked] = useState(false);
 
+
   // when the selectedLevel state changes, useEffect updates and
   // listens for an escape key press when the difficulty options are displays,
   // but only after the difficulty is initially set
@@ -63,10 +64,7 @@ export function App() {
           <Button onClick={() => handleLevelChange(Level.Advanced)}>
             Advanced
           </Button>
-          <Button onClick={() => {
-            // hideLastTwoRows();
-            handleLevelChange(Level.Compound);
-            }}>
+          <Button onClick={() => handleLevelChange(Level.Compound)}>
             Compound
           </Button>
         </div>

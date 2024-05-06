@@ -65,10 +65,11 @@ h1 {
   padding: 1em;
   font-weight: 600;
   line-height: 40px;
-  /* letter-spacing: -0.5px; */
-  color: black;
+  letter-spacing: -0.5px;
+  color: white;
   background: white;
   text-align: center;
+  height: 110px;
 }
 
 h2 {

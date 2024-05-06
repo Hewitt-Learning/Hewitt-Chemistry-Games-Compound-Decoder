@@ -15,23 +15,23 @@ export enum ElementClassification {
    */
   Metalloid,
 
-  // AlkaliMetal,
+  AlkaliMetal,
   // /**
   // The element classification for alkalimetal
 
   // **/
 
-  // AlkalineEarthMetal, /**alkaine earth metal */
+  AlkalineEarthMetal, /**alkaine earth metal */
 
-  // Actinide, /** actinide */
+  Actinide, /** actinide */
 
-  // Unknown, /**Unknown chemical compounds  */
+  Unknown, /**Unknown chemical compounds  */
 
-  // PolyatomicNonMetal, /**Poly Atmomic Non Metals */
+  PolyatomicNonMetal, /**Poly Atmomic Non Metals */
 
-  // DiatomicNonMetal, /** Diatomic non metal element classification  */
+  DiatomicNonMetal, /** Diatomic non metal element classification  */
 
-  // NobleGas, /**element classification for noble gas */
+  NobleGas, /**element classification for noble gas */
 }
 
 /**
@@ -61,7 +61,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 1.01,
       classification: ElementClassification.Nonmetal,
     },
-    null,
+    // null,
     null,
     null,
     null,
@@ -102,7 +102,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 9.01,
       classification: ElementClassification.Metal,
     },
-    null,
+    // null,
     null,
     null,
     null,
@@ -172,7 +172,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 24.31,
       classification: ElementClassification.Metal,
     },
-    null,
+    // null,
     null,
     null,
     null,
@@ -242,7 +242,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 40.08,
       classification: ElementClassification.Metal,
     },
-    null,
+    // null,
     {
       name: "Scandium",
       atomicNumber: 21,
@@ -372,7 +372,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 87.62,
       classification: ElementClassification.Metal,
     },
-    null,
+    // null,
     {
       name: "Yttrium",
       atomicNumber: 39,
@@ -502,13 +502,13 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 137.33,
       classification: ElementClassification.Metal,
     },
-    {
+    /* {
       name: "57-70",
       atomicNumber: null,
       symbol: "*",
       atomicMass: null,
       classification: ElementClassification.Metal,
-    },
+    }, */
     {
       name: "Lutetium",
       atomicNumber: 71,
@@ -638,13 +638,13 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       atomicMass: 226.03,
       classification: ElementClassification.Metal,
     },
-    {
+    /* {
       name: "89-102",
       atomicNumber: null,
       symbol: "**",
       atomicMass: null,
       classification: ElementClassification.Metal,
-    },
+    }, */
     {
       name: "Lawrencium",
       atomicNumber: 103,
@@ -758,7 +758,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       classification: ElementClassification.Nonmetal,
     },
   ], //end row 7
-  [
+/*   [
     //row 8
     null,
     null,
@@ -969,16 +969,6 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
     null,
     null,
     null,
-  ], //end row 9
+  ], //end row 9 */
 ];
 
-export function hideLastTwoRows() {
-  const numRows = periodicTable.length;
-  
-  // Ensuring if there are at least two rows
-  if (numRows >= 2) {
-    // Set the last two rows to null
-    periodicTable[numRows - 1] = null;
-    periodicTable[numRows - 2] = null;
-  }
-}

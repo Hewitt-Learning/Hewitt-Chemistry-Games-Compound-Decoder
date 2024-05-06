@@ -1,11 +1,18 @@
+import { Compound, CompoundClassification } from "../../compound-decoder/compound-data";
+import usedCompounds from "../random-element-sequence-from-placement";
 import { GameState, GamePhase, Feedback } from "../game-state";
 import { useEffect, useState } from "preact/hooks";
 import { ElementToFind } from "./periodic-table-to-find";
 import { Level } from "./periodic-table";
 import { PeriodicTableElement as PeriodicTableElementType } from "../periodic-table-data";
+import {computeNewScore} from "../score-calc";
 import clsx from "clsx";
 import "./periodic-table-info-box.css";
 import Button from "./button";
+import octopus from './chem_photo1.png';
+import boy from './chem_photo2.png';
+import owl from './chem_photo3.png';
+import shark from './chem_photo4.png';
 
 interface Props {
   gameState: GameState;
@@ -13,7 +20,21 @@ interface Props {
   level: Level;
   setSelectedLevel: (level: Level | null) => void;
   setShowLevel: (showLevel: boolean) => void;
+  
   feedback?: Feedback;
+}
+
+/**
+ * This Compound was used for testing the Compound display,
+ * as it gave a static Compound to use as a prop.
+ */
+
+const example:Compound = {
+  name: "aluminum nitride",
+  elements: ["aluminum","nitrogen"],
+  atomicNumbers: [13,7],
+  formula: "Al N",
+  classification: CompoundClassification.BinaryIonicCompound
 }
 
 export const InfoBox = ({
@@ -29,9 +50,15 @@ export const InfoBox = ({
   /**  Keeps track of the current time (in milliseconds since enoch), used to figure out time spent matching the current element*/
   const [currTime, setCurrTime] = useState(new Date().getTime());
 
+  const[showChar,setChar] = useState<boolean>(false);
+
   /** Initial defn of elapsed time, which is the amount of time elapsed since the start of this element's matching phase in seconds*/
   const elapsedTime = (currTime - gameState.startTime) / 1000;
+
   const [wordGuess, setWordGuess] = useState<string>();
+  const [runBonus, setRunningTime] = useState(1000);
+  const [widthset, setWidth] = useState(100);
+  //let toggleExecuted = false;
 
   /**
    * This useEffect function updates the current time every second (since updating currTime as fast as possible
@@ -42,6 +69,94 @@ export const InfoBox = ({
       setCurrTime(new Date().getTime());
     }, 1000);
   }, []);
+  let time:number;
+
+  /**
+   * This useEffect function updates the timebonus every second at a specified rate that differs
+   * across levels.
+  */
+  useEffect(() => {
+    let duration = 1000;
+      if (level == Level.Beginner) {
+        duration = 25;
+      } else if (level == Level.Intermediate) {
+        duration = 50;
+      } else if (level == Level.Advanced) {
+        duration = 100;
+      }
+
+    const interval = setInterval(() => {      
+      setRunningTime(prevtime => Math.max(prevtime-1, 0));
+
+      if (runBonus === 0){
+        clearInterval(interval);
+      }
+    }, duration)
+
+    return () => clearInterval(interval)
+  }, []);
+
+  //If the user clicks the right element, set the running bonus to 1000 to countdown anew
+  if (gameState.gamePhase === GamePhase.ShowingCorrect){
+    setRunningTime(1000);
+    const timeBar = timeBarChange(runBonus);
+    const element = document.querySelector('.time-icon') as HTMLElement;
+    element.style.width = '100%';
+    element.style.animation = 'progress linear';
+    element.style.animationDuration = setRunningTime(1000) + 'ms';
+  }
+
+  function timeBarChange(runBonus:number): string{
+    return `<div> 
+      
+      <div class="time-icon" style="animationDuration: ${runBonus*100}ms; backgroundColor: green; width: 100%;"></div>
+      
+    </div>`;
+  }
+  
+  const scoreProgress = document.querySelector('.score-bar') as HTMLElement;
+  function updateScore(points: number){
+    const correctPoints = Math.max(0, Math.min(100, points));
+
+    scoreProgress.style.width = `${correctPoints}`;
+  }
+
+  // if(gameState.score >= 10000 && !toggleExecuted){
+  //   let scores = gameState.score;
+  //   let intervalpop: ReturnType<typeof setInterval> | undefined;
+  //   const toggle = (scores : number) => {
+  //     let popup = document.getElementById("congrats-Modal");
+  //     let popupContent = document.getElementById("congrats-Modal-Text");
+      
+  //     if(popup && popupContent){
+  //       popup.style.display = "flex";
+  //       popupContent.textContent = `Great! You have unlocked a new character`;
+
+  //       intervalpop = setInterval(scaleImage, 50);
+
+  //       setTimeout(() => {
+  //         popup.style.display = "none";
+  //         clearInterval(intervalpop);
+  //       }, 4000);
+  //     }
+  //   };
+
+  //   let factor = 1;
+  //   let popImage = document.getElementById("congrats-Modal-Image");
+
+  //   const scaleImage = () => {
+  //     if (factor === 1){
+  //       factor = 0.8;
+  //     } else {
+  //       factor = 1;
+  //     }
+  //     if(popImage){
+  //       popImage.style.transform = `scale(${factor})`;
+  //     }
+  //   }
+  //   toggle(scores);
+  //   toggleExecuted = true;
+  // }
 
   if (gameState.gamePhase === GamePhase.CompletedWord) {
     //return two things, based on if the wordGuess the user has made matches the game's word or not
@@ -100,7 +215,7 @@ export const InfoBox = ({
       {gameState.error && <h1>{gameState.error}</h1>}
       {activeElement && (
         <div class="element-and-feedback">
-          <ElementToFind activeElement={activeElement} level={level} />
+          <ElementToFind activeElement={activeElement} level={level} comp={CompoundDisplay(activeElement,usedCompounds)} />
           {feedback && (
             <div class="feedback">
               {feedback.type === "good" && (
@@ -114,7 +229,27 @@ export const InfoBox = ({
         </div>
       )}
 
-      <div>Score: {gameState.score}</div>
+      
+      {/* displays the current timebonus counting down  style="height:24px; width:1%; color:black" */}
+      <div> 
+        time: <span>{runBonus}</span>
+        <div class="time-elements">
+          <div class="time-icon" style={{width: `${runBonus/10}%`}}></div>
+        </div>
+      </div> 
+      <div>Score: {gameState.score}
+        <div class="score-element">
+          <div class="score-bar" style={{width: `${gameState.score / 1000}%`}}></div>
+        </div>
+      </div>
+      
+      <div class="Modal" id="congrats-Modal">
+        <div class="Modal-content">
+          <div id="Modal-text">
+                {/* <p id="congrats-Modal-Text">Yay! You've unlocked a new character.</p> */}
+          </div>
+        </div>
+      </div>
 
       {/* display score breakdown if there is a correct match or stay empty if incorrect match*/}
       {gameState.gamePhase === GamePhase.ShowingCorrect ? (
@@ -132,7 +267,7 @@ export const InfoBox = ({
       ) : (
         <div class="box-text"></div>
       )}
-
+      
       {/* toggle-able clock that increments every second if enabled, not relative to grid but to the info box */}
       <div class="clock-elements">
         <span class="clock-text">
@@ -154,9 +289,42 @@ export const InfoBox = ({
           </svg>
         </button>
       </div>
-    </div>
+       {/* character placement in the infobox*/}
+       <div class="character-chooser">
+        <span class="character-chooser-text">
+        {showChar && (Math.round(elapsedTime * 100) / 100).toFixed(0)}
+        </span>
+        <Button
+          class="char-toggle"
+          onClick={() => {
+            window.open(shark)
+          }}
+        >Characters      
+            <title>Character-chooser</title>
+         </Button>
+
+      </div>
+      </div>
   );
 };
+
+const characterChooser = () => {
+  return ( 
+
+<div class="character-chooser">
+  <div class="character-chooser-text">Characters</div>
+  
+  <Button
+        class="char-toggle"
+      >
+        <img src={ shark } class="char-icon"/>
+        
+          
+          <title>Toggle Char</title>
+       </Button>
+  </div>
+  )
+}
 
 interface EndScreenProps {
   setSelectedLevel: (level: Level | null) => void;
@@ -177,3 +345,22 @@ const EndScreen = ({ setSelectedLevel, setShowLevel }: EndScreenProps) => {
     </div>
   );
 };
+/**
+ * This function checks the current element and tests if it is part of a usedCompound,
+ * if it is it will return the compound that the element is a part of, so it can be displayed.
+ * @param element - active element that would normally be displayed
+ * @param usedCompounds - array of compounds that were found within the list of elements
+ */
+function CompoundDisplay(element:PeriodicTableElementType,usedCompounds:Compound[]):Compound | null{
+
+  for(let i = 0; i < usedCompounds.length; i++){
+    if(element.name === usedCompounds[i].elements[0])
+    {
+      return usedCompounds[i];
+    }else if (element.name === usedCompounds[i].elements[1]){
+      return usedCompounds[i];
+    }
+  }
+
+  return null;
+}

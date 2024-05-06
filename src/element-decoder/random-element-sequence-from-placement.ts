@@ -7,6 +7,13 @@ export interface RowCol {
   col: number;
 }
 
+export interface RetValues {
+  usedC: Compound[];
+  place: RowCol[] | false;
+}
+
+const usedCompounds:Compound[] = [];
+
 /**
  * @param placement The pre-generated arrangement of elements to find
  * @param rng a function that returns a random number between [0, 1)
@@ -15,7 +22,7 @@ export interface RowCol {
 export const randomElementSequenceFromPlacement = (
   placement: SpaceDef[][],
   rng: () => number,
-): RowCol[] => {
+): RetValues => {
   // Generate (row, col) for each occupied space in the table
   const elementCoordinates = placement.reduce((output, row, rowIndex) => {
     return [
@@ -51,8 +58,6 @@ export const randomElementSequenceFromPlacement = (
   */
 
   //Deep copy the elementCoordinates array to eliminate used elements.
-  //NOTE: Now pointless, as the coordinate array is unchanged as of yet.
-  //but might be needed to use for sorting.
   const elemCoordCopy:RowCol[] = JSON.parse(JSON.stringify(elementCoordinates));
 
   /**
@@ -64,7 +69,7 @@ export const randomElementSequenceFromPlacement = (
    * holds the number identifier of each compound used.
    * index is arbitrary, value is compound question.
   */
-  const usedCompounds:Compound[] = []; 
+  //const usedCompounds:Compound[] = []; 
 
   for (let i = 0; i < elemCoordCopy.length; i++) {
     //check each compound option
@@ -151,7 +156,13 @@ export const randomElementSequenceFromPlacement = (
               //if we make it here, then the previous index should be first element in compound
               //covers edge case of last index
             }else{
-              let previousElement = periodicTable[elemCoordCopy[i-1].row][elemCoordCopy[i-1].col]?.atomicNumber;
+              let previousElement;
+              if(i > 0){
+                previousElement = periodicTable[elemCoordCopy[i-1].row][elemCoordCopy[i-1].col]?.atomicNumber;
+              }else {
+                previousElement = 0;
+              }
+              
               if(previousElement === usedCompounds[j].atomicNumbers[0]){
                 //compound is in order
               }else{
@@ -186,9 +197,18 @@ export const randomElementSequenceFromPlacement = (
    * for use in lower difficulties
   */
   //return elementCoordinates
+  
+let obj:RetValues = {
+  usedC: usedCompounds,
+  place: elemCoordCopy,
+}
 
-  return elemCoordCopy;
+  return obj;
+
+  //return elemCoordCopy;
 };
+
+export default usedCompounds;
 
 if (import.meta.vitest) {
   const { expect, test } = import.meta.vitest;
