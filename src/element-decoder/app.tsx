@@ -68,9 +68,9 @@ export const App:FunctionComponent<AppProps> = ({game}) => {
         <div class="difficulty-chooser">
           <div class="difficulty-chooser-text">Select Difficulty</div>
           
-          {isCompound && (handleLevelChange(Level.Compound))}
-          
-          <Button onClick={() => handleLevelChange(Level.Beginner)}>
+          {isCompound ? (<Button onClick={()=>handleLevelChange(Level.Compound)}>Compound</Button>)
+          :
+          (<><Button onClick={() => handleLevelChange(Level.Beginner)}>
             Beginner
           </Button>
           <Button onClick={() => handleLevelChange(Level.Intermediate)}>
@@ -78,7 +78,7 @@ export const App:FunctionComponent<AppProps> = ({game}) => {
           </Button>
           <Button onClick={() => handleLevelChange(Level.Advanced)}>
             Advanced
-          </Button>
+          </Button></>)}
           {/*<Button onClick={() => handleLevelChange(Level.Compound)}>
             Compound
       </Button>*/}
