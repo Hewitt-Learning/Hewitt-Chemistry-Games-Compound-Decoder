@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "clsx": "^1.2.1",
-    "preact": "^10.11.3"
+    "preact": "^10.11.3",
+    "react-modal": "^3.16.1"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",

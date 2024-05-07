@@ -9,6 +9,7 @@ import {computeNewScore} from "../score-calc";
 import clsx from "clsx";
 import "./periodic-table-info-box.css";
 import Button from "./button";
+import Modal from 'react-modal';
 import octopus from './chem_photo1.png';
 import boy from './chem_photo2.png';
 import owl from './chem_photo3.png';
@@ -250,18 +251,19 @@ export const InfoBox = ({
 const characterChooser = () => {
   return ( 
 
-<div class="character-chooser">
-  <div class="character-chooser-text">Characters</div>
-  
-  <Button
-        class="char-toggle"
-      >
-        <img src={ shark } class="char-icon"/>
-        
-          
-          <title>Toggle Char</title>
-       </Button>
-  </div>
+<div className="character-chooser">
+      <div className="character-chooser-text">Characters</div>
+
+      <button className="char-toggle" onClick={() => setModalIsOpen(true)}>
+        <img src={shark} alt="Shark" className="char-icon" />
+        <title>Toggle Char</title>
+      </button>
+
+      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+        <img src={shark} alt="Shark" />
+        <button onClick={() => setModalIsOpen(false)}>Close</button>
+      </Modal>
+    </div>
   )
 }
 
