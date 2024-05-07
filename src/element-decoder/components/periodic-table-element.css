@@ -5,11 +5,18 @@
   background: inherit;
   display: grid;
   border: none;
-  padding: 0.5em;
+  padding: 0.7em;
   cursor: pointer;
   transition-property: transform, box-shadow, background-color;
   transition-duration: 0.3s;
   transition-timing-function: ease;
+  height: 7.7em;
+  margin: 0;
+}
+.periodic-table-element-to-find {
+  height: 8em;
+  width: auto;
+  border-radius: 10px;
 }
 
 .theme-dark .periodic-table-element {
