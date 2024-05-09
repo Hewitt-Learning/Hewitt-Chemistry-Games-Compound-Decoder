@@ -1,5 +1,5 @@
 import { Compound, CompoundClassification } from "../../compound-decoder/compound-data";
-import usedCompounds from "../random-element-sequence-from-placement";
+import  usedCompounds from "../random-element-sequence-from-placement";
 import { GameState, GamePhase, Feedback } from "../game-state";
 import { useEffect, useState } from "preact/hooks";
 import { ElementToFind } from "./periodic-table-to-find";

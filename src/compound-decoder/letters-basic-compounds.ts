@@ -29,7 +29,7 @@ xxx`,
 xx
 x  
 xx 
-x  `,
+x `,
   G: `
 xxxx
 x
@@ -52,11 +52,10 @@ xxx`,
   K: `
 x x
 xx
-x x  
-`,
+x x`,
   L: `
-x  
-x  
+x
+x
 xx`,
   M: `
 xxxxx

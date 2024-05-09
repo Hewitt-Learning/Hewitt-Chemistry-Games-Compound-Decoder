@@ -5,8 +5,9 @@ import {
   randomElementSequenceFromPlacement,
   RowCol,
 } from "./random-element-sequence-from-placement";
-import { placeWord, SpaceDef } from "./word-placement";
-import { placeWordCompound } from "../compound-decoder/word-placement";
+//import { placeWord, SpaceDef } from "./word-placement";
+import {SpaceDef} from "./word-placement"
+import { placeWordCompound as placeWord} from "../compound-decoder/word-placement";
 import { computeNewScore } from "./score-calc";
 
 // The 'word-list' is a "magic" import that will pull in the word list from the CMS.

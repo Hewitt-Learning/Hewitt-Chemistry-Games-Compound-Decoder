@@ -54,14 +54,18 @@
 }
 
 .periodic-table-element-metal {
-  background: #9abee4;
+  /*background: #9abee4;*/
+  background:  #E19494;
 }
 .periodic-table-element-metalloid {
-  background: #fff980;
+  /*background: #fff980;*/
+  background: #E6EED6;
 }
 .periodic-table-element-nonmetal {
-  background: #87cc87;
+  /*background: #87cc87;*/
+  background-color: #C698B1;
 }
+/*
 .periodic-table-element-alkalimetal{
   background:#1999e8;
 }
@@ -93,6 +97,7 @@
 .periodic-table-element-noblegas{
   background:#08e83c;
 }
+*/
 .theme-dark .periodic-table-element-metal {
   background: #1999e8;
 }
@@ -102,7 +107,7 @@
 .theme-dark .periodic-table-element-nonmetal {
   background: #4c844c;
 }
-
+/*
 .theme-dark .periodic-table-elements-alkalimetal{
   background:#1999e8;
 }
@@ -110,7 +115,7 @@
 .theme-dark .periodic-table-elements-alkalimetal{
   background:#1999e8;
 }
-
+*/
 .periodic-table-element-good-click {
   background: black;
   color: white;
