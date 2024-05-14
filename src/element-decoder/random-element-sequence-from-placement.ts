@@ -7,17 +7,22 @@ export interface RowCol {
   col: number;
 }
 
-const usedCompounds:Compound[] = [];
-
+export interface PlaceData {
+  place: RowCol[]; //array of coordinates to place word on table.
+  compounds: Compound[]; //list of compounds in list of elements used to form words.
+                         //used for displaying the compound to info box display when
+                         //compound difficulty is selected.
+}
 /**
  * @param placement The pre-generated arrangement of elements to find
  * @param rng a function that returns a random number between [0, 1)
- * @returns a randomly shuffled sequence of (row, col) coordinates given a placement
+ * @returns a randomly shuffled sequence of (row, col) coordinates given a placement,
+ * and the compounds used for display.
  */
 export const randomElementSequenceFromPlacement = (
   placement: SpaceDef[][],
   rng: () => number,
-): RowCol[] => {
+): PlaceData => {
   // Generate (row, col) for each occupied space in the table
   const elementCoordinates = placement.reduce((output, row, rowIndex) => {
     return [
@@ -41,20 +46,14 @@ export const randomElementSequenceFromPlacement = (
     elementCoordinates[i] = elementCoordinates[swapIndex];
     elementCoordinates[swapIndex] = tmp;
   }
-  ///// TO-DO: search list for possible compounds
   /**
-  List of compounds available is generated, this now needs to sort the elements
-  in a way that makes the game logic work. (Element 1, before Element 2)
-
-  We should also recall the word function to guarantee that at least a few compounds are made.
-
-  This can be done by also changing the order in which compounds are paired, randomly becoming more optimal
-
+    List of compounds available is generated, current capabilites only generate compounds that
+    have 2 elements, the algorithm would need to be changed to support more complex complex.
   */
 
   //Deep copy the elementCoordinates array to eliminate used elements.
   const elemCoordCopy:RowCol[] = JSON.parse(JSON.stringify(elementCoordinates));
-
+  
   /**
    * excludes the elements from being included in future loops.
    * Index is arbitrary, Value is atomic number.
@@ -64,8 +63,11 @@ export const randomElementSequenceFromPlacement = (
    * holds the number identifier of each compound used.
    * index is arbitrary, value is compound question.
   */
-  //const usedCompounds:Compound[] = []; 
+  const usedCompounds:Compound[] = [];
 
+  /**
+   * Compound Detection Algorithm, finds 2 element compounds given a list of elements.
+   */
   for (let i = 0; i < elemCoordCopy.length; i++) {
     //check each compound option
     for (let j = 0; j < compoundQuestions.length; j++) {
@@ -75,42 +77,33 @@ export const randomElementSequenceFromPlacement = (
       //This checks 2 things.
       //1. That the compound question at index j contains first element, as the first element
       //2. That the firstElement is not already used.
-      
       if ((firstElement === compoundQuestions[j].atomicNumbers[0]) && (!usedElements.includes(firstElement))){
-
         //Check for the second element in each compound
         for (let k = 0; k < elemCoordCopy.length; k++) {
-
           let secondElement = periodicTable[elemCoordCopy[k].row][elemCoordCopy[k].col]?.atomicNumber;
-
+          
           //If the second element also matches the compound, and is not already used
           if ((compoundQuestions[j].atomicNumbers[1] === secondElement) && (!usedElements.includes(secondElement))) {
-          
             usedElements.push(compoundQuestions[j].atomicNumbers[0]);
             usedElements.push(compoundQuestions[j].atomicNumbers[1]);
             usedCompounds.push(compoundQuestions[j]);
-
           }
         }
       }
     }
-
   }
-  //This log shows the above function working as intended. Running a dev build
-  //and selecting a difficulty will show the results in the console log.
-  //Note: inspect the page and navigate to console, there is a chance there is no possible compounds.
+  //TODO: Remove this console.log(), used for debugging.
+  //Running a dev build and selecting a difficulty will show the results in the console log.
+  //Note: inspect the page and navigate to console.
   for(let i = 0; i < usedElements.length; i++){
     console.log("Element %d: %d",i,usedElements[i]);
   }
 
-
-  //Sorting Algorithm, to put compound pairs in sequential order.
-  //Go through each element, when you find the used element search
-  //for second element and move it to the corresponding slot.
-
-  
-  
-  
+  /*
+  * Sorting Algorithm, to put compound pairs in sequential order.
+  * Go through each element, when you find the used element search
+  * for second element and move it to the corresponding slot.
+  */
   for(let i = 0; i < elemCoordCopy.length; i++){
     
     let firstElement = periodicTable[elemCoordCopy[i].row][elemCoordCopy[i].col]?.atomicNumber;
@@ -151,7 +144,10 @@ export const randomElementSequenceFromPlacement = (
               //if we make it here, then the previous index should be first element in compound
               //covers edge case of last index
             }else{
-              let previousElement = periodicTable[elemCoordCopy[i-1].row][elemCoordCopy[i-1].col]?.atomicNumber;
+              let previousElement;
+              if( i > 0){
+                previousElement = periodicTable[elemCoordCopy[i-1].row][elemCoordCopy[i-1].col]?.atomicNumber;
+              }
               if(previousElement === usedCompounds[j].atomicNumbers[0]){
                 //compound is in order
               }else{
@@ -180,19 +176,17 @@ export const randomElementSequenceFromPlacement = (
 
   }
   
-  /**
-   * Uncomment this line to revert to original function,
-   * will not use sorted array and will instead use random ordering.
-   * for use in lower difficulties
-  */
-  //return elementCoordinates
-  
+  //interface used to pass both order of elements to be displayed,
+  // and the compounds which those elements make. The order is used
+  // to properly work the display for compounds. usedCompounds is used in
+  // `Compound Display` function in periodic-table-info-box.tsx.
 
-
-  return elemCoordCopy;
+  const ret:PlaceData = {
+    place: elemCoordCopy,
+    compounds: usedCompounds,
+  }
+  return ret;
 };
-
-export default usedCompounds;
 
 if (import.meta.vitest) {
   const { expect, test } = import.meta.vitest;

@@ -142,7 +142,7 @@ export const periodicTable: (PeriodicTableElement | null)[][] = [
       classification: ElementClassification.Nonmetal,
     },
     {
-      name: "Flourine",
+      name: "Fluorine",
       atomicNumber: 9,
       symbol: "F",
       atomicMass: 19.0,
