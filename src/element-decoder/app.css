@@ -19,7 +19,7 @@
   height: 100%;
   background-image: url("/images/thumbnail_Aluminum.png"), 
                     url("/images/thumbnail_Zinc.png");
-  background-size: 500px 500px, 500px 500px;
+  background-size: 400px 400px, 400px 400px;
   background-repeat: no-repeat, no-repeat;
   z-index: -1;
   background-position: 87% 40%, 10% 35%;
@@ -58,7 +58,7 @@
   height: 100%;
   background-image: url("/images/thumbnail_Neon.png"),
                     url("/images/thumbnail_Hydrogen.png");
-  background-size: 500px 500px, 500px 500px;
+  background-size: 400px 400px, 400px 400px;
   background-repeat: no-repeat, no-repeat;
   z-index: -1;
   background-position: 87% 40%, 10% 35%;
