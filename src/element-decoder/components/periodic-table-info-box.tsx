@@ -206,7 +206,7 @@ export const InfoBox = ({
       {/* If the game has an error display the error, otherwise show the active element */}
       {gameState.error && <h1>{gameState.error}</h1>}
       {activeElement && (
-        <div id="second-Column">
+        //<div class="second-Column">
         <div class="element-and-feedback">
           <ElementToFind activeElement={activeElement} level={level} comp={CompoundDisplay(activeElement,usedCompounds)} />
           {feedback && (
@@ -220,7 +220,7 @@ export const InfoBox = ({
             </div>
           )}
         </div>
-        </div>
+        //</div>
       )}
 
       
@@ -235,6 +235,8 @@ export const InfoBox = ({
           <div class="score-bar" style={{width: `${gameState.score / 1000}%`}}></div>
         </div>
       </div>
+      <img class="character-choose-image"  src={shark}></img>
+      {/* <div>Score: {gameState.score}</div> */}
         
       {/* display score breakdown if there is a correct match or stay empty if incorrect match*/}
       {gameState.gamePhase === GamePhase.ShowingCorrect ? (
@@ -328,6 +330,7 @@ const EndScreen = ({ setSelectedLevel, setShowLevel, finalScore }: EndScreenProp
         Play again
       </Button>
       <img class="end-screen-image" src={shark}></img>
+      <div>Final Score: {finalScore}</div>
       
       {/* <div class="Modal" id="congrats-Modal">
         <div class="Modal-content">

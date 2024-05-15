@@ -9,7 +9,7 @@ import clsx from "clsx";
 import { useState } from "preact/hooks";
 import { ElementState } from "./periodic-table";
 import { Level } from "./periodic-table";
-import { addSpace } from "./periodic-table-space";
+import { addSpace, addSpaces} from "./periodic-table-space";
 
 interface Props {
   /**
@@ -90,7 +90,9 @@ export const ElementToFind = ({ activeElement: element, level, comp }: Props) =>
         "periodic-table-element-to-find",
         "periodic-table-element-advanced",
       )}
+
     >
+      <span>{addSpaces()}</span>
       <span class="periodic-table-element-name">{addSpace(element.name)}</span>
     </button>
   ) : level === Level.Compound ? (
@@ -100,6 +102,7 @@ export const ElementToFind = ({ activeElement: element, level, comp }: Props) =>
         "periodic-table-element-to-find",
         "periodic-table-element-advanced",
       )}>
+        <span>{addSpaces()}</span>
       <span class="periodic-table-element-name">{CompNull(comp, element)}</span>
     </button>
   ) : (
