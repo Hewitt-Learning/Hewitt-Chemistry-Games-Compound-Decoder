@@ -8,7 +8,7 @@ import { PeriodicTableElement as PeriodicTableElementType } from "../periodic-ta
 import clsx from "clsx";
 import "./periodic-table-info-box.css";
 import Button from "./button";
-import shark from './chem_photo4.png';
+// import shark from './chem_photo4.png';
 
 interface Props {
   gameState: GameState;
@@ -174,8 +174,8 @@ export const InfoBox = ({
         
       </div>
        {/* character placement in the infobox*/}
-       <div class="character-chooser">
-        <span class="character-chooser-text">
+       <div class="char-chooser">
+        <span class="char-chooser-text">
         {showChar && (Math.round(elapsedTime * 100) / 100).toFixed(0)}
         </span>
         <Button
@@ -194,8 +194,8 @@ export const InfoBox = ({
 const characterChooser = () => {
   return ( 
 
-<div class="character-chooser">
-  <div class="character-chooser-text">Characters</div>
+<div class="char-chooser">
+  <div class="char-chooser-text">Characters</div>
   
   <Button
         class="char-toggle"
