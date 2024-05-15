@@ -7,7 +7,7 @@ import { InfoBox } from "./periodic-table-info-box";
 import clsx from "clsx";
 
 const playIncorrectSound = () => {
-  const audio = new Audio("/audio/boowomp.mp3");
+  const audio = new Audio("/audio/wrong.mp3");
   audio.playbackRate = 1.25;
   audio.play();
 };
