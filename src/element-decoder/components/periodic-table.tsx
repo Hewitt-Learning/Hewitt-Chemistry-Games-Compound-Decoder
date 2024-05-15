@@ -1,5 +1,6 @@
 import { periodicTable } from "../periodic-table-data";
-import { PeriodicTableElement } from "./periodic-table-element";
+import { compoundQuestions } from "../../compound-decoder/compound-data";
+import { PeriodicTableElement, CompoundTableElement } from "./periodic-table-element";
 import "./periodic-table.css";
 import { useGameState, GamePhase } from "../game-state";
 import { InfoBox } from "./periodic-table-info-box";
@@ -26,7 +27,8 @@ export enum ElementState {
   NotClicked,
   /** Elements that were clicked incorrectly (gets reset after a the correct element is found) */
   WrongElementClicked,
-  
+
+  Compound,  
 }
 
 export enum Level {
@@ -35,12 +37,20 @@ export enum Level {
   Advanced,
   Compound, 
 }
+export enum Character {
+  shark = './chem_photo4.jpg',
+  owl = './chem_photo3.jpg',
+  soccer = './chem_photo2.jpg',
+  oct = './chem_photo1.jpg',
+} 
 
 interface Props {
   /** A property that describes the difficulty of the game, which determines how the "active" element is displayed to the user */
   level: Level;
   setSelectedLevel: (level: Level | null) => void;
   setShowLevel: (showLevel: boolean) => void;
+  setSelectedCharacter: (character: Character | null) => void;
+  setShowCharacter: (showCharacter: boolean) => void;
 }
 
 export const PeriodicTable = ({
@@ -91,8 +101,8 @@ export const PeriodicTable = ({
             return (
               // Start with the case 1: The user has not completed the word
               <PeriodicTableElement
-                style={{ gridColumn: `${colIndex + 1} / span 1` }}
-                element={element}
+                style={{ gridColumn: `${colIndex + 1} / span 1`, borderRadius: 10}}
+                element={element} 
                 onClick={() => {
                   // If it was already found, or already clicked but was wrong, ignore the click
                   if (
@@ -100,6 +110,8 @@ export const PeriodicTable = ({
                       ElementState.FoundElement ||
                     gameState.elementStates[rowIndex][colIndex] ===
                       ElementState.WrongElementClicked ||
+                    gameState.elementStates[rowIndex][colIndex] ===
+                      ElementState.Compound ||
                     gameState.gamePhase === GamePhase.CompletedWord
                   )
                     return;
