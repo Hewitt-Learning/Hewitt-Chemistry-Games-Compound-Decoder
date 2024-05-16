@@ -11,13 +11,28 @@ export enum Character {
   oct = '/images/chem_photo1.png',
 };
 
+import { FunctionComponent } from "preact";
 
-export function App() {
+interface AppProps {
+  game: string; //tells the app what game was selected.
+}
+
+
+export const App:FunctionComponent<AppProps> = ({game}) => {
   const [selectedLevel, setSelectedLevel] = useState<Level | null>(null);
   const [showIntro, setShowIntro] = useState(true);
   const [showLevel, setShowLevel] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<Character>(Character.shark);
   const [showCharacter, setShowCharacter] = useState(true);
+  
+
+
+  let isCompound = false;
+  if(game === "Compound"){
+    //handleLevelChange(Level.Compound);
+    isCompound = true;
+  }
+
 
   // when the selectedLevel state changes, useEffect updates and
   // listens for an escape key press when the difficulty options are displays,
@@ -62,8 +77,10 @@ export function App() {
       >
         <div class="difficulty-chooser">
           <div class="difficulty-chooser-text">Select Difficulty</div>
-
-          <Button onClick={() => handleLevelChange(Level.Beginner)}>
+          
+          {isCompound ? (<Button onClick={()=>handleLevelChange(Level.Compound)}>Compound</Button>)
+          :
+          (<><Button onClick={() => handleLevelChange(Level.Beginner)}>
             Beginner
           </Button>
           <Button onClick={() => handleLevelChange(Level.Intermediate)}>
@@ -71,10 +88,10 @@ export function App() {
           </Button>
           <Button onClick={() => handleLevelChange(Level.Advanced)}>
             Advanced
-          </Button>
-          <Button onClick={() => handleLevelChange(Level.Compound)}>
+          </Button></>)}
+          {/*<Button onClick={() => handleLevelChange(Level.Compound)}>
             Compound
-          </Button>
+      </Button>*/}
         </div>
       </div>
     );
@@ -128,6 +145,7 @@ export function App() {
     setShowIntro(false);
     setShowLevel(true);
     setShowCharacter(false);
+    //isCompound && handleLevelChange(Level.Compound);
   };
 
   const handleLevelChange = (level: Level) => {
@@ -144,12 +162,29 @@ export function App() {
     setShowCharacter(false);
     console.log(character);
   };
+  
 
   return (
     <>
       <ThemeToggle />
       {showIntro && (
-        <div class="game-intro">
+        <div class="row-content-compound">
+          {isCompound ? ( // This displays the compound intro if the compound game is selected. 
+                          //Otherwise it shows element intro screen.
+            <div class="game-intro">
+            <h1>Welcome to Compound Decoder Game!</h1>
+            <p>
+              Match elements until you spell out a word! When an element is shaded
+              in, it has already been matched.
+            </p>
+            <p>
+              Lower difficulties give more information about the element to match,
+              whereas higher difficulties give less information.
+            </p>
+            <Button onClick={handleStartButtonClick}>Start Game</Button>
+          </div>
+          ) : (
+          <div class="game-intro">
           <h1>Welcome to Element Decoder!</h1>
           <p>
             Match elements until you spell out a word! When an element is shaded
@@ -159,8 +194,10 @@ export function App() {
             Lower difficulties give more information about the element to match,
             whereas higher difficulties give less information.
           </p>
-          <Button onClick={handleStartButtonClick}>Start</Button>
-        </div>
+          <Button onClick={handleStartButtonClick}>Start Game</Button>
+          </div> 
+          )}
+      </div>
       )}
 
       {!showIntro && (

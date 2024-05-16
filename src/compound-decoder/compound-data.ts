@@ -94,8 +94,8 @@ export const compoundQuestions: (Compound)[] =
         classification: CompoundClassification.BinaryIonicCompound
     },
     {
-        name: "Berylium Sulfide",
-        elements: ["Berylium","Sulfur"],
+        name: "Beryllium Sulfide",
+        elements: ["Beryllium","Sulfur"],
         atomicNumbers: [4,16],
         formula: "Be S",
         classification: CompoundClassification.BinaryIonicCompound

@@ -1,5 +1,4 @@
 import { Compound, CompoundClassification } from "../../compound-decoder/compound-data";
-import usedCompounds from "../random-element-sequence-from-placement";
 import { GameState, GamePhase, Feedback } from "../game-state";
 import { useEffect, useState } from "preact/hooks";
 import { ElementToFind } from "./periodic-table-to-find";
@@ -215,7 +214,7 @@ export const InfoBox = ({
       {activeElement && (
         //<div class="second-Column">
         <div class="element-and-feedback">
-          <ElementToFind activeElement={activeElement} level={level} comp={CompoundDisplay(activeElement,usedCompounds)} />
+          <ElementToFind activeElement={activeElement} level={level} comp={CompoundDisplay(activeElement,gameState.useCompounds)} />
           {feedback && (
             <div class="feedback">
               {feedback.type === "good" && (
@@ -313,7 +312,7 @@ const EndScreen = ({ setSelectedLevel, setShowLevel, finalScore }: EndScreenProp
       <Button
         onClick={() => {
           setSelectedLevel(null);
-          setShowLevel(true);
+          setShowLevel(true);  
         }}
       >
         Play again
