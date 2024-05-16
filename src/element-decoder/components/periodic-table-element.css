@@ -5,7 +5,7 @@
   background: inherit;
   display: grid;
   border: none;
-  padding: 0.7em;
+  padding: 0.5em;
   cursor: pointer;
   transition-property: transform, box-shadow, background-color;
   transition-duration: 0.3s;
@@ -15,7 +15,8 @@
 }
 .periodic-table-element-to-find {
   height: 8em;
-  width: auto;
+  min-width: 6em;
+  max-width: 6em;
   border-radius: 10px;
 }
 
@@ -37,9 +38,6 @@
 }
 
 .periodic-table-element-name {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
   font-size: 0.9em;
   letter-spacing: -0.05em; /* Narrowing the letter space created in order to avoid being searched on page */
 }
@@ -57,7 +55,7 @@
 .periodic-table-element-advanced {
   /* Text for active element in advanced difficulty */
   font-family: Chemistry, sans-serif;
-  font-size: 2.1em;
+  font-size: 2em;
 }
 
 .periodic-table-element-metal {

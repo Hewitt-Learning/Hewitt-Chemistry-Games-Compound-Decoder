@@ -204,6 +204,10 @@ export const InfoBox = ({
   return (
     <div class="game-info">
       {/* If the game has an error display the error, otherwise show the active element */}
+      <div class="Column-1">
+        <img class="character-choose-image"  src={shark}></img>
+      </div>
+      <div class="Column-2">
       {gameState.error && <h1>{gameState.error}</h1>}
       {activeElement && (
         //<div class="second-Column">
@@ -222,24 +226,33 @@ export const InfoBox = ({
         </div>
         //</div>
       )}
-
+      </div>
       
       {/* displays the current timebonus counting down  style="height:24px; width:1%; color:black" */}
-      <div> 
-      <p class="time-text">Time:</p>
-        <div class="time-elements">
-          <div class="time-icon" style={{width: `${runBonus/10}%`}}></div>
-        </div> 
-        <p class="score-text">Score: </p>
-        <div class="score-element">
-          <div class="score-bar" style={{width: `${gameState.score / 1000}%`}}></div>
+      <div class="Column-3"> 
+      <div class="score">
+          <p class="score-text">Score:</p>
+
+          <div class="score-element">
+            <div class="score-bar" style={gameState.score/800 <= 100 ? {width: `${gameState.score / 800}%`}: {width: `${100}%`}}></div>
+          </div>
         </div>
+        <div class="Space"></div>
+      
+        <div class="score">
+          <p class="time-text">Time:</p>
+          <div class="time-elements">
+            <div class="time-icon" style={{width: `${runBonus/10}%`}}></div>
+          </div> 
+        </div>
+        
+        
       </div>
-      <img class="character-choose-image"  src={shark}></img>
+      
       {/* <div>Score: {gameState.score}</div> */}
         
       {/* display score breakdown if there is a correct match or stay empty if incorrect match*/}
-      {gameState.gamePhase === GamePhase.ShowingCorrect ? (
+      {/*gameState.gamePhase === GamePhase.ShowingCorrect ? (
         <h2 class={clsx("match-text-score-description", "match-text-good")}>
           <div class="third-Column:nth-child">
           {gameState.scoreCompBase !== 0 ? (
@@ -254,10 +267,10 @@ export const InfoBox = ({
           </div>
         </h2>
       ) : (
-        <div class="box-text"></div>
-      )}
+       null
+      )*/}
       
-      {/* toggle-able clock that increments every second if enabled, not relative to grid but to the info box */}
+      {/* toggle-able clock that increments every second if enabled, not relative to grid but to the info box */}{/*
       <div class="clock-elements">
         <span class="clock-text">
           {showClock && (Math.round(elapsedTime * 100) / 100).toFixed(0)}
@@ -277,40 +290,13 @@ export const InfoBox = ({
             <path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" />
           </svg>
         </button>
-      </div>
+        </div>*/}
        {/* character placement in the infobox*/}
-       {/* <div class="character-chooser">
-        <span class="character-chooser-text">
-        {showChar && (Math.round(elapsedTime * 100) / 100).toFixed(0)}
-        </span>
-        <Button
-          class="char-toggle"
-          onClick={() => {
-            window.open(shark)
-          }}
-        >Characters      
-            <title>Character-chooser</title>
-         </Button>
-
-      </div> */}
       </div>
   );
 };
 
-const characterChooser = () => {
-  return ( 
 
-<div class="character-chooser">
-  <div class="character-chooser-text">Characters</div>
-  
-  <Button class="char-toggle">
-        <img src={ shark } class="char-icon"/>
-        
-        <title>Toggle Char</title>
-  </Button>
-  </div>
-  )
-}
 
 interface EndScreenProps {
   setSelectedLevel: (level: Level | null) => void;
