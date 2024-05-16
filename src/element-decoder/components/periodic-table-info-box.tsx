@@ -9,7 +9,6 @@ import {computeNewScore} from "../score-calc";
 import clsx from "clsx";
 import "./periodic-table-info-box.css";
 import Button from "./button";
-import Modal from 'react-modal';
 import octopus from './chem_photo1.png';
 import boy from './chem_photo2.png';
 import owl from './chem_photo3.png';
