@@ -20,7 +20,6 @@ interface Props {
   level: Level;
   setSelectedLevel: (level: Level | null) => void;
   setShowLevel: (showLevel: boolean) => void;
-  
   feedback?: Feedback;
 }
 
@@ -58,7 +57,7 @@ export const InfoBox = ({
   const [wordGuess, setWordGuess] = useState<string>();
   const [runBonus, setRunningTime] = useState(1000);
   const [widthset, setWidth] = useState(100);
-  //let toggleExecuted = false;
+  let toggleExecuted = false;
 
   /**
    * This useEffect function updates the current time every second (since updating currTime as fast as possible
@@ -83,6 +82,8 @@ export const InfoBox = ({
         duration = 50;
       } else if (level == Level.Advanced) {
         duration = 100;
+      } else if (level == Level.Compound){
+        duration = 30;
       }
 
     const interval = setInterval(() => {      
@@ -106,14 +107,13 @@ export const InfoBox = ({
     element.style.animationDuration = setRunningTime(1000) + 'ms';
   }
 
+  //Dynamically changes the animation time bar in intro box
   function timeBarChange(runBonus:number): string{
     return `<div> 
-      
       <div class="time-icon" style="animationDuration: ${runBonus*100}ms; backgroundColor: green; width: 100%;"></div>
-      
     </div>`;
   }
-  
+
   const scoreProgress = document.querySelector('.score-bar') as HTMLElement;
   function updateScore(points: number){
     const correctPoints = Math.max(0, Math.min(100, points));
@@ -121,41 +121,32 @@ export const InfoBox = ({
     scoreProgress.style.width = `${correctPoints}`;
   }
 
-  // if(gameState.score >= 10000 && !toggleExecuted){
-  //   let scores = gameState.score;
-  //   let intervalpop: ReturnType<typeof setInterval> | undefined;
-  //   const toggle = (scores : number) => {
-  //     let popup = document.getElementById("congrats-Modal");
-  //     let popupContent = document.getElementById("congrats-Modal-Text");
+  if(gameState.score >= 10000 && !toggleExecuted){
+    let scores = gameState.score;
+    let intervalpop: ReturnType<typeof setInterval> | undefined;
+    const toggle = (scores : number) => {
+      let popup = document.getElementById("congrats-Modal");
+      let popupContent = document.getElementById("congrats-Modal-Text");
       
-  //     if(popup && popupContent){
-  //       popup.style.display = "flex";
-  //       popupContent.textContent = `Great! You have unlocked a new character`;
+      if(popup && popupContent){
+        popup.style.display = "flex";
+        popupContent.textContent = `Great! You have unlocked a new character`;
 
-  //       intervalpop = setInterval(scaleImage, 50);
+        //intervalpop = setInterval(scaleImage, 50);
 
-  //       setTimeout(() => {
-  //         popup.style.display = "none";
-  //         clearInterval(intervalpop);
-  //       }, 4000);
-  //     }
-  //   };
+        setTimeout(() => {
+          popup.style.display = "none";
+          clearInterval(intervalpop);
+        }, 4000);
+      }
+    };
 
-  //   let factor = 1;
-  //   let popImage = document.getElementById("congrats-Modal-Image");
+    toggle(scores);
+    toggleExecuted = true;
+  }
 
-  //   const scaleImage = () => {
-  //     if (factor === 1){
-  //       factor = 0.8;
-  //     } else {
-  //       factor = 1;
-  //     }
-  //     if(popImage){
-  //       popImage.style.transform = `scale(${factor})`;
-  //     }
-  //   }
-  //   toggle(scores);
-  //   toggleExecuted = true;
+  // const addImage(){
+
   // }
 
   if (gameState.gamePhase === GamePhase.CompletedWord) {
@@ -169,6 +160,7 @@ export const InfoBox = ({
         <EndScreen
           setSelectedLevel={setSelectedLevel}
           setShowLevel={setShowLevel}
+          finalScore = {gameState.score}
         />
       </div>
     ) : (
@@ -212,8 +204,13 @@ export const InfoBox = ({
   return (
     <div class="game-info">
       {/* If the game has an error display the error, otherwise show the active element */}
+      <div class="Column-1">
+        <img class="character-choose-image"  src={shark}></img>
+      </div>
+      <div class="Column-2">
       {gameState.error && <h1>{gameState.error}</h1>}
       {activeElement && (
+        //<div class="second-Column">
         <div class="element-and-feedback">
           <ElementToFind activeElement={activeElement} level={level} comp={CompoundDisplay(activeElement,usedCompounds)} />
           {feedback && (
@@ -227,33 +224,37 @@ export const InfoBox = ({
             </div>
           )}
         </div>
+        //</div>
       )}
-
+      </div>
       
       {/* displays the current timebonus counting down  style="height:24px; width:1%; color:black" */}
-      <div> 
-        time: <span>{runBonus}</span>
-        <div class="time-elements">
-          <div class="time-icon" style={{width: `${runBonus/10}%`}}></div>
-        </div>
-      </div> 
-      <div>Score: {gameState.score}
-        <div class="score-element">
-          <div class="score-bar" style={{width: `${gameState.score / 1000}%`}}></div>
-        </div>
-      </div>
-      
-      <div class="Modal" id="congrats-Modal">
-        <div class="Modal-content">
-          <div id="Modal-text">
-                {/* <p id="congrats-Modal-Text">Yay! You've unlocked a new character.</p> */}
+      <div class="Column-3"> 
+      <div class="score">
+          <p class="score-text">Score:</p>
+
+          <div class="score-element">
+            <div class="score-bar" style={gameState.score/800 <= 100 ? {width: `${gameState.score / 800}%`}: {width: `${100}%`}}></div>
           </div>
         </div>
+        <div class="Space"></div>
+      
+        <div class="score">
+          <p class="time-text">Time:</p>
+          <div class="time-elements">
+            <div class="time-icon" style={{width: `${runBonus/10}%`}}></div>
+          </div> 
+        </div>
+        
+        
       </div>
-
+      
+      {/* <div>Score: {gameState.score}</div> */}
+        
       {/* display score breakdown if there is a correct match or stay empty if incorrect match*/}
-      {gameState.gamePhase === GamePhase.ShowingCorrect ? (
+      {/*gameState.gamePhase === GamePhase.ShowingCorrect ? (
         <h2 class={clsx("match-text-score-description", "match-text-good")}>
+          <div class="third-Column:nth-child">
           {gameState.scoreCompBase !== 0 ? (
             <div>+ {gameState.scoreCompBase} (base)</div>
           ) : null}
@@ -263,12 +264,13 @@ export const InfoBox = ({
           {gameState.scoreCompTime !== 0 ? (
             <div>+ {gameState.scoreCompTime} (time bonus)</div>
           ) : null}
+          </div>
         </h2>
       ) : (
-        <div class="box-text"></div>
-      )}
+       null
+      )*/}
       
-      {/* toggle-able clock that increments every second if enabled, not relative to grid but to the info box */}
+      {/* toggle-able clock that increments every second if enabled, not relative to grid but to the info box */}{/*
       <div class="clock-elements">
         <span class="clock-text">
           {showClock && (Math.round(elapsedTime * 100) / 100).toFixed(0)}
@@ -288,50 +290,20 @@ export const InfoBox = ({
             <path d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z" />
           </svg>
         </button>
-      </div>
+        </div>*/}
        {/* character placement in the infobox*/}
-       <div class="character-chooser">
-        <span class="character-chooser-text">
-        {showChar && (Math.round(elapsedTime * 100) / 100).toFixed(0)}
-        </span>
-        <Button
-          class="char-toggle"
-          onClick={() => {
-            window.open(shark)
-          }}
-        >Characters      
-            <title>Character-chooser</title>
-         </Button>
-
-      </div>
       </div>
   );
 };
 
-const characterChooser = () => {
-  return ( 
 
-<div className="character-chooser">
-      <div className="character-chooser-text">Characters</div>
-
-      <button className="char-toggle" onClick={() => setModalIsOpen(true)}>
-        <img src={shark} alt="Shark" className="char-icon" />
-        <title>Toggle Char</title>
-      </button>
-
-      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-        <img src={shark} alt="Shark" />
-        <button onClick={() => setModalIsOpen(false)}>Close</button>
-      </Modal>
-    </div>
-  )
-}
 
 interface EndScreenProps {
   setSelectedLevel: (level: Level | null) => void;
   setShowLevel: (showLevel: boolean) => void;
+  finalScore: number;
 }
-const EndScreen = ({ setSelectedLevel, setShowLevel }: EndScreenProps) => {
+const EndScreen = ({ setSelectedLevel, setShowLevel, finalScore }: EndScreenProps) => {
   return (
     <div class="end-screen">
       <h1>Congrats!</h1>
@@ -343,6 +315,18 @@ const EndScreen = ({ setSelectedLevel, setShowLevel }: EndScreenProps) => {
       >
         Play again
       </Button>
+      <img class="end-screen-image" src={shark}></img>
+      <div>Final Score: {finalScore}</div>
+      
+      {/* <div class="Modal" id="congrats-Modal">
+        <div class="Modal-content">
+          <div id="Modal-text">
+                <p id="congrats-Modal-Text"></p>
+          </div>
+            <img id="congrats-Modal-Image" src={shark}/>
+        </div>
+      </div> */}
+      <div></div>
     </div>
   );
 };

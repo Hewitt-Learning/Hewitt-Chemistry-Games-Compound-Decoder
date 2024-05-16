@@ -57,6 +57,8 @@ const timeBonus = ( time: number, level: Level) => {
     duration = 50;
   } else if (level == Level.Advanced) {
     duration = 100;
+  } else if (level == Level.Compound){
+    duration = 30;
   }
 
   const decay = 1 / duration;
