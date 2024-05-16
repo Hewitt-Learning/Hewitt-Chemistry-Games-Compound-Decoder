@@ -4,6 +4,7 @@ import { PeriodicTableElement, CompoundTableElement } from "./periodic-table-ele
 import "./periodic-table.css";
 import { useGameState, GamePhase } from "../game-state";
 import { InfoBox } from "./periodic-table-info-box";
+import { Character } from "../app";
 import clsx from "clsx";
 
 const playIncorrectSound = () => {
@@ -43,12 +44,13 @@ interface Props {
   level: Level;
   setSelectedLevel: (level: Level | null) => void;
   setShowLevel: (showLevel: boolean) => void;
+  selectedCharacter: Character;
 }
-
 export const PeriodicTable = ({
   level,
   setSelectedLevel,
   setShowLevel,
+  selectedCharacter,
 }: Props) => {
   const gameState = useGameState(level);
 
@@ -73,6 +75,7 @@ export const PeriodicTable = ({
           setSelectedLevel={setSelectedLevel}
           setShowLevel={setShowLevel}
           feedback={gameState.feedback}
+          selectedCharacter={selectedCharacter}
         />
         {/* end of THE BOX */}
 

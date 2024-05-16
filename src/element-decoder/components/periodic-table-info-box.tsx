@@ -13,6 +13,7 @@ import octopus from './chem_photo1.png';
 import boy from './chem_photo2.png';
 import owl from './chem_photo3.png';
 import shark from './chem_photo4.png';
+import { Character } from "../app";
 
 interface Props {
   gameState: GameState;
@@ -21,6 +22,7 @@ interface Props {
   setSelectedLevel: (level: Level | null) => void;
   setShowLevel: (showLevel: boolean) => void;
   feedback?: Feedback;
+  selectedCharacter: Character;
 }
 
 /**
@@ -43,6 +45,7 @@ export const InfoBox = ({
   setSelectedLevel,
   setShowLevel,
   feedback,
+  selectedCharacter,
 }: Props) => {
   /** Keeps track of whether the showClock is to be displayed or not */
   const [showClock, setShowClock] = useState<boolean>(false);
@@ -205,7 +208,7 @@ export const InfoBox = ({
     <div class="game-info">
       {/* If the game has an error display the error, otherwise show the active element */}
       <div class="Column-1">
-        <img class="character-choose-image"  src={shark}></img>
+        <img class="character-choose-image"  src={selectedCharacter}></img>
       </div>
       <div class="Column-2">
       {gameState.error && <h1>{gameState.error}</h1>}

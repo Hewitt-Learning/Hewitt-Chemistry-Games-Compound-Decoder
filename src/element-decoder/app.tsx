@@ -4,12 +4,20 @@ import Button from "./components/button";
 import "./app.css";
 import { ThemeToggle } from "../theme";
 
+export enum Character {
+  shark = '/images/chem_photo4.png',
+  soccer = '/images/chem_photo2.png',
+  owl = '/images/chem_photo3.png',
+  oct = '/images/chem_photo1.png',
+};
+
 
 export function App() {
   const [selectedLevel, setSelectedLevel] = useState<Level | null>(null);
   const [showIntro, setShowIntro] = useState(true);
   const [showLevel, setShowLevel] = useState(false);
-
+  const [selectedCharacter, setSelectedCharacter] = useState<Character>(Character.shark);
+  const [showCharacter, setShowCharacter] = useState(true);
 
   // when the selectedLevel state changes, useEffect updates and
   // listens for an escape key press when the difficulty options are displays,
@@ -22,6 +30,7 @@ export function App() {
       }
       if (e.key === "Escape") {
         setShowLevel(false);
+        setShowCharacter(false)
       }
     };
     window.addEventListener("keydown", keyListener);
@@ -71,6 +80,43 @@ export function App() {
     );
   };
 
+  const characterChange = () => {
+    return (
+      <div
+        class="character-chooser-wrapper"
+        onClick={(d) => {
+          // if the click did not originate on the background
+          // (e.g. the character selector box), ignore the click
+          if (d.target !== d.currentTarget) {
+            return;
+          }
+
+          if (selectedCharacter === null) {
+            return;
+          }
+          setShowCharacter(false);
+        }}
+      >
+        <div class="character-chooser">
+          <div class="character-chooser-text">Select Character</div>
+
+          <Button onClick={() => handlecharacterChange(Character.shark)}>
+            Shark
+          </Button>
+          <Button onClick={() => handlecharacterChange(Character.soccer)}>
+            Boy
+          </Button>
+          <Button onClick={() => handlecharacterChange(Character.owl)}>
+            Owl
+          </Button>
+          <Button onClick={() => handlecharacterChange(Character.oct)}>
+            Octopus
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
   const playIntroSound = () => {
     const audio = new Audio("/audio/KH3V1.wav");
     audio.playbackRate = 1.25;
@@ -81,13 +127,24 @@ export function App() {
     playIntroSound();
     setShowIntro(false);
     setShowLevel(true);
+    setShowCharacter(false);
   };
 
   const handleLevelChange = (level: Level) => {
     playIntroSound();
     setSelectedLevel(level);
     setShowLevel(false);
+    setShowCharacter(false);
   };
+
+  const handlecharacterChange = (character: Character) => {
+    playIntroSound();
+    setSelectedCharacter(character);
+    setShowLevel(false);
+    setShowCharacter(false);
+    console.log(character);
+  };
+
   return (
     <>
       <ThemeToggle />
@@ -109,12 +166,14 @@ export function App() {
       {!showIntro && (
         <>
           {showLevel && difficultyChange()}
+          {showCharacter && characterChange()}
           {selectedLevel !== null && (
             <>
               <PeriodicTable
                 level={selectedLevel}
                 setSelectedLevel={setSelectedLevel}
                 setShowLevel={setShowLevel}
+                selectedCharacter={selectedCharacter}
               />
               <Button
                 onClick={() => {
@@ -122,6 +181,13 @@ export function App() {
                 }}
               >
                 Change Difficulty
+              </Button>
+              <Button
+                onClick={() =>{
+                  setShowCharacter(true);
+                }}
+              >
+                Change Character
               </Button>
             </>
           )}
