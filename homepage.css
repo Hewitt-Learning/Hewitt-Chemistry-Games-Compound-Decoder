@@ -59,6 +59,29 @@ section {
   margin: 100px auto 0 auto !important;
 }
 
+nav {
+  font-size: 32px;
+  margin: 0;
+  padding: 1em;
+  font-weight: 600;
+  line-height: 40px;
+  letter-spacing: -0.5px;
+  color: white;
+  background: white;
+  text-align: center;
+  height: 80px;
+}
+nav a {
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+}
+nav a :hover {
+  background-color: rgb(119, 70, 119);
+}
+
 h1 {
   font-size: 32px;
   margin: 0;
@@ -70,6 +93,8 @@ h1 {
   background: white;
   text-align: center;
   height: 110px;
+  padding-top: 0;
+  margin: 0;
 }
 
 h2 {

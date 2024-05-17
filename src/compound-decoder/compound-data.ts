@@ -26,11 +26,11 @@ export enum CompoundClassification {
  *  Defining a Compound type to store necessary information, like Name
  *  Elements, Chemical Formula, and Compound Classfication
  */
+
 export interface Compound {
   name: string; //Name of the Compound
-  elements: string[]; //Array of the names of the compounds used,
-                      //could use PeriodicTableElement instead, might reduce lookup
-  atomicNumbers: number[]; //used for identifing the compounds
+  elements: string[]; //Element Names - in order
+  atomicNumbers: number[]; //ID Numbers - in order
   formula: string;
   classification: CompoundClassification;
 }

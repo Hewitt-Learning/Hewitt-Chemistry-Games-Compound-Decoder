@@ -171,7 +171,7 @@ export const App:FunctionComponent<AppProps> = ({game}) => {
         <div class="row-content-compound">
           {isCompound ? ( // This displays the compound intro if the compound game is selected. 
                           //Otherwise it shows element intro screen.
-            <div class="game-intro">
+            <div class="game-intro-comp">
             <h1>Welcome to Compound Decoder Game!</h1>
             <p>
               Match elements until you spell out a word! When an element is shaded
@@ -216,6 +216,7 @@ export const App:FunctionComponent<AppProps> = ({game}) => {
                 onClick={() => {
                   setShowLevel(true);
                 }}
+                class="select"
               >
                 Change Difficulty
               </Button>
@@ -223,6 +224,7 @@ export const App:FunctionComponent<AppProps> = ({game}) => {
                 onClick={() =>{
                   setShowCharacter(true);
                 }}
+                class="select"
               >
                 Change Character
               </Button>
