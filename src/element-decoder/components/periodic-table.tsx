@@ -8,14 +8,16 @@ import { Character } from "../app";
 import clsx from "clsx";
 
 const playIncorrectSound = () => {
-  const audio = new Audio("/audio/boowomp.mp3");
-  audio.playbackRate = 1.25;
+  const audio = new Audio("/audio/wrong.mp3");
+  audio.playbackRate = 1.5;
+  audio.volume = 2/100;
   audio.play();
 };
 
 const playCorrectSound = () => {
   const audio = new Audio("/audio/Click_sound.wav");
-  audio.playbackRate = 1.5;
+  audio.playbackRate = 1.25;
+  audio.volume = 5/100;
   audio.play();
 };
 

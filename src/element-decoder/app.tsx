@@ -137,6 +137,7 @@ export const App:FunctionComponent<AppProps> = ({game}) => {
   const playIntroSound = () => {
     const audio = new Audio("/audio/KH3V1.wav");
     audio.playbackRate = 1.25;
+    audio.volume = 10/100;
     audio.play();
   };
 
