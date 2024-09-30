@@ -1,6 +1,6 @@
 // vite.config.ts
-import { defineConfig } from "file:///C:/Users/Delgersaikhan/OneDrive/Desktop/Last%20semester/Software%20Engineering/Current%20Branch/Hewitt-Chemistry-Games-Compound-Decoder/node_modules/.pnpm/vite@4.1.3_@types+node@18.14.0/node_modules/vite/dist/node/index.js";
-import preact from "file:///C:/Users/Delgersaikhan/OneDrive/Desktop/Last%20semester/Software%20Engineering/Current%20Branch/Hewitt-Chemistry-Games-Compound-Decoder/node_modules/.pnpm/@preact+preset-vite@2.5.0_@babel+core@7.21.0_preact@10.12.1_vite@4.1.3/node_modules/@preact/preset-vite/dist/esm/index.mjs";
+//import { defineConfig } from "file:///C:/Users/Delgersaikhan/OneDrive/Desktop/Last%20semester/Software%20Engineering/Current%20Branch/Hewitt-Chemistry-Games-Compound-Decoder/node_modules/.pnpm/vite@4.1.3_@types+node@18.14.0/node_modules/vite/dist/node/index.js";
+//import preact from "file:///C:/Users/Delgersaikhan/OneDrive/Desktop/Last%20semester/Software%20Engineering/Current%20Branch/Hewitt-Chemistry-Games-Compound-Decoder/node_modules/.pnpm/@preact+preset-vite@2.5.0_@babel+core@7.21.0_preact@10.12.1_vite@4.1.3/node_modules/@preact/preset-vite/dist/esm/index.mjs";
 import * as fs from "fs/promises";
 
 // src/element-decoder/periodic-table-data.ts

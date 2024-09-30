@@ -136,7 +136,7 @@ export const placeWordCompound = (word: string): SpaceDef[][] | false => {
         
         if(letterNum === wordUppercase.length-1){
           console.log(`Letter Num: ${letterNum} Col Index: ${colIndex} Letter Max Width: ${letterMaxWidth} Initial Table Length: ${initialTable[0].length} Letter Count: ${wordUppercase.length}`);
-          const lastLetterDefinition = letterMapNormalizedCompounds[wordUppercase.at(wordUppercase.length-1)];
+            const lastLetterDefinition = letterMapNormalizedCompounds[(wordUppercase.at(wordUppercase.length - 1) as string)];
             const lastLetterWidth = lastLetterDefinition.reduce((max, row) => {
               if (row.length > max) {
                 return row.length;

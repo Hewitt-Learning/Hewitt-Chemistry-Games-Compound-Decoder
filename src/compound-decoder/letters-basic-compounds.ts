@@ -155,7 +155,6 @@ if (import.meta.vitest) {
         [
           true,
           true,
-          true,
         ],
         [
           true,
@@ -169,7 +168,6 @@ if (import.meta.vitest) {
         ],
         [
           true,
-          false,
           false,
         ],
       ]

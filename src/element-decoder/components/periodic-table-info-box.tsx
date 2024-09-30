@@ -137,7 +137,7 @@ export const InfoBox = ({
         //intervalpop = setInterval(scaleImage, 50);
 
         setTimeout(() => {
-          popup.style.display = "none";
+          popup!.style.display = "none";
           clearInterval(intervalpop);
         }, 4000);
       }
