@@ -20,7 +20,7 @@ async function getWordList(): Promise<string[]> {
    */
   const response = await fetch("https://graphql.datocms.com/", {
     headers: {
-      authorization: "Bearer MyCredentials",
+          authorization: "Bearer 306d97cc36416136dec1925240ef29",
       "content-type": "application/json",
     },
     body: '{"query":"{\\n  wordList{\\n    words\\n  }\\n}","variables":null}',
