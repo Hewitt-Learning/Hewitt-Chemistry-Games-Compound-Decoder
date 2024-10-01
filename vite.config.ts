@@ -97,7 +97,8 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: [
-        "element-decoder/index.html",
+            "element-decoder/index.html",
+            "compound-decoder/index.html",
         "ionic-tetris/index.html",
         "index.html",
       ],
