@@ -1179,7 +1179,7 @@ async function getDefaultWordList() {
 async function getWordList() {
   const response = await fetch("https://graphql.datocms.com/", {
     headers: {
-      authorization: "Bearer 306d97cc36416136dec1925240ef29",
+      authorization: "Bearer MyCredentials",
       "content-type": "application/json"
     },
     body: '{"query":"{\\n  wordList{\\n    words\\n  }\\n}","variables":null}',
